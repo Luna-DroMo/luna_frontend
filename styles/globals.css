@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'Inria Sans';
+  src: local('InriaSans-Regular'), url('/fonts/Inria_Sans/InriaSans-Regular.ttf') format('truetype');
+  font-weight: 400; /* Regular weight */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inria Sans';
+  src: local('InriaSans-Regular'), url('/fonts/Inria_Sans/InriaSans-Regular.ttf') format('truetype');
+  font-weight: 700; /* Bold weight */
+  font-style: bold;
+}
+
+/* Define more font weights as needed */
+
+:root {
+  --foreground-rgb: 238, 237, 241;
+  --page-background-rgb:  238, 237, 241;
+  --body-background-rgb: 255,255,255;
+  --main-purple: #5210DC;
+  --status-bg-green: #E8FFDD;
+  --status-text-green: #48A500;
+  --status-bg-yellow: #FFF0CB;
+  --status-text-yellow: #846700;
+  --status-bg-red: #FFDDDD;
+  --status-text-red: #A50000;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --page-background-rgb:  39, 33, 38;
+    --body-background-rgb: 255,255,255,0.9;
+  }
+}
+
+
+html{
+  font-family: 'Inria Sans', sans-serif;
+  background-color: rgb(var(--page-background-rgb));
+}
+
+.mainbody {
+  width: calc(100vw - 16rem - 1.5rem);
+  margin: 1.5rem 1.5rem 1.5rem 0;
+  position: relative;
+  border-radius: 25px;
+  min-height: calc(100vh - 50px);
+  background-color: rgba(255,255,255,0.6);/*rgba(var(--body-background-rgb));*/
+  left: 16rem;
+  color: black;
+  padding-bottom: 2rem;
+}
+
+.input_mainbody {
+  width: calc(100vw - 16rem - 1.5rem);
+  margin: 0rem 1.5rem 1.5rem 0;
+  position: relative;
+  border-radius: 25px;
+  min-height: calc(100vh - 100px);
+  background-color: rgba(255,255,255,0.6);/*rgba(var(--body-background-rgb));*/
+  left: 16rem;
+  color: black;
+  padding-bottom: 2rem;
+}
+
+.input_progbar {
+  width: calc(100vw - 16rem - 1.5rem);
+  height: 3rem;
+  position: relative;
+  left: 16rem;
+
+}
+
+aside li a{
+  border: 1px solid rgb(var(--page-background-rgb));
+  border-radius: 7.5px;
+}
+
+aside li:hover, .active li:hover{
+  border: 1px solid var(--main-purple);
+}
+
+.uptodate{
+  color: var(--status-text-green);
+  background-color: var(--status-bg-green);
+}
+
+.pending{
+  color: var(--status-text-yellow);
+  background-color: var(--status-bg-yellow);
+}
+
+.urgent{
+  color: var(--status-text-red);
+  background-color: var(--status-bg-red);
+}
+
+
+/* For the galaxy image */
+
+.spin {
+  animation: spin 25s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Removes spinner from number inputs */
+@layer base {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+}
