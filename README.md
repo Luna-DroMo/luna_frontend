@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 While uploading this, I saw it also uploaded the nextjs library? Maybe you will still need to install next js, maybe not. Maybe you'll need to install npm too... or maybe not? idk.
 
-If anyone tries this, please update this readme for me :)
+If anyone tries this, please update this readme for me :-)
 
 ## Running the Server
 
