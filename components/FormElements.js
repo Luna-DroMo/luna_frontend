@@ -81,7 +81,7 @@ export function FormInput({ type, options, name }) {
         )
     } else if (type === "dropdown") {
         return (
-            <select className="h-8 border border-text-grey rounded-lg w-48 px-5"  name={name} id={name}>
+            <select className="h-8 border border-text-grey bg-white rounded-lg w-48 px-5"  name={name} id={name}>
                  {options.map((option) => (
 
                     <option key = {option} value={option}>{option}</option>

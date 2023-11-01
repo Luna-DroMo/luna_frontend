@@ -17,7 +17,7 @@ export default function Main() {
     return (
         <RootLayout>
             <main className="flex-row justify-between px-10 pt-10">
-                <h1 className='tracking-wider text-xl'>[class.name]</h1>
+                <h1 className='tracking-wider text-3xl'>[class.name]</h1>
                 <p className='text-sm text-text-grey'>SUBTITLE - STILL NEED TO TURN THIS INTO A FORM</p>
                 <form action="">
                     <div className='h-8' />
