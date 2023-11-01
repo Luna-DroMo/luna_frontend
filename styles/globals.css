@@ -6,23 +6,30 @@
 @font-face {
   font-family: 'Inria Sans';
   src: local('InriaSans-Regular'), url('/fonts/Inria_Sans/InriaSans-Regular.ttf') format('truetype');
-  font-weight: 400; /* Regular weight */
+  font-weight: 400;
+  /* Regular weight */
   font-style: normal;
+
 }
 
 @font-face {
   font-family: 'Inria Sans';
   src: local('InriaSans-Regular'), url('/fonts/Inria_Sans/InriaSans-Regular.ttf') format('truetype');
-  font-weight: 700; /* Bold weight */
+  font-weight: 700;
+  /* Bold weight */
   font-style: bold;
+}
+
+p{
+  font-size: 0.8rem;
 }
 
 /* Define more font weights as needed */
 
 :root {
   --foreground-rgb: 238, 237, 241;
-  --page-background-rgb:  238, 237, 241;
-  --body-background-rgb: 255,255,255;
+  --page-background-rgb: 238, 237, 241;
+  --body-background-rgb: 255, 255, 255;
   --main-purple: #5210DC;
   --status-bg-green: #E8FFDD;
   --status-text-green: #48A500;
@@ -38,13 +45,13 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-    --page-background-rgb:  39, 33, 38;
-    --body-background-rgb: 255,255,255,0.9;
+    --page-background-rgb: 39, 33, 38;
+    --body-background-rgb: 255, 255, 255, 0.9;
   }
 }
 
 
-html{
+html {
   font-family: 'Inria Sans', sans-serif;
   background-color: rgb(var(--page-background-rgb));
 }
@@ -55,7 +62,8 @@ html{
   position: relative;
   border-radius: 25px;
   min-height: calc(100vh - 50px);
-  background-color: rgba(255,255,255,0.6);/*rgba(var(--body-background-rgb));*/
+  background-color: rgba(255, 255, 255, 0.6);
+  /*rgba(var(--body-background-rgb));*/
   left: 16rem;
   color: black;
   padding-bottom: 2rem;
@@ -67,7 +75,8 @@ html{
   position: relative;
   border-radius: 25px;
   min-height: calc(100vh - 100px);
-  background-color: rgba(255,255,255,0.6);/*rgba(var(--body-background-rgb));*/
+  background-color: rgba(255, 255, 255, 0.6);
+  /*rgba(var(--body-background-rgb));*/
   left: 16rem;
   color: black;
   padding-bottom: 2rem;
@@ -81,26 +90,27 @@ html{
 
 }
 
-aside li a{
+aside li a {
   border: 1px solid rgb(var(--page-background-rgb));
   border-radius: 7.5px;
 }
 
-aside li:hover, .active li:hover{
+aside li:hover,
+.active li:hover {
   border: 1px solid var(--main-purple);
 }
 
-.uptodate{
+.uptodate {
   color: var(--status-text-green);
   background-color: var(--status-bg-green);
 }
 
-.pending{
+.pending {
   color: var(--status-text-yellow);
   background-color: var(--status-bg-yellow);
 }
 
-.urgent{
+.urgent {
   color: var(--status-text-red);
   background-color: var(--status-bg-red);
 }
@@ -116,6 +126,7 @@ aside li:hover, .active li:hover{
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(-360deg);
   }
@@ -123,6 +134,7 @@ aside li:hover, .active li:hover{
 
 /* Removes spinner from number inputs */
 @layer base {
+
   input[type='number']::-webkit-outer-spin-button,
   input[type='number']::-webkit-inner-spin-button,
   input[type='number'] {
@@ -130,4 +142,12 @@ aside li:hover, .active li:hover{
     margin: 0;
     -moz-appearance: textfield !important;
   }
+}
+
+/* Removes gloss from select element */
+select {
+  background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 95% 50%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }

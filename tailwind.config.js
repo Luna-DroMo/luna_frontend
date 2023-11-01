@@ -6,6 +6,15 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    fontSize: {
+      sm: '0.6rem',
+      base: '0.8rem',
+      xl: '1.25rem',
+      '2xl': '1.563rem',
+      '3xl': '1.953rem',
+      '4xl': '2.441rem',
+      '5xl': '3.052rem',
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -44,7 +53,7 @@ module.exports = {
     pattern: /(bg|text|border)-luna(purple|green|yellow)/
   },
   {
-    pattern: /(lightgrey|lightgreen)/
+    pattern: /(lightgrey|lightgreen|progyellow)/
   }
 
   ]
