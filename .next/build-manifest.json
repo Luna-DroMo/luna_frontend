@@ -22,30 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/registration_forms/AIST_input": [
+    "/analysis": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/registration_forms/AIST_input.js"
+      "static/chunks/pages/analysis.js"
     ],
-    "/registration_forms/IntExt_input": [
+    "/my_data": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/registration_forms/IntExt_input.js"
-    ],
-    "/registration_forms/kognitive_faehigkeiten_input": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/registration_forms/kognitive_faehigkeiten_input.js"
-    ],
-    "/registration_forms/maths_input": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/registration_forms/maths_input.js"
-    ],
-    "/registration_forms/motivation_input": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/registration_forms/motivation_input.js"
+      "static/chunks/pages/my_data.js"
     ]
   },
   "ampFirstPages": []
