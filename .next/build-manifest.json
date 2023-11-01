@@ -22,10 +22,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/survey": [
+    "/createModule": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/survey.js"
+      "static/chunks/pages/createModule.js"
     ]
   },
   "ampFirstPages": []
