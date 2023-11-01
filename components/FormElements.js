@@ -8,6 +8,27 @@ export function InputRow({ type = "text", maintext = "Placeholder Main Text", su
                 <p className="subtitle text-text-grey">{subtitle}</p>
             </div>
             <FormInput type={type} options={options} name={maintext} />
+
+        </div>
+
+    )
+}
+
+export function SurveyQuestion({ maintext, subtitle, scale = 5 }) {
+
+    // input options [0,1,2,3,4]
+    let options = [...Array(scale).keys()];
+    return (
+        <div className="flex items-center w-full my-2 hover:bg-[#eeeeee] rounded">
+            <div className='flex-grow'>
+                <p >{maintext}</p>
+                <p className="subtitle text-text-grey">{subtitle}</p>
+            </div>
+            <div className="flex justify-between w-72 mx-2">
+                {options.map((option) => (
+                    <input className="" key={option} id={maintext + option} name={maintext} type="radio" />
+                ))}
+            </div>
         </div>
 
     )
@@ -35,10 +56,10 @@ export function FormInput({ type, options, name }) {
         return (
             <input className="h-12 border border-text-grey rounded-lg px-5 text-center" type={type} name={name} />
         )
-    } else if (type === "likert"){
+    } else if (type === "likert") {
         <div>
             {options.map((option) => (
-                    <input key={option} id={name + option} name={name} type={"radio"} />
+                <input key={option} id={name + option} name={name} type={"radio"} />
             ))}
         </div>
 
