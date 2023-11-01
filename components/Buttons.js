@@ -1,15 +1,17 @@
+import Link from 'next/link';
+
 export function Button({ text, highlighted, href="#" }) {
     if (highlighted){
         return (
-            <a href={href}>
+            <Link href={href}>
             <button className="border border-lunapurple bg-lunapurple rounded-full w-44 h-10 px-4 text-white text-xs leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple ">{text}</button>
-            </a>
+            </Link>
         )
     } else {
         return (
-            <a href={href}>
+            <Link href={href}>
             <button className="border border-lunapurple rounded-full w-44 h-10 px-4 text-lunapurple text-xs leading-4 hover:border-lunagreen hover:bg-lunagreen">{text}</button>
-            </a>
+            </Link>
         )
     }
 }
@@ -17,15 +19,15 @@ export function Button({ text, highlighted, href="#" }) {
 export function SmallButton({ text, highlighted, href="#"}) {
     if (highlighted){
         return (
-            <a href={href}>
+            <Link href={href}>
             <button className="border border-lunapurple bg-lunapurple rounded-full w-44 h-6 px-4 text-white text-xs leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple ">{text}</button>
-            </a>
+            </Link>
         )
     } else {
         return (
-            <a href={href}>
+            <Link href={href}>
             <button className="border border-lunapurple rounded-full w-44 h-6 px-4 text-lunapurple text-xs leading-4 hover:border-lunagreen hover:bg-lunagreen">{text}</button>
-            </a>
+            </Link>
         )
     }
 }

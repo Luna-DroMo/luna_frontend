@@ -60,10 +60,10 @@ function getColourTheme(form) {
     let status = form.status;
 
     let theme = {
-        "bg_col": "[#cccccc]",
+        "bg_col": "lightgrey",
         "number_col": "white",
-        "text_col": "[#cccccc]",
-        "border_col": "[#cccccc]"
+        "text_col": "lightgrey",
+        "border_col": "lightgrey"
     }
 
     if (status === 1) {

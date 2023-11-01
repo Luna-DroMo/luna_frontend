@@ -11,20 +11,20 @@ module.exports = {
       current: 'currentColor',
       'white': '#ffffff',
       'lunapurple': '#5210DC',
-      'lunagreen':"#9ADC10",
-      'lunayellow':"#FFB800",
+      'lunagreen': "#9ADC10",
+      'lunayellow': "#FFB800",
       'lightpurple': '#E5E0F2',
-      'alertpurple':'#6F39E2',
+      'alertpurple': '#6F39E2',
       'pagebg': '#F6F4F6',
-      'text-black':'#0C0221',
-      'text-grey':'#5F5F5F',
+      'text-black': '#0C0221',
+      'text-grey': '#5F5F5F',
       'green': '#165677',
       'lightgreen': '#E7EEF1',
-      'lightgrey':'#969696',
-      'proggreen':'#32A48D',
-      'progyellow':'#FF9900',
+      'lightgrey': '#969696',
+      'proggreen': '#32A48D',
+      'progyellow': '#FF9900',
       'progred': '#FF001F',
-      'orange':'#F37A2E',
+      'orange': '#F37A2E',
       'metal': '#565584',
       'tahiti': '#3ab7bf',
       'silver': '#ecebff',
@@ -40,4 +40,12 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [{
+    pattern: /(bg|text|border)-luna(purple|green|yellow)/
+  },
+  {
+    pattern: /(lightgrey|lightgreen)/
+  }
+
+  ]
 }

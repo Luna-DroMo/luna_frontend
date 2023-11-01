@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSatellite, faMeteor, faUserAstronaut, faGear, faSignOutAlt, faM } from '@fortawesome/free-solid-svg-icons';
 import Billboard from './Billboard';
+import Link from 'next/link'
 
 const main_links = [{ "href": "/", "icon": faSatellite, "text": "Übersicht" },
 { "href": "/analysis/", "icon": faMeteor, "text": "Analysen" },
@@ -54,9 +55,9 @@ function SidebarNavLinks({ links }) {
 function LinkContainer({ link_data }) {
   /* Structural container for links */
   return (
-    <a href={link_data.href} className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-sm group-hover:border-hidden dark:hover:bg-gray-700">
+    <Link href={link_data.href} className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-sm group-hover:border-hidden dark:hover:bg-gray-700">
       <FontAwesomeIcon icon={link_data.icon} className='group-hover:text-lunapurple inline-block w-4' />
       <span className="ml-3">{link_data.text}</span>
-    </a>
+    </Link>
   )
 }
