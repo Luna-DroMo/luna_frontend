@@ -22,15 +22,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/analysis": [
+    "/survey": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/analysis.js"
-    ],
-    "/my_data": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/my_data.js"
+      "static/chunks/pages/survey.js"
     ]
   },
   "ampFirstPages": []
