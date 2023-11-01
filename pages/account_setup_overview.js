@@ -3,7 +3,7 @@ import RootLayout from '@/components/RootLayout.js';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/Buttons';
-import Overview from '@/components/DataModelOverview';
+import SetupOverview from '@/components/SetupDataModelOverview';
 import React from 'react';
 
 const account_setup_progress = 0;
@@ -37,7 +37,7 @@ export default function Main() {
                     <a href="/analysen/" className='text-xs text-lightgrey mt-5 block hover:underline'><p>Ich habe gerade keine Zeit</p></a>
                 </div>
                 <h3> Oder in einen Fragebogen direkt einsteigen!</h3>
-                <Overview data_models={data_models_to_use} />
+                <SetupOverview data_models={data_models_to_use} />
             </main>
         </RootLayout>
     )

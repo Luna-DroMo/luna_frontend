@@ -3,7 +3,7 @@ import RootLayout from '@/components/RootLayout.js';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/Buttons';
-import Overview from '@/components/DataModelOverview';
+import Overview from '@/components/SetupDataModelOverview';
 import React from 'react';
 
 const account_setup_progress = 0;

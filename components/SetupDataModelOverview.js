@@ -1,6 +1,6 @@
 import { Button, SmallButton } from "./Buttons";
 
-export default function Overview({ data_models }) {
+export default function SetupOverview({ data_models }) {
 
 
     // Initialize an array to hold groups of three objects
@@ -28,6 +28,7 @@ export default function Overview({ data_models }) {
 
 
 function StatusIcon({ status }) {
+    // Functionality of the status icon
     let bg_col = "bg-white";
     let border_col = "border-lunapurple";
     let text = "Offen";
@@ -54,6 +55,8 @@ function StatusIcon({ status }) {
 }
 
 function ModelContainer({ model }) {
+    // The square boxes containing each model overview
+
 
     let border_col = "border-lunapurple";
     let button_text = "Ausfüllen"
