@@ -13,7 +13,7 @@ export default function Main() {
 
             <main className="flex-row justify-between px-10 pt-10">
                 <form>
-                    <h1 className='text-2xl'>Module Erstellen</h1>
+                    <h1 className='text-2xl'>Modul Erstellen</h1>
                     <h3 className='text-text-grey'>Trage bitte alle Informationen ein, um ein Modul anzulegen.</h3>
                     <div className='h-8'></div>
                     <InputRow type="text" maintext="Module ID" subtitle="Universitäts-interne Identifikationsnummer. Z.B. CS101" />
