@@ -1,18 +1,31 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    // You can add your sign-up logic here
-    console.log('Signing up with email:', email, 'password:', password);
-    // Redirect to the index.js page after sign-up or perform any necessary actions
-    // You can replace 'index' with your actual route path
-    window.location.href = '/account_setup_overview';
-  };
+  const handleSignUp = async (e) => {
+    e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
+    try {
+      // Axios helps us send data. Its an HTTP client. Makes things easy for us. Helps us gets the right datatype.
+      const response = await axios.post(
+        'http://localhost:8000/authentication/signup',
+        {
+          email: email,
+          password: password,
+          user_type: 1,
+          first_name: 'John',
+          last_name: 'Doe'
+        }
+      )
+
+      window.location.href = '/account_setup_overview'
+    } catch (error) {
+      console.error('An error occurred during sign up:', error)
+    }
+  }
 
   return (
     <form onSubmit={handleSignUp} className="mx-auto mt-16 p-4 w-1/2 rounded">
@@ -53,7 +66,7 @@ function SignUpForm() {
         />
       </div>
       <div className="text-center">
-      <a href="/welcome" class="block text-left text-white px-6 mb-10 hover:underline">Bereits ein Konto? </a>
+      <a href="/welcome" className="block text-left text-white px-6 mb-10 hover:underline">Bereits ein Konto? </a>
         <button type="submit" className="text-black bg-white px-12 py-2 rounded-full hover:text-lunapurple">
           Registrieren
         </button>
