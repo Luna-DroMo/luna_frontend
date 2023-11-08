@@ -34,7 +34,7 @@ export default function Main() {
                     <h1 className='mb-5 text-2xl'>Prozess jetzt starten!</h1>
                     <Button text="Loslegen!" highlighted={true} href="./registration_forms/benutzerdaten_input/"></Button>
 
-                    <a href="/analysen/" className='text-xs text-lightgrey mt-5 block hover:underline'><p>Ich habe gerade keine Zeit</p></a>
+                    <a href="/" className='text-xs text-lightgrey mt-5 block hover:underline'><p>Ich habe gerade keine Zeit</p></a>
                 </div>
                 <h3> Oder in einen Fragebogen direkt einsteigen!</h3>
                 <SetupOverview data_models={data_models_to_use} />

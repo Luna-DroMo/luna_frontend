@@ -9,7 +9,7 @@ import React from 'react';
 
 
 
-export default function Main({ model }) {
+export default function motivation_input({ model }) {
 
     let forms1 = [
 
