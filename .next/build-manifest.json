@@ -12,6 +12,11 @@
   ],
   "rootMainFiles": [],
   "pages": {
+    "/": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/index.js"
+    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -27,10 +32,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/analysis.js"
     ],
-    "/welcome": [
+    "/my_data": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/welcome.js"
+      "static/chunks/pages/my_data.js"
+    ],
+    "/registration_forms/kognitive_faehigkeiten_input": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/registration_forms/kognitive_faehigkeiten_input.js"
     ]
   },
   "ampFirstPages": []

@@ -57,6 +57,12 @@ function SidebarContent({ show_billboard, show_main_links }) {
 
       <ul className="space-y-2 font-medium mb-2">
 
+      <li className='group rounded-lg'>
+          <a href={"#"}  className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-base group-hover:border-hidden dark:hover:bg-gray-700">
+            <FontAwesomeIcon icon={faGear} className='group-hover:text-lunapurple inline-block w-4' />
+            <span className="ml-3">Konto</span>
+          </a >
+        </li>
         <li className='group rounded-lg'>
           <a href={"/welcome"} onClick={handleLogout} className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-base group-hover:border-hidden dark:hover:bg-gray-700">
             <FontAwesomeIcon icon={faSignOutAlt} className='group-hover:text-lunapurple inline-block w-4' />
