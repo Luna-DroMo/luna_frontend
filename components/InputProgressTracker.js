@@ -22,7 +22,7 @@ function ProgressbarElement({ form }) {
     return (
         <div className="flex">
             <Bullet form={form} />
-            <p className={`inline text-${theme.text_col}`}>{form.name}</p>
+            <p className={`inline mt-0.5 text-${theme.text_col}`}>{form.name}</p>
         </div>
     )
 };
@@ -44,7 +44,7 @@ function Bullet({ form }) {
 
     return (
         <div className={`border h-5 w-5 rounded-full bg-${theme.bg_col} border-${theme.border_col} inlineblock mt-0.5 mr-3 text-xs text-center`}>
-            <p className={`mt-0.5  text-${theme.number_col} `}>
+            <p className={`mt-0  text-${theme.number_col} `}>
                 {form.item}
             </p>
         </div>

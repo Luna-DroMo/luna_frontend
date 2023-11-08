@@ -10,11 +10,7 @@ import { useState } from 'react';
 
 
 export default function Home() {
-  if (typeof window !== 'undefined') {
-    console.log('we are running on the client')
-  } else {
-    console.log('we are running on the server');
-  }
+
   return (
     <RootLayout show_billboard={true}>
       <main className="flex-row justify-between px-10 pt-10">
@@ -55,7 +51,7 @@ export default function Home() {
         </div>
         <div className="flex w-full items-end">
           <h5 className='tracking-wider items-center flex-grow'>Meine Module</h5>
-          <a href="#" className="flex-none text-lunapurple text-xs pb-0.5">Module verwalten<FontAwesomeIcon icon={faChevronRight} className='flex group-hover:text-lunapurple inline-block w-2 mx-1.5' /></a>
+          <a href="#" className="flex-none text-lunapurple text-base pb-0.5">Module verwalten<FontAwesomeIcon icon={faChevronRight} className='flex group-hover:text-lunapurple inline-block w-2 mx-1.5' /></a>
         </div>
 
 
@@ -66,7 +62,7 @@ export default function Home() {
           </div>
 
 
-          <h4 className='ml-5 text-lunapurple tracking-wider text-sm z-10'>Modul beitreten</h4>
+          <h4 className='ml-5 text-lunapurple tracking-wider text-base z-10'>Modul beitreten</h4>
         </a>
 
         <Table />

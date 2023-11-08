@@ -50,7 +50,7 @@ export default function AlertSection() {
           </div>
     
           <button
-            className="text-lunapurple text-xs ml-5 hover:underline"
+            className="text-lunapurple text-base ml-5 hover:underline"
             onClick={toggleExpand}
           >
             {!expanded ? `Alle ${alerts.length} anzeigen` : 'Weniger anzeigen'}
@@ -101,9 +101,9 @@ function Alert({ survey }) {
                 <p className='absolute bottom-2.5 ml-2 text-[14px]'>{due_date.getDate()}</p>
                 <p className='absolute bottom-0.5 text-[9px] text-lightgrey ml-2 mt-0'>{getMonthOfYear(due_date.getMonth())}</p>
             </div>
-            <h3 className='flex-grow text-white ml-8 text-sm tracking-wide'>Befragung {surveyno}: {module}</h3>
+            <h3 className='flex-grow text-white ml-8 text-base tracking-wide'>Befragung {surveyno}: {module}</h3>
             <div className="progress flex-none mr-5 w-40">
-                <p className='text-white text-xs tracking-wider'>Verbleibende Zeit</p>
+                <p className='text-white text-sm tracking-wider'>Verbleibende Zeit</p>
 
                 <div className="w-full bg-white rounded-full h-2 dark:bg-gray-700">
                     <div className={`float-right ${bg_col} h-2 rounded-full`} style={{ 'width': `${rel_time_remaining}%` }}></div>

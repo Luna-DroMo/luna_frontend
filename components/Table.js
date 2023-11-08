@@ -28,11 +28,11 @@ export default function ModuleTable() {
                     <thead>
                         <tr className=''>
                             <th className="border-b-[#dddddd] border-b-2 px-0 font-normal border-b dark:border-slate-600 p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"> </th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-left font-normal text-sm ">Modul ID</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-left w-40 font-normal text-sm ">Modul</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-center font-normal text-sm ">Umfragestatus</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-center font-normal text-sm ">Nächste Umfrage</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-right font-normal text-sm "></th>
+                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-left font-normal text-base ">Modul ID</th>
+                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-left w-40 font-normal text-base ">Modul</th>
+                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-center font-normal text-base ">Umfragestatus</th>
+                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-center font-normal text-base ">Nächste Umfrage</th>
+                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-right font-normal text-base "></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,13 +58,13 @@ function TableRow({ module }) {
 
     const nextsurveypublished = new Date(module.nextsurveypublished);
     return (
-        <tr className='hover:bg-pagebg text-text-grey text-xs'>
+        <tr className='hover:bg-pagebg text-text-grey text-base'>
             <td className="py-3 w-10 text-center"><img src="moon.png" className="w-8 m-0 p-0 inline-block" /></td>
             <td className="px-4 py-2 w-24">{module.moduleid}</td>
             <td className="px-4 py-2 max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap">{module.modulename}</td>
             <td className="px-4 py-2 text-center w-48"><StatusElement nextsurveyduedate={module.nextsurveydue} /></td>
             <td className="px-4 py-2 text-center">{formatDate(nextsurveypublished)}</td>
-            <td className="px-4 py-2"><a href="#" className="rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-sm border-lunapurple hover:bg-lunapurple hover:text-white">Verwalten</a></td>
+            <td className="px-4 py-2"><a href="#" className="rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white">Verwalten</a></td>
         </tr>
     );
 };
