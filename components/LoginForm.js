@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 
 function LoginForm() {
@@ -14,21 +14,30 @@ function LoginForm() {
         {
           email: email,
           password: password,
-          
+
         }
       )
+      
+      const token  = response.data.token
+      
 
-      window.location.href = '/'
+      if (token) {
+        localStorage.setItem('token', JSON.stringify(token));
+        console.log(token)
+      }
+
+    window.location.href = '/'
     } catch (error) {
       console.error('An error occurred during Log In:', error)
     }
+    
   }
 
   return (
     <form onSubmit={handleSignUp} className="mx-auto mt-16 p-4 w-1/2 borderrounded">
-      
+
       <div className="mb-10">
-        
+
         <input
           type="text"
           id="username"
@@ -41,7 +50,7 @@ function LoginForm() {
         />
       </div>
       <div className="mb-10">
-        
+
         <input
           type="password"
           id="password"
