@@ -44,11 +44,11 @@ export function FormInput({ type, options, name }) {
         //const optionslist = options.split(' ');
         return (
             <>
-                {options.map((option) => (
-                    <>
+                {options.map((option, key) => (
+                    <div key={key}>
                         <label className='mx-5 text-text-grey'> {option} </label>
-                        <input key={option} id={name + option} name={name} type={type} />
-                    </>
+                        <input id={name + option} name={name} type={type} />
+                    </div>
                 ))}
             </>
         )
@@ -56,11 +56,11 @@ export function FormInput({ type, options, name }) {
         //const optionslist = options.split(' ');
         return (
             <>
-                {options.map((option) => (
-                    <>
+                {options.map((option, key) => (
+                    <div key={key}>
                         <label className='mx-5 text-text-grey'> {option} </label>
-                        <input key={option} id={name + option} name={name} type={type} />
-                    </>
+                        <input id={name + option} name={name} type={type} />
+                    </div>
                 ))}
             </>
         )
@@ -70,8 +70,8 @@ export function FormInput({ type, options, name }) {
         )
     } else if (type === "likert") {
         <div>
-            {options.map((option) => (
-                <input  key={option} id={name + option} name={name} type={"radio"} />
+            {options.map((option, key) => (
+                <input  key={key} id={name + option} name={name} type={"radio"} />
             ))}
         </div>
 
@@ -82,9 +82,9 @@ export function FormInput({ type, options, name }) {
     } else if (type === "dropdown") {
         return (
             <select className="h-8 border border-text-grey bg-white rounded-lg w-48 px-5"  name={name} id={name}>
-                 {options.map((option) => (
+                 {options.map((option, key) => (
 
-                    <option key = {option} value={option}>{option}</option>
+                    <option key = {key} value={option}>{option}</option>
                     
                 ))}
             </select>

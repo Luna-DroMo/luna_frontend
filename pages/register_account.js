@@ -18,7 +18,7 @@ export default function Home() {
                             <li className='hover:underline'><a href="#">Über Uns</a></li>
                             <li className='hover:underline'><a href="#">FAQs</a></li>
                             <li className='hover:underline'><a href="#">Kontakt</a></li>
-                            <li className='hover:underline'><a href="#">Datenschutz</a></li>
+                            <li className='hover:underline'><a href="#">Datensasdfasdchutz</a></li>
                             <li className='pl-5'><a href="#"><img src="logowhite2.svg" className='inline-block w-20' alt="logo"/></a></li>
                         </ul>
                     </div>
