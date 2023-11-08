@@ -1,75 +1,79 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import axios from 'axios'
+import {useRouter} from 'next/router'
+import {useAuth} from '@/pages/contexts/AuthProvider'
 
 function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const {saveUser, setError} = useAuth()
+  const router = useRouter()
 
   const handleSignUp = async (e) => {
-    e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
+    e.preventDefault()
     try {
-      // Axios helps us send data. Its an HTTP client. Makes things easy for us. Helps us gets the right datatype.
       const response = await axios.post(
         'http://localhost:8000/authentication/login',
-        {
-          email: email,
-          password: password,
-
-        }
+        {email, password}
       )
-      
-      const token  = response.data.token
-      
 
-      if (token) {
-        localStorage.setItem('token', JSON.stringify(token));
-        console.log(token)
-      }
+      saveUser(response.data.user)
+      // Assuming the token is set in a secure, HttpOnly cookie by the server.
 
-    window.location.href = '/'
+      // Redirect using Next.js Router
+      router.push('/')
     } catch (error) {
-      console.error('An error occurred during Log In:', error)
+      setError(
+        error.response?.data?.message || 'An error occurred during Log In'
+      )
     }
-    
   }
 
   return (
-    <form onSubmit={handleSignUp} className="mx-auto mt-16 p-4 w-1/2 borderrounded">
-
-      <div className="mb-10">
-
+    <form
+      onSubmit={handleSignUp}
+      className='mx-auto mt-16 p-4 w-1/2 borderrounded'
+    >
+      <div className='mb-10'>
         <input
-          type="text"
-          id="username"
-          name="username"
+          type='text'
+          id='username'
+          name='username'
           placeholder='Emailadresse'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-6 border border-lightgrey placeholder-text-grey rounded-full h-14 tracking-wider"
+          className='w-full p-6 border border-lightgrey placeholder-text-grey rounded-full h-14 tracking-wider'
           required
         />
       </div>
-      <div className="mb-10">
-
+      <div className='mb-10'>
         <input
-          type="password"
-          id="password"
-          name="password"
+          type='password'
+          id='password'
+          name='password'
           value={password}
-          placeholder="Passwort"
+          placeholder='Passwort'
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-6 border border-lightgrey placeholder-text-grey rounded-full h-14 tracking-wider"
+          className='w-full p-6 border border-lightgrey placeholder-text-grey rounded-full h-14 tracking-wider'
           required
         />
       </div>
-      <div className="text-center">
-        <a href="/register_account" className="block text-left text-white px-6 mb-10 hover:underline">Noch kein Konto? </a>
-        <button type="submit" className="text-black bg-white px-12 py-2 rounded-full hover:text-lunapurple">
+      <div className='text-center'>
+        <a
+          href='/register_account'
+          className='block text-left text-white px-6 mb-10 hover:underline'
+        >
+          Noch kein Konto?{' '}
+        </a>
+        <button
+          type='submit'
+          className='text-black bg-white px-12 py-2 rounded-full hover:text-lunapurple'
+        >
           Anmelden
         </button>
       </div>
     </form>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm
