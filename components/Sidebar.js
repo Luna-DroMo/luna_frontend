@@ -8,9 +8,12 @@ const main_links = [{ "href": "/", "icon": faSatellite, "text": "Übersicht" },
 { "href": "/my_data/", "icon": faUserAstronaut, "text": "Meine Daten" }
 ];
 
-const bottom_links = [{ "href": "#", "text": "Konto", "icon": faGear }, { "href": "#", "text": "Abmelden", "icon": faSignOutAlt }];
+
 
 export default function Sidebar({ show_main_links, show_billboard }) {
+  const bottom_links = [{ "href": "#", "text": "Konto", "icon": faGear }, { "href": "#", "text": "Abmelden", "icon": faSignOutAlt }];
+
+
   return (
     <>
       <aside id="cta-button-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen" aria-label="Sidebar">
@@ -18,7 +21,7 @@ export default function Sidebar({ show_main_links, show_billboard }) {
           <div className="flex items-center p-5 mb-2">
             <img src="/LogoPurple3.svg" className="inline-block w-32 mr-4 mt-5" />
           </div>
-        <SidebarContent show_billboard={show_billboard} show_main_links={show_main_links}/>
+          <SidebarContent show_billboard={show_billboard} show_main_links={show_main_links} />
 
 
         </div>
@@ -27,14 +30,42 @@ export default function Sidebar({ show_main_links, show_billboard }) {
   )
 }
 
-function SidebarContent({ show_billboard, show_main_links}) {
+function SidebarContent({ show_billboard, show_main_links }) {
   /* Returns the variable Sidebar content */
+  const handleLogout = async (e) => {
+    e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
+    try {
+      // Axios helps us send data. Its an HTTP client. Makes things easy for us. Helps us gets the right datatype.
 
+
+      const token = localStorage.getItem('token');
+      if (token) {
+        localStorage.removeItem('token');
+        console.log("logged out")
+      }
+
+      window.location.href = '/welcome'
+    } catch (error) {
+      console.error('An error occurred during Log out:', error)
+    }
+
+  }
   return (
     <>
       {show_main_links && <SidebarNavLinks links={main_links} />}
       {show_billboard && <Billboard />}
-      <SidebarNavLinks links={bottom_links} />
+
+      <ul className="space-y-2 font-medium mb-2">
+
+        <li className='group rounded-lg'>
+          <a href={"/welcome"} onClick={handleLogout} className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-base group-hover:border-hidden dark:hover:bg-gray-700">
+            <FontAwesomeIcon icon={faSignOutAlt} className='group-hover:text-lunapurple inline-block w-4' />
+            <span className="ml-3">Abmelden</span>
+          </a >
+        </li>
+
+      </ul>
+
     </>
   )
 
@@ -44,7 +75,7 @@ function SidebarNavLinks({ links }) {
   return (
     <ul className="space-y-2 font-medium mb-2">
       {links.map((link, index) => (
-        <li key = {index} className='group rounded-lg'>
+        <li key={index} className='group rounded-lg'>
           <LinkContainer link_data={link} />
         </li>
       ))}
