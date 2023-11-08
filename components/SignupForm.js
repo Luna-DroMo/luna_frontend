@@ -6,6 +6,7 @@ function SignUpForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+
   const handleSignUp = async (e) => {
     e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
     try {

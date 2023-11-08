@@ -4,16 +4,24 @@ import AlertSection from '../components/Alerts.js';
 import RootLayout from '@/components/RootLayout.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+
 
 
 
 export default function Home() {
+  if (typeof window !== 'undefined') {
+    console.log('we are running on the client')
+  } else {
+    console.log('we are running on the server');
+  }
   return (
     <RootLayout show_billboard={true}>
       <main className="flex-row justify-between px-10 pt-10">
         <div className='flex items-center'>
           <img src="alien.png" className='ml-2 w-10 mr-4' />
-          <h1 className='tracking-wider text-xl'>Hey Max, willkommen bei Luna!</h1>
+          <h1 className='tracking-wider text-xl'>Hey, willkommen bei Luna!</h1>
+
         </div>
 
         <AlertSection />

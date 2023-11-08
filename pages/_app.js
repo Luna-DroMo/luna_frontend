@@ -8,7 +8,6 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false; /* eslint-disable import/first */
 
-
 //const inria = Inria_Sans({ weight: ['300', '400', '700'], subsets: ['latin'] })
 
 export const metadata = {
@@ -19,11 +18,11 @@ export const metadata = {
 
 
 
-export default function App({ Component, pageProps }) {
+export default function App({Component, pageProps}) {
 
   return (
-  
-    <Component {...pageProps} />
-  
+    
+      <Component {...pageProps} />
+    
   )
 }
