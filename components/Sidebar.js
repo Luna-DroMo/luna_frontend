@@ -3,7 +3,7 @@ import { faSatellite, faMeteor, faUserAstronaut, faGear, faSignOutAlt, faM } fro
 import Billboard from './Billboard';
 import Link from 'next/link'
 
-const main_links = [{ "href": "/", "icon": faSatellite, "text": "Übersicht" },
+const main_links = [{ "href": "/cockpit/", "icon": faSatellite, "text": "Übersicht" },
 { "href": "/analysis/", "icon": faMeteor, "text": "Analysen" },
 { "href": "/my_data/", "icon": faUserAstronaut, "text": "Meine Daten" }
 ];
@@ -44,7 +44,7 @@ function SidebarContent({ show_billboard, show_main_links }) {
         console.log("logged out")
       }
 
-      window.location.href = '/welcome'
+      window.location.href = '/'
     } catch (error) {
       console.error('An error occurred during Log out:', error)
     }
@@ -64,7 +64,7 @@ function SidebarContent({ show_billboard, show_main_links }) {
           </a >
         </li>
         <li className='group rounded-lg'>
-          <a href={"/welcome"} onClick={handleLogout} className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-base group-hover:border-hidden dark:hover:bg-gray-700">
+          <a href={"/"} onClick={handleLogout} className="flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg dark:text-white text-base group-hover:border-hidden dark:hover:bg-gray-700">
             <FontAwesomeIcon icon={faSignOutAlt} className='group-hover:text-lunapurple inline-block w-4' />
             <span className="ml-3">Abmelden</span>
           </a >
