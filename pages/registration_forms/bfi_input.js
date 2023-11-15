@@ -31,11 +31,11 @@ export default function Main({ model }) {
                     <form action="">
                         <h1 className='tracking-wider text-xl'>{model.name}</h1>
                         <p className='mb-10'>This section covers stuff about BFI Personality questionnaire</p>
-                        <InputRow type="number" maintext="AV" subtitle="Subtitle" />
-                        <InputRow type="number" maintext="IV" subtitle="Subtitle" />
-                        <InputRow type="number" maintext="SE" subtitle="Subtitle" />
-                        <InputRow type="number" maintext="UV" subtitle="Subtitle" />
-                        <InputRow type="number" maintext="CO" subtitle="Subtitle" />
+                        <InputRow type="number" maintext="BFI_ex" subtitle="Subtitle" />
+                        <InputRow type="number" maintext="BFI_ve" subtitle="Subtitle" />
+                        <InputRow type="number" maintext="BFI_ge" subtitle="Subtitle" />
+                        <InputRow type="number" maintext="BFI_ne" subtitle="Subtitle" />
+                        <InputRow type="number" maintext="BFI_of" subtitle="Subtitle" />
 
 
 
