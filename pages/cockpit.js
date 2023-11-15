@@ -8,7 +8,7 @@ import {useState} from 'react'
 import {useAuth} from './contexts/AuthProvider.js'
 
 export default function Home() {
-  const {user} = useAuth()
+  const user = useAuth()
   console.log(user)
 
   return (

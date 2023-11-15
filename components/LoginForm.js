@@ -19,6 +19,7 @@ function LoginForm() {
       
 
       localStorage.setItem('token',response.data.token);
+      console.log(response.data.user)
       saveUser(response.data.user);
       // Assuming the token is set in a secure, HttpOnly cookie by the server.
 
