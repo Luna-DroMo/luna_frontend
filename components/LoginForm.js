@@ -13,7 +13,7 @@ function LoginForm() {
     e.preventDefault()
     try {
       const response = await axios.post(
-        'http://localhost:8000/authentication/login',
+        'http://localhost:8000/login',
         {email, password}
       )
       
@@ -26,9 +26,7 @@ function LoginForm() {
       // Redirect using Next.js Router
       router.push('/cockpit')
     } catch (error) {
-      setError(
-        error.response?.data?.message || 'An error occurred during Log In'
-      )
+      console.log("error during login")
     }
   }
 

@@ -14,7 +14,9 @@ export const AuthProvider = ({children}) => {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
-      router.push('/'); // Redirect to landing page if not authenticated
+      console.log("here")
+      // This is causing an infinite loop
+      //router.push('/'); // Redirect to landing page if not authenticated
     }
   }, [router]);
 
