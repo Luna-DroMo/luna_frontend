@@ -22,6 +22,7 @@ export default function PrivateRoute({ publicroutes, children }) {
   }, [isLoading, isAuthenticated, pathIsProtected]);
  
   if ((isLoading || !isAuthenticated) && pathIsProtected) {
+    console.log("loading")
     //return <FullPageLoader />;  THIS CAN BE USED TO SHOW A LOADING SCREEN
     return (<h1>loading...</h1>)
   }

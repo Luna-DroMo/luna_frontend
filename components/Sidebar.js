@@ -3,6 +3,8 @@ import { faSatellite, faMeteor, faUserAstronaut, faGear, faSignOutAlt, faM } fro
 import Billboard from './Billboard';
 import Link from 'next/link'
 
+import {useAuth} from '@/pages/contexts/AuthProvider'
+
 const main_links = [{ "href": "/cockpit/", "icon": faSatellite, "text": "Übersicht" },
 { "href": "/analysis/", "icon": faMeteor, "text": "Analysen" },
 { "href": "/my_data/", "icon": faUserAstronaut, "text": "Meine Daten" }
@@ -12,7 +14,6 @@ const main_links = [{ "href": "/cockpit/", "icon": faSatellite, "text": "Übersi
 
 export default function Sidebar({ show_main_links, show_billboard }) {
   const bottom_links = [{ "href": "#", "text": "Konto", "icon": faGear }, { "href": "#", "text": "Abmelden", "icon": faSignOutAlt }];
-
 
   return (
     <>
@@ -32,6 +33,7 @@ export default function Sidebar({ show_main_links, show_billboard }) {
 
 function SidebarContent({ show_billboard, show_main_links }) {
   /* Returns the variable Sidebar content */
+  const { clearUser } = useAuth();
   const handleLogout = async (e) => {
     e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
     try {
@@ -40,7 +42,7 @@ function SidebarContent({ show_billboard, show_main_links }) {
 
       const token = localStorage.getItem('token');
       if (token) {
-        localStorage.removeItem('token');
+        clearUser();
         console.log("logged out")
       }
 
