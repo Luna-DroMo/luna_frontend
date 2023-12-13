@@ -10,6 +10,7 @@ config.autoAddCss = false /* eslint-disable import/first */
 //const inria = Inria_Sans({ weight: ['300', '400', '700'], subsets: ['latin'] })
 
 import {AuthProvider} from './contexts/AuthProvider'
+import PrivateRoute from '../components/PrivateRoute.js'
 
 export const metadata = {
   title: 'LUNA',
@@ -18,9 +19,19 @@ export const metadata = {
 }
 
 export default function App({Component, pageProps}) {
+
+
+  const NonPrivateRoutes = ["/","/register_account"];
+
+  console.log("starting here")
   return (
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <>
+      <AuthProvider>
+        <PrivateRoute publicroutes = {NonPrivateRoutes}>
+          <Component {...pageProps} />
+        </PrivateRoute>
+      </AuthProvider>
+    </>
+
   )
 }

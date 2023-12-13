@@ -6,21 +6,18 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import {useState} from 'react'
 import {useAuth} from './contexts/AuthProvider.js'
-import { requireAuthentication } from '../utils/utils.js';
 import { useRouter } from 'next/router';
+
 
 export default function Home() {
   const { user, isAuthenticated , saveUser, clearUser } = useAuth();
   
+  console.log("user",user)
+  console.log("is Auth",isAuthenticated)
 
   // If not authenticated, the utility function would have handled the redirection
-  if (!isAuthenticated) {
-    if (typeof window !== 'undefined') {
-      window.location.replace('/');
-    }
-    return null; // You can also render a loading indicator or a login prompt
-  }
-
+// If not authenticated, the utility function would have handled the redirection
+  
   // Page logic for an authenticated user
 
   return (
