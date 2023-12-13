@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import {useAuth} from '../pages/contexts/AuthProvider.js'
 //import FullPageLoader from './FullPageLoader';
  
-export default function privateRoute({ publicroutes, children }) {
+export default function PrivateRoute({ publicroutes, children }) {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuth();
-  console.log("sdfsdfsd")
+  const { isAuthenticated, isLoading, clearUser } = useAuth();
+
+  console.log("Logged in? ", isAuthenticated)
   // if url is not in public routes, then it is protected
   const pathIsProtected = !publicroutes.includes(router.pathname);
  
@@ -14,6 +15,8 @@ export default function privateRoute({ publicroutes, children }) {
   useEffect(() => {
     if (!isLoading && !isAuthenticated && pathIsProtected) {
       // Redirect route, you can point this to /login
+      console.log("redirecting out")
+      clearUser()
       router.push('/');
     }
   }, [isLoading, isAuthenticated, pathIsProtected]);

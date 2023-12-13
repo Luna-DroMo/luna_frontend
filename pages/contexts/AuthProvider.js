@@ -10,10 +10,10 @@ const AuthContext = createContext()
 // Define an authentication provider component to wrap around your application
 export const AuthProvider = ({ children }) => {
   // State to track user information
-  const [user, setUser] = useState(null)
-
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // State to track authentication status
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   //const [isLoading, setIsLoading] = useState(true);
 
   // Access Next.js router for navigation
@@ -33,10 +33,8 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false)
       
       // Note: Uncommenting the line below can cause an infinite loop
-      //router.push('/'); // Redirect to landing page if not authenticated
-      
-      
     }
+    setIsLoading(false);
   }, [router])
 
   // Function to save user data and set authentication status to true
@@ -57,7 +55,8 @@ export const AuthProvider = ({ children }) => {
     user,
     isAuthenticated,
     saveUser,
-    clearUser
+    clearUser,
+    isLoading
   }
 
   // Provide the authentication context value to the children components
