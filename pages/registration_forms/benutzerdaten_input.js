@@ -6,17 +6,20 @@ import { FormButton } from '@/components/Buttons';
 import { FormInput, InputRow } from '@/components/FormElements';
 import { Progressbar } from '@/components/InputProgressTracker';
 import React from 'react';
+import { useAuth } from '../contexts/AuthProvider';
 
 
 
 export default function Main({ model }) {
-
+    const { user, isAuthenticated , saveUser, clearUser } = useAuth();
     // NEED API TO RETURN A LIST [] OF OBJECTs {} OF THIS FORM. NEED THE CURRENT AND THE 2 NEAREST FORM NAMES AND STATUSES
 
     let forms1 = [{ "name": "Benutzerdaten", "status": 1, "item": 1 },
     { "name": "AIST", "status": 0, "item": 2 },
     { "name": "Kognitive Fähigkeiten", "status": 0, "item": 3 }];
 
+    console.log("User", user);
+    console.log("UserPK", user.id);
 
     model = { "name": "Benutzerdaten" };
 
@@ -26,6 +29,7 @@ export default function Main({ model }) {
             <div className="input_progbar">
                 <Progressbar forms={forms1} current_form={model.name} />
             </div>
+            
             <div className="input_mainbody">
 
 

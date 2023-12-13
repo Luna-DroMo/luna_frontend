@@ -16,14 +16,13 @@ function LoginForm() {
         'http://localhost:8000/login',
         {email, password}
       )
-      
-
-      localStorage.setItem('token',response.data.token);
-      console.log(response.data.user)
-      saveUser(response.data.user);
+      console.log("logged in")
+      console.log(response.data)
+      saveUser(response.data.user, response.data.token);
       // Assuming the token is set in a secure, HttpOnly cookie by the server.
 
       // Redirect using Next.js Router
+      console.log("redirecting")
       router.push('/cockpit')
     } catch (error) {
       console.log("error during login")

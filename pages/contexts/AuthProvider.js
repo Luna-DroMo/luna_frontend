@@ -21,33 +21,37 @@ export const AuthProvider = ({ children }) => {
 
   // Effect to check for authentication status on component mount
   useEffect(() => {
-    // Check if a token is stored in localStorage
-    const token = localStorage.getItem('token')
+    // Check for stored user data and token in localStorage
+    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
 
-    if (token) {
-      // Set authentication status to true if a token exists
-      setIsAuthenticated(true)
-      //setIsLoading(false)
-    } else {
-      // If no token exists, set authentication status to false
-      setIsAuthenticated(false)
-      
-      // Note: Uncommenting the line below can cause an infinite loop
+    if (storedUser && storedToken) {
+      setUser(JSON.parse(storedUser));
+      setIsAuthenticated(true);
     }
+
     setIsLoading(false);
   }, [router])
 
   // Function to save user data and set authentication status to true
-  const saveUser = (userData) => {
+  const saveUser = (userData, token) => {
+
     setUser(userData)
     setIsAuthenticated(true)
+    
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', token);
+
   }
 
   // Function to clear user data and set authentication status to false
   const clearUser = () => {
-    setUser(null)
-    setIsAuthenticated(false)
-    localStorage.removeItem("token") // Also clear the token from localStorage
+    setUser(null);
+    setIsAuthenticated(false);
+
+    // Remove user data and token from localStorage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   // Create an object with authentication-related data and functions
