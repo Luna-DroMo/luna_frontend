@@ -67,6 +67,7 @@ html {
   left: 16rem;
   color: black;
   padding-bottom: 2rem;
+  min-width: 800px;
 }
 
 .input_mainbody {

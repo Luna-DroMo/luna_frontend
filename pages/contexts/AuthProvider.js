@@ -1,37 +1,58 @@
+// Import necessary dependencies from React and Next.js
 import React, { createContext, useContext, useState, useEffect } from "react"
-import {useRouter} from "next/router"
+import { useRouter } from "next/router"
 
+// Create a context for authentication-related data and functions
 const AuthContext = createContext()
 
-export const AuthProvider = ({children}) => {
+
+
+// Define an authentication provider component to wrap around your application
+export const AuthProvider = ({ children }) => {
+  // State to track user information
   const [user, setUser] = useState(null)
+
+  // State to track authentication status
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const router = useRouter();
+  //const [isLoading, setIsLoading] = useState(true);
 
+  // Access Next.js router for navigation
+  const router = useRouter()
+
+  // Effect to check for authentication status on component mount
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      console.log("here")
-      // This is causing an infinite loop
-      //router.push('/'); // Redirect to landing page if not authenticated
-    }
-  }, [router]);
+    // Check if a token is stored in localStorage
+    const token = localStorage.getItem('token')
 
+    if (token) {
+      // Set authentication status to true if a token exists
+      setIsAuthenticated(true)
+      //setIsLoading(false)
+    } else {
+      // If no token exists, set authentication status to false
+      setIsAuthenticated(false)
+      
+      // Note: Uncommenting the line below can cause an infinite loop
+      //router.push('/'); // Redirect to landing page if not authenticated
+      
+      
+    }
+  }, [router])
+
+  // Function to save user data and set authentication status to true
   const saveUser = (userData) => {
     setUser(userData)
     setIsAuthenticated(true)
   }
 
+  // Function to clear user data and set authentication status to false
   const clearUser = () => {
     setUser(null)
     setIsAuthenticated(false)
     localStorage.removeItem("token") // Also clear the token from localStorage
-
   }
 
+  // Create an object with authentication-related data and functions
   const authContextValue = {
     user,
     isAuthenticated,
@@ -39,6 +60,7 @@ export const AuthProvider = ({children}) => {
     clearUser
   }
 
+  // Provide the authentication context value to the children components
   return (
     <AuthContext.Provider value={authContextValue}>
       {children}
@@ -46,4 +68,5 @@ export const AuthProvider = ({children}) => {
   )
 }
 
+// Custom hook to easily access the authentication context
 export const useAuth = () => useContext(AuthContext)

@@ -67,7 +67,7 @@ function SignUpForm() {
         />
       </div>
       <div className="text-center">
-      <a href="/welcome" className="block text-left text-white px-6 mb-10 hover:underline">Bereits ein Konto? </a>
+      <a href="/" className="block text-left text-white px-6 mb-10 hover:underline">Bereits ein Konto? </a>
         <button type="submit" className="text-black bg-white px-12 py-2 rounded-full hover:text-lunapurple">
           Registrieren
         </button>
