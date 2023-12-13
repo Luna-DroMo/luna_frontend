@@ -15,13 +15,11 @@ export default function privateRoute({ publicroutes, children }) {
     if (!isLoading && !isAuthenticated && pathIsProtected) {
       // Redirect route, you can point this to /login
       router.push('/');
-      console.log("hereree")
     }
   }, [isLoading, isAuthenticated, pathIsProtected]);
  
   if ((isLoading || !isAuthenticated) && pathIsProtected) {
-    //return <FullPageLoader />;
-    console.log("loading")
+    //return <FullPageLoader />;  THIS CAN BE USED TO SHOW A LOADING SCREEN
     return (<h1>loading...</h1>)
   }
  

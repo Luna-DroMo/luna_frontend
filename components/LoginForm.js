@@ -9,7 +9,7 @@ function LoginForm() {
   const {saveUser, setError} = useAuth()
   const router = useRouter()
 
-  const handleSignUp = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
     try {
       const response = await axios.post(
@@ -32,7 +32,7 @@ function LoginForm() {
 
   return (
     <form
-      onSubmit={handleSignUp}
+      onSubmit={handleLogin}
       className='mx-auto mt-16 p-4 w-1/2 borderrounded'
     >
       <div className='mb-10'>
