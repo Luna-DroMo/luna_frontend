@@ -18,10 +18,6 @@ export default function Main() {
                 <p className='mb-10'>Well Done</p>
                 <p>By Submitting here, the Inputs become unchangable.</p>
     
-                
-      
-
-
                 <div className="flex justify-evenly w-3/5 mt-24">
                 <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview"/>
                 <FormButton text="Submit" highlighted="true" formAction="../cockpit"/>

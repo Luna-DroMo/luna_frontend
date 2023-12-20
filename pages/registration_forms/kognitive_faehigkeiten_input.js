@@ -63,8 +63,8 @@ export default function Main({ model }) {
                 <InputRow type="number" maintext="IQ Score" subtitle="Subtitle" value = {IQ} onChange={(e) => setIQ(e.target.value)}/>
                 
                 <div className="flex justify-evenly w-3/5 mt-24">
-                <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview"/>
-                <FormButton text="Überspringen" formAction="./IntExt_input"/>
+                <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button"/>
+                <FormButton text="Überspringen" formAction="./IntExt_input" type="button"/>
                 <FormButton text="Weiter" highlighted="true"/>
                 </div>
                 </form>

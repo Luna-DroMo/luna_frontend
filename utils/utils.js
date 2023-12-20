@@ -8,3 +8,8 @@ export function checkAuthBeforeRender(isAuthenticated) {
         return null; // You can also render a loading indicator or a login prompt
     }
 }
+
+
+export function hasNullValue(obj) {
+    return Object.values(obj).some(value => value === null);
+  }
