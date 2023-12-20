@@ -81,6 +81,7 @@ html {
   left: 16rem;
   color: black;
   padding-bottom: 2rem;
+  min-width: 800px;
 }
 
 .input_progbar {
@@ -88,7 +89,7 @@ html {
   height: 3rem;
   position: relative;
   left: 16rem;
-
+  min-width: 800px;
 }
 
 aside li a {
