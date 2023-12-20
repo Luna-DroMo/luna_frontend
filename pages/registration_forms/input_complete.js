@@ -24,7 +24,7 @@ export default function Main() {
 
                 <div className="flex justify-evenly w-3/5 mt-24">
                 <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview"/>
-                <FormButton text="Submit" highlighted="true" formAction="../"/>
+                <FormButton text="Submit" highlighted="true" formAction="../cockpit"/>
                 </div>
                 </form>
             </main>

@@ -6,10 +6,45 @@ import {FormButton} from '@/components/Buttons';
 import { FormInput, InputRow } from '@/components/FormElements';
 import { Progressbar } from '@/components/InputProgressTracker';
 import React from 'react';
-
+import { useAuth } from '../contexts/AuthProvider';
+import { useState } from 'react';
+import axios from 'axios';
+import Router, { useRouter } from 'next/router';
 
 
 export default function Main({ model }) {
+    const { user, isAuthenticated , saveUser, clearUser } = useAuth();
+    const router = useRouter();
+
+    // Data points
+    const [INT, setINT] = useState('') 
+    const [EXT, setEXT] = useState('') 
+    
+    let data = {
+        name: "INTEXT",
+        user: user.id,
+        content: {
+            INT:INT,
+            EXT:EXT
+        }
+    }
+
+    const handleUserDataUpdate = async (e) => {
+        e.preventDefault()
+        console.log("Writing:", data)
+        try {
+          const response = await axios.post(
+            `http://localhost:8000/api/student/save_form/${user.id}`,
+            data
+          )
+          
+        router.push("./maths_input")
+        } catch (error) {
+          console.log("error", error)
+        }
+      }
+
+
     let forms1 = [
         { "name": "Kognitive Fähigkeiten", "status": 2, "item": 3 },
         { "name": "Internale-Externale Kontrollüberzeugung", "status": 1, "item": 4 },
@@ -25,11 +60,11 @@ export default function Main({ model }) {
             </div>
             <div className="input_mainbody">
             <main className="flex-row justify-between px-10 pt-10">
-                <form action=""> 
+                <form onSubmit={handleUserDataUpdate}> 
                 <h1 className='tracking-wider text-xl'>{model.name}</h1>
                 <p className='mb-10'>This section covers stuff about the Internal and External Control questionnaire</p>
-                <InputRow type="number" maintext="Internale Kontrolle Score" subtitle="Subtitle" />
-                <InputRow type="number" maintext="Externale Kontrolle Score" subtitle="Subtitle" />
+                <InputRow type="number" maintext="Internale Kontrolle Score" subtitle="Subtitle" value={INT} onChange={(e) => setINT(e.target.value)}/>
+                <InputRow type="number" maintext="Externale Kontrolle Score" subtitle="Subtitle" value={EXT} onChange={(e) => setEXT(e.target.value)}/>
       
 
 
