@@ -1,3 +1,7 @@
+import { SignupReminderBanner } from "@/components/Banners";
+
+
+
 export function checkAuthBeforeRender(isAuthenticated) {
     // If not authenticated, the utility function would have handled the redirection
     if (!isAuthenticated) {
@@ -13,3 +17,4 @@ export function checkAuthBeforeRender(isAuthenticated) {
 export function hasNullValue(obj) {
     return Object.values(obj).some(value => value === null);
   }
+
