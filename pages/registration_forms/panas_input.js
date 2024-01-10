@@ -12,7 +12,6 @@ import axios from 'axios';
 import Router, { useRouter } from 'next/router';
 import { hasNullValue } from '@/utils/utils';
 
-
 export default function Main({ model }) {
     const { user, isAuthenticated, saveUser, clearUser } = useAuth();
     const router = useRouter();

@@ -53,9 +53,10 @@ export default function Main({ model }) {
         }
       }
 
-    let forms1 = [{ "name": "Benutzerdaten", "status": 2, "item": 1 },
-    { "name": "AIST", "status": 1, "item": 2 },
-    { "name": "Kognitive Fähigkeiten", "status": 0, "item": 3 }];
+    let forms1 = [
+    { "name": "AIST", "status": 1, "item": 1 },
+    { "name": "Kognitive Fähigkeiten", "status": 0, "item": 2 },
+    { "name": "Internale-Externale Kontrollüberzeugung", "status": 0, "item": 3 }];
 
     model = { "name": "Allgemeiner Interessen Struktur-Test" };
 

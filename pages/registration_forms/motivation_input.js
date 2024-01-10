@@ -53,9 +53,9 @@ export default function motivation_input({ model }) {
       
     let forms1 = [
 
-        { "name": "Fachwissen Mathematik", "status": 2, "item": 5 },
-        { "name": "Motivation", "status": 1, "item": 6 },
-        { "name": "Persönlichkeitsskala", "status": 0, "item": 7 },
+        { "name": "Fachwissen Mathematik", "status": 2, "item": 4 },
+        { "name": "Motivation", "status": 1, "item": 5 },
+        { "name": "Persönlichkeitsskala", "status": 0, "item": 6 },
     ];
 
     model = { "name": "Motivation" };

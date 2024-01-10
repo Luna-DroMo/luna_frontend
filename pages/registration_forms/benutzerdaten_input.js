@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import InputLayout from '@/components/InputLayout.js';
+import RootLayout from '@/components/RootLayout';
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FormButton } from '@/components/Buttons';
@@ -54,19 +54,21 @@ export default function Main({ model }) {
             data
           )
           
-        router.push("./AIST_input")
+        router.push("../account_setup_overview")
         } catch (error) {
           console.log("error", error)
         }
       }
 
     return (
-        <InputLayout show_main_links={false} >
+        <RootLayout show_main_links={false} >
+            {
+            /*
             <div className="input_progbar">
                 <Progressbar forms={forms1} current_form={model.name} />
             </div>
-            
-            <div className="input_mainbody">
+            */}
+
 
 
                 <main className="flex-row justify-between px-10 pt-10">
@@ -82,14 +84,13 @@ export default function Main({ model }) {
                         <InputRow type="radio" maintext="Hauptsprache im Elternhaus" subtitle="Welche Sprache wird hauptsächlich zuhause gesprochen?" options={{"Deutsch":"DE", "Englisch":"EN", "Sonstige Sprache":"OTHER"}} value = {language} onChange={(e) => setLanguage(e.target.value)}/>
                         <InputRow type="radio" maintext="Finanzielle Unterstützung" subtitle="Bekommst du aktuell finanzielle Unterstützung von deinen Eltern?" options={{"Ja":1, "Nein":0}} value = {finsupport} onChange={(e) => setFinsupport(e.target.value)} />
 
-                        <div className="flex justify-evenly w-3/5 mt-24">
-                            <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button"/>
-                            <FormButton text="Überspringen" formAction="./AIST_input" type="button"/>
-                            <FormButton text="Weiter" highlighted="true"/>
+                        <div className="flex mt-24">
+                            
+                            <FormButton text="Registieren" highlighted="true"/>
                         </div>
                     </form>
                 </main>
-            </div>
-        </InputLayout>
+            
+        </RootLayout>
     )
 }

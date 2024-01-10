@@ -46,9 +46,9 @@ export default function Main({ model }) {
 
 
     let forms1 = [
-        { "name": "Kognitive Fähigkeiten", "status": 2, "item": 3 },
-        { "name": "Internale-Externale Kontrollüberzeugung", "status": 1, "item": 4 },
-        { "name": "Fachwissen Mathematik", "status": 0, "item": 5 },
+        { "name": "Kognitive Fähigkeiten", "status": 2, "item": 2 },
+        { "name": "Internale-Externale Kontrollüberzeugung", "status": 1, "item": 3 },
+        { "name": "Fachwissen Mathematik", "status": 0, "item": 4 },
     ];
 
     model = { "name": "Internale-Externale-Kontrollüberzeugung" };

@@ -44,9 +44,9 @@ export default function Main({ model }) {
 
 
     let forms1 = [
-    { "name": "AIST", "status": 2, "item": 2 },
-    { "name": "Kognitive Fähigkeiten", "status": 1, "item": 3 },
-    { "name": "Internale-Externale Kontrollüberzeugung", "status": 0, "item": 4 }];
+    { "name": "AIST", "status": 2, "item": 1 },
+    { "name": "Kognitive Fähigkeiten", "status": 1, "item": 2 },
+    { "name": "Internale-Externale Kontrollüberzeugung", "status": 0, "item": 3 }];
 
     model = { "name": "Kognitive Fähigkeiten (IQ)" };
 

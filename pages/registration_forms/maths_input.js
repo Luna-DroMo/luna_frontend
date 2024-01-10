@@ -45,9 +45,9 @@ export default function Main({ model }) {
 
     let forms1 = [
         
-        { "name": "Internale-Externale Kontrollüberzeugung", "status": 2, "item": 4 },
-        { "name": "Fachwissen Mathematik", "status": 1, "item": 5 },
-        { "name": "Motivation", "status": 0, "item": 6 },
+        { "name": "Internale-Externale Kontrollüberzeugung", "status": 2, "item": 3 },
+        { "name": "Fachwissen Mathematik", "status": 1, "item": 4 },
+        { "name": "Motivation", "status": 0, "item": 5 },
     ];
 
     model = { "name": "Maths Skills" };

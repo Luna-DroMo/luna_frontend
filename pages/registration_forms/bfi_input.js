@@ -53,9 +53,9 @@ export default function Main({ model }) {
       
     let forms1 = [
         
-        { "name": "Motivation", "status": 2, "item": 6 },
-        { "name": "Persönlichkeitsskala", "status": 1, "item": 7 },
-        { "name": "Postive-Negative", "status": 0, "item": 8 },
+        { "name": "Motivation", "status": 2, "item": 5 },
+        { "name": "Persönlichkeitsskala", "status": 1, "item": 6 },
+        { "name": "Postive-Negative", "status": 0, "item": 7 },
     ];
 
     model = { "name": "Persönlichkeit" };
