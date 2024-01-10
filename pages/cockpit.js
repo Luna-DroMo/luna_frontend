@@ -26,7 +26,7 @@ export default function Home() {
         <div className='flex items-center'>
           <img src='alien.png' className='ml-2 w-10 mr-4' />
           <h1 className='tracking-wider text-xl'>
-            Hey , willkommen bei Luna!
+            Hey {user.first_name}, willkommen bei Luna!
           </h1>
         </div>
 
