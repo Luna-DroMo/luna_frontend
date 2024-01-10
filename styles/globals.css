@@ -40,6 +40,7 @@ p{
 
 }
 
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -49,7 +50,7 @@ p{
     --body-background-rgb: 255, 255, 255, 0.9;
   }
 }
-
+*/
 
 html {
   font-family: 'Inria Sans', sans-serif;
