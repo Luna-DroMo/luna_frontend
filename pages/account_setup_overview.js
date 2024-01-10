@@ -32,7 +32,7 @@ export default function Main() {
                 <Greeting account_setup_progress={account_setup_progress} />
                 <div className=' my-10  w-full text-center'>
                     <h1 className='mb-5 text-2xl'>Prozess jetzt starten!</h1>
-                    <Button text="Loslegen!" highlighted={true} href="./registration_forms/benutzerdaten_input/"></Button>
+                    <Button text="Loslegen!" highlighted={true} href="./registration_forms/AIST_input/"></Button>
 
                     <a href="/" className='text-xs text-lightgrey mt-5 block hover:underline'><p>Ich habe gerade keine Zeit</p></a>
                 </div>

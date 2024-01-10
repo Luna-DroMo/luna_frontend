@@ -41,7 +41,7 @@ function SignUpForm() {
       // Assuming the token is set in a secure, HttpOnly cookie by the server.
 
       // Redirect using Next.js Router
-      router.push('/account_setup_overview')
+      router.push('/registration_forms/benutzerdaten_input/')
 
     } catch (error) {
       console.log("error during login", error)
