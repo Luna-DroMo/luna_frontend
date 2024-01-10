@@ -7,7 +7,7 @@ import {faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import {useState} from 'react'
 import {useAuth} from './contexts/AuthProvider.js'
 import { useRouter } from 'next/router';
-
+import { SignupReminderBanner } from '@/components/Banners.js'
 
 export default function Home() {
   const { user, isAuthenticated , saveUser, clearUser } = useAuth();
@@ -23,6 +23,7 @@ export default function Home() {
   return (
     <RootLayout show_billboard={true}>
       <main className='flex-row justify-between px-10 pt-10'>
+        <SignupReminderBanner/>
         <div className='flex items-center'>
           <img src='alien.png' className='ml-2 w-10 mr-4' />
           <h1 className='tracking-wider text-xl'>
