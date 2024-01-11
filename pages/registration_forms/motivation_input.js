@@ -10,47 +10,55 @@ import { useAuth } from '../contexts/AuthProvider';
 import { useState } from 'react';
 import axios from 'axios';
 import Router, { useRouter } from 'next/router';
-
+import { ErrorBanner } from '@/components/Errors';
+import { hasNullValue } from '@/utils/utils';
 
 export default function motivation_input({ model }) {
-    const { user, isAuthenticated , saveUser, clearUser } = useAuth();
+    const { user, isAuthenticated, saveUser, clearUser } = useAuth();
     const router = useRouter();
 
     // Data points
-    const [AV, setAV] = useState('') 
-    const [IV, setIV] = useState('') 
-    const [SE, setSE] = useState('') 
-    const [UV, setUV] = useState('') 
-    const [CO, setCO] = useState('') 
+    const [AV, setAV] = useState('')
+    const [IV, setIV] = useState('')
+    const [SE, setSE] = useState('')
+    const [UV, setUV] = useState('')
+    const [CO, setCO] = useState('')
+    const [error_message, setErrorMessage] = useState('')
 
-    
+
     let data = {
         name: "Motivation",
         user: user.id,
         content: {
-            AV:AV,
-            IV:IV,
-            SE:SE,
-            UV:UV,
-            CO:CO
+            AV: AV,
+            IV: IV,
+            SE: SE,
+            UV: UV,
+            CO: CO
         }
     }
 
     const handleUserDataUpdate = async (e) => {
         e.preventDefault()
         console.log("Writing:", data)
-        try {
-          const response = await axios.post(
-            `http://localhost:8000/api/student/save_form/${user.id}`,
-            data
-          )
-          
-        router.push("./bfi_input")
-        } catch (error) {
-          console.log("error", error)
+
+        if (hasNullValue(data.content)) {
+            setErrorMessage("Missing values")
+        } else {
+            try {
+                const response = await axios.post(
+                    `http://localhost:8000/api/student/save_form/${user.id}`,
+                    data
+                )
+
+                router.push("./bfi_input")
+            } catch (error) {
+                console.log("error", error)
+                setErrorMessage(error.message)
+            }
         }
-      }
-      
+    }
+
     let forms1 = [
 
         { "name": "Fachwissen Mathematik", "status": 2, "item": 4 },
@@ -70,18 +78,20 @@ export default function motivation_input({ model }) {
                     <form onSubmit={handleUserDataUpdate}>
                         <h1 className='tracking-wider text-xl'>{model.name}</h1>
                         <p className='mb-10'>This section covers stuff about the Motivation questionnaire</p>
-                        <InputRow type="number" maintext="AV" subtitle="Subtitle" value={AV} onChange={(e) => setAV(e.target.value)}/>
-                        <InputRow type="number" maintext="IV" subtitle="Subtitle" value={IV} onChange={(e) => setIV(e.target.value)}/>
-                        <InputRow type="number" maintext="SE" subtitle="Subtitle" value={SE} onChange={(e) => setSE(e.target.value)}/>
-                        <InputRow type="number" maintext="UV" subtitle="Subtitle" value={UV} onChange={(e) => setUV(e.target.value)}/>
-                        <InputRow type="number" maintext="CO" subtitle="Subtitle" value={CO} onChange={(e) => setCO(e.target.value)}/>
-
+                        <InputRow type="number" maintext="AV" subtitle="Subtitle" value={AV} onChange={(e) => setAV(e.target.value)} />
+                        <InputRow type="number" maintext="IV" subtitle="Subtitle" value={IV} onChange={(e) => setIV(e.target.value)} />
+                        <InputRow type="number" maintext="SE" subtitle="Subtitle" value={SE} onChange={(e) => setSE(e.target.value)} />
+                        <InputRow type="number" maintext="UV" subtitle="Subtitle" value={UV} onChange={(e) => setUV(e.target.value)} />
+                        <InputRow type="number" maintext="CO" subtitle="Subtitle" value={CO} onChange={(e) => setCO(e.target.value)} />
+                        { /* Error block */
+                            error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
+                        }
 
 
 
                         <div className="flex justify-evenly w-3/5 mt-24">
-                            <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button"/>
-                            <FormButton text="Überspringen" formAction="./bfi_input" type="button"/>
+                            <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button" />
+                            <FormButton text="Überspringen" formAction="./bfi_input" type="button" />
                             <FormButton text="Weiter" highlighted="true" />
                         </div>
                     </form>
