@@ -10,7 +10,8 @@ import { useAuth } from '../contexts/AuthProvider';
 import { useState } from 'react';
 import axios from 'axios';
 import Router, { useRouter } from 'next/router';
-
+import { ErrorBanner } from '@/components/Errors';
+import { hasNullValue } from '@/utils/utils';
 
 export default function Main({ model }) {
     const { user, isAuthenticated , saveUser, clearUser } = useAuth();
@@ -22,7 +23,7 @@ export default function Main({ model }) {
     const [GE, setGE] = useState('') 
     const [NE, setNE] = useState('') 
     const [OF, setOF] = useState('') 
-
+    const [error_message, setErrorMessage] = useState('')
     
     let data = {
         name: "BFI",
@@ -39,17 +40,23 @@ export default function Main({ model }) {
     const handleUserDataUpdate = async (e) => {
         e.preventDefault()
         console.log("Writing:", data)
-        try {
-          const response = await axios.post(
-            `http://localhost:8000/api/student/save_form/${user.id}`,
-            data
-          )
-          
-        router.push("./panas_input")
-        } catch (error) {
-          console.log("error", error)
+
+        if (hasNullValue(data.content)) {
+            setErrorMessage("Missing values")
+        } else {
+            try {
+                const response = await axios.post(
+                    `http://localhost:8000/api/student/save_form/${user.id}`,
+                    data
+                )
+
+                router.push("./panas_input")
+            } catch (error) {
+                console.log("error", error)
+                setErrorMessage(error.message)
+            }
         }
-      }
+    }
       
     let forms1 = [
         
@@ -76,7 +83,9 @@ export default function Main({ model }) {
                         <InputRow type="number" maintext="BFI_ge" subtitle="Subtitle" value={GE} onChange={(e) => setGE(e.target.value)}/>
                         <InputRow type="number" maintext="BFI_ne" subtitle="Subtitle" value={NE} onChange={(e) => setNE(e.target.value)}/>
                         <InputRow type="number" maintext="BFI_of" subtitle="Subtitle" value={OF} onChange={(e) => setOF(e.target.value)}/>
-
+                        { /* Error block */
+                            error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
+                        }
                         <div className="flex justify-evenly w-3/5 mt-24">
                             <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button"/>
                             <FormButton text="Überspringen" formAction="./panas_input" type="button"/>

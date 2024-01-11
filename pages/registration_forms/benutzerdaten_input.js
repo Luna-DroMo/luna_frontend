@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthProvider';
 import { useState } from 'react';
 import axios from 'axios';
 import Router, { useRouter } from 'next/router';
-
+import { ErrorBanner } from '@/components/Errors';
 
 
 export default function Main({ model }) {
@@ -32,7 +32,7 @@ export default function Main({ model }) {
     const [hsgrade, setHsgrade] = useState('') // Abitur Note
     const [language, setLanguage] = useState('') // language
     const [finsupport, setFinsupport] = useState('') // financial support
-
+    const [error_message, setErrorMessage] = useState('')
 
     let data = {
         first_name: firstname,
@@ -57,6 +57,7 @@ export default function Main({ model }) {
         router.push("../account_setup_overview")
         } catch (error) {
           console.log("error", error)
+          setErrorMessage(error.message)
         }
       }
 
@@ -83,7 +84,9 @@ export default function Main({ model }) {
                         <InputRow type="number" maintext="Abiturnote" subtitle=" " value = {hsgrade} onChange={(e) => setHsgrade(e.target.value)}/>
                         <InputRow type="radio" maintext="Hauptsprache im Elternhaus" subtitle="Welche Sprache wird hauptsächlich zuhause gesprochen?" options={{"Deutsch":"DE", "Englisch":"EN", "Sonstige Sprache":"OTHER"}} value = {language} onChange={(e) => setLanguage(e.target.value)}/>
                         <InputRow type="radio" maintext="Finanzielle Unterstützung" subtitle="Bekommst du aktuell finanzielle Unterstützung von deinen Eltern?" options={{"Ja":1, "Nein":0}} value = {finsupport} onChange={(e) => setFinsupport(e.target.value)} />
-
+                        { /* Error block */
+                            error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
+                        }
                         <div className="flex mt-24">
                             
                             <FormButton text="Registieren" highlighted="true"/>

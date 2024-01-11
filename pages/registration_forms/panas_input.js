@@ -11,6 +11,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Router, { useRouter } from 'next/router';
 import { hasNullValue } from '@/utils/utils';
+import { ErrorBanner } from '@/components/Errors';
 
 export default function Main({ model }) {
     const { user, isAuthenticated, saveUser, clearUser } = useAuth();
@@ -19,6 +20,7 @@ export default function Main({ model }) {
     // Data points
     const [PA, setPA] = useState(null)
     const [NA, setNA] = useState(null)
+    const [error_message, setErrorMessage] = useState('')
 
 
     let data = {
@@ -35,7 +37,7 @@ export default function Main({ model }) {
         console.log("Writing:", data)
 
         if (hasNullValue(data.content)) {
-            router.push("./input_complete")
+            setErrorMessage("Missing values")
         } else {
             try {
                 const response = await axios.post(
@@ -46,6 +48,7 @@ export default function Main({ model }) {
                 router.push("./input_complete")
             } catch (error) {
                 console.log("error", error)
+                setErrorMessage(error.message)
             }
         }
     }
@@ -70,7 +73,9 @@ export default function Main({ model }) {
                         <p className='mb-10'>This section covers stuff about PANAS questionnaire</p>
                         <InputRow type="number" maintext="PA" subtitle="Subtitle" value={PA} onChange={(e) => setPA(e.target.value)} />
                         <InputRow type="number" maintext="NA" subtitle="Subtitle" value={NA} onChange={(e) => setNA(e.target.value)} />
-
+                        { /* Error block */
+                            error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
+                        }
                         <div className="flex justify-evenly w-3/5 mt-24">
                             <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" />
                             <FormButton text="Überspringen" formAction="./input_complete" />
