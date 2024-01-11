@@ -1,10 +1,11 @@
 import { stringifyError } from "next/dist/shared/lib/utils";
 
 export function ErrorBanner(error) {
-        console.log(error)
-        return (
-            <div className="w-full rounded-xl bg-[#e6bf4e] mb-7 p-2 border-[#dec068] z-1">
-                <p>{error.children}</p>
-            </div>
-        )
+
+    return (
+        <div className="w-full flex rounded-xl bg-[#FFF0CB] mt-7 p-2 border-[#FFF0CB] z-1">
+            <img src="/warning.svg" className="inline-block w-6 mr-4" />
+            <p className="left mt-1">{error.children}</p>
+        </div>
+    )
 }
