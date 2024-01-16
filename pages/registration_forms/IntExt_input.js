@@ -79,8 +79,8 @@ export default function Main({ model }) {
 
 
                         <div className="flex justify-evenly w-3/5 mt-24">
-                            <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button" />
-                            <FormButton text="Überspringen" formAction="./maths_input" type="button" />
+                            <FormButton text="Zurück zur Übersicht" onClick={(e) => router.push("../account_setup_overview")} type="reset" />
+                            <FormButton text="Überspringen" onClick={(e) => router.push("./maths_input")} type="reset" />
                             <FormButton text="Weiter" highlighted="true" formAction="./maths_input" />
                         </div>
                     </form>
