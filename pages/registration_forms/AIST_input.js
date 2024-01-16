@@ -63,6 +63,7 @@ export default function Main({ model }) {
         }
     }
 
+
     let forms1 = [
         { "name": "AIST", "status": 1, "item": 1 },
         { "name": "Kognitive Fähigkeiten", "status": 0, "item": 2 },
@@ -90,9 +91,9 @@ export default function Main({ model }) {
                             error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
                         }
                         <div className="flex justify-evenly w-3/5 mt-24">
-                            <FormButton text="Zurück zur Übersicht" formAction="../account_setup_overview" type="button" />
-                            <FormButton text="Überspringen" formAction="./kognitive_faehigkeiten_input" type="button" />
-                            <FormButton text="Weiter" highlighted="true" />
+                            <FormButton text="Zurück zur Übersicht" onClick={(e) => router.push("../account_setup_overview")} type="reset" />
+                            <FormButton text="Überspringen" onClick={(e) => router.push("./kognitive_faehigkeiten_input")} type="reset" />
+                            <FormButton text="Weiter"  highlighted="true" />
                         </div>
                     </form>
 
