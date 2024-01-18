@@ -55,7 +55,7 @@ export default function Main({ model }) {
                     data
                 )
 
-                router.push("./kognitive_faehigkeiten")
+                router.push("./kognitive_faehigkeiten_input")
             } catch (error) {
                 console.log("error", error)
                 setErrorMessage(error.message)
