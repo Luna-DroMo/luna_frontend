@@ -6,6 +6,7 @@ import React from 'react';
 import { useState } from 'react'
 import { hasNullValue } from '@/utils/utils';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 
 
@@ -19,6 +20,7 @@ export default function Main() {
     const [endDate, setEndDate] = useState("")
     const [error_message, setErrorMessage] = useState('')
 
+    const router = useRouter();
 
     const data = {
         module_id: moduleID,
@@ -42,8 +44,10 @@ export default function Main() {
                         `http://localhost:8000/api/createModule`,
                         data
                     )
-
-                    router.push("./cockpit")
+                    
+                    console.log(data)
+                    router.push({pathname:"./moduleCreationSuccess/",query:{module: JSON.stringify(data)}},
+                    "./moduleCreationSuccess/")
                 } catch (error) {
                     console.log("error", error)
                     setErrorMessage(error.message)
@@ -96,8 +100,8 @@ export default function Main() {
                     <div className='h-8'></div>
                     <InputRow type="checkbox" options={["Privat"]} maintext="Modul als Privat markieren" subtitle="Private Module werden nicht in der Suche nach Modulen erscheinen. Ein Passwort wird weiterhin benötigt." />
                     <div className="flex justify-evenly w-3/5 mt-24">
-                        <FormButton text="Abbrechen" formAction="/" />
-                        <FormButton text="Modul Erstellen" highlighted="true" formAction="/" type='submit' />
+                        <FormButton text="Abbrechen" />
+                        <FormButton text="Modul Erstellen" highlighted="true" type='submit' />
                     </div>
                 </form>
             </main>
