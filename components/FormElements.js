@@ -66,7 +66,7 @@ export function FormInput({ placeholder, readOnly, type, options, name, value, o
         )
     } else if (type === "date") {
         return (
-            <input readOnly={readOnly} className="h-8 border border-text-grey rounded-lg px-5 text-center" type={type} name={name} value={value} onChange={onChange} />
+            <input readOnly={readOnly} className={`h-8 border border-text-grey rounded-lg px-5 text-center ${readOnly ? "bg-[#eeeeee] text-text-grey" : "bg-white"}`} type={type} name={name} value={value} onChange={onChange} />
         )
     } else if (type === "likert") {
         <div>
@@ -91,7 +91,7 @@ export function FormInput({ placeholder, readOnly, type, options, name, value, o
         )
     } else {
         return (
-            <input readOnly={readOnly} className="h-8 border border-text-grey rounded-lg w-96 text-center" type={type} name={name} value={value} onChange={onChange} />
+            <input readOnly={readOnly} className= {` h-8 border border-text-grey rounded-lg w-96 text-center ${readOnly ? "bg-[#eeeeee] text-text-grey" : "bg-white"}`} type={type} name={name} value={value} onChange={onChange} />
         )
     }
 }
