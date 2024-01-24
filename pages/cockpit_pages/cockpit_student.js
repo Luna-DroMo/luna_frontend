@@ -11,18 +11,12 @@ import { SignupReminderBanner } from '@/components/Banners.js'
 import axios from 'axios'
 import { useEffect } from 'react'
 
-export default function cockpit_student() {
+export default function Cockpit_student() {
    
   const router = useRouter();
-  // Will need to pull this from database I think for authentication purposes. 
-  // Users must not be allowed to locally change their role.
   const { user, isAuthenticated, saveUser, clearUser } = useAuth();
   
-  // If not authenticated, the utility function would have handled the redirection
-
-  // Page logic for an authenticated user
-
-  
+    
     return (
       <RootLayout show_billboard={true}>
         <main className='flex-row justify-between px-10 pt-10'>

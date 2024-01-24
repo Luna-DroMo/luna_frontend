@@ -10,8 +10,8 @@ import { useRouter } from 'next/router';
 import { SignupReminderBanner } from '@/components/Banners.js'
 import axios from 'axios'
 import { useEffect } from 'react'
-import cockpit_student from './cockpit_pages/cockpit_student.js'
-import cockpit_lecturer from './cockpit_pages/cockpit_lecturer.js'
+import Cockpit_student from './cockpit_pages/cockpit_student.js'
+import Cockpit_lecturer from './cockpit_pages/cockpit_lecturer.js'
 
 export default function Home() {
    
@@ -19,7 +19,7 @@ export default function Home() {
   // Will need to pull this from database I think for authentication purposes. 
   // Users must not be allowed to locally change their role.
   const { user, isAuthenticated, saveUser, clearUser } = useAuth();
-  const [userRole, setUserRole] = useState("")
+  const [userRole, setUserRole] = useState(null)
   // If not authenticated, the utility function would have handled the redirection
 
 
@@ -40,18 +40,18 @@ export default function Home() {
     }
 
     getUserRole()
-  })
+  },[])
 
   // Page logic for an authenticated user
 
   if (userRole === 1) {
     return (
-      cockpit_student()
+      <Cockpit_student/>
     )
   }
   if (userRole === 2) {
     return (
-      cockpit_lecturer()
+      <Cockpit_lecturer/>
     )
   }
   if (userRole === 3) {
