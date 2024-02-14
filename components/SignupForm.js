@@ -26,7 +26,7 @@ function SignUpForm() {
 
       console.log(data)
       const register_response = await axios.post(
-        'http://localhost:8000/signup',
+        'http://52.5.114.46/signup',
         data
       )
     } catch (error) {
@@ -36,7 +36,7 @@ function SignUpForm() {
     // Log user in
     try {
       const response = await axios.post(
-        'http://localhost:8000/login',
+        'http://52.5.114.46/login',
         { email, password }
       )
       localStorage.setItem('token', response.data.token);

@@ -29,7 +29,7 @@ export default function Main({ model }) {
 
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/getUserType/${user.id}`
+          `http://52.5.114.46/api/getUserType/${user.id}`
         )
 
         setUserRole(response.data)
@@ -68,7 +68,7 @@ export default function Main({ model }) {
       } else {
         try {
           const response = await axios.post(
-            `http://localhost:8000/api/student/save_form/${user.id}`,
+            `http://52.5.114.46/api/student/save_form/${user.id}`,
             data
           )
 

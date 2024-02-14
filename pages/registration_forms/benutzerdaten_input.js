@@ -50,7 +50,7 @@ export default function Main({ model }) {
         console.log("updating:", data)
         try {
           const response = await axios.patch(
-            `http://localhost:8000/api/update_student/${user.id}/`,
+            `http://52.5.114.46/api/update_student/${user.id}/`,
             data
           )
           

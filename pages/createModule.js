@@ -33,7 +33,7 @@ export default function Main() {
 
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/api/getUserType/${user.id}`
+                    `http://52.5.114.46/api/getUserType/${user.id}`
                 )
 
                 setUserRole(response.data)
@@ -77,7 +77,7 @@ export default function Main() {
                 if (modulePassword === modulePassword_val) {
                     try {
                         const response = await axios.post(
-                            `http://localhost:8000/api/createModule`,
+                            `http://52.5.114.46/api/createModule`,
                             data
                         )
                         setSubmitted(true)
