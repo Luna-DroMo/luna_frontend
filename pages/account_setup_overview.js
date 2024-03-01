@@ -1,114 +1,168 @@
-import Image from 'next/image'
-import RootLayout from '@/components/RootLayout.js';
+import Image from "next/image"
+import RootLayout from "@/components/RootLayout.js"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import { Button } from '@/components/Buttons';
-import SetupOverview from '@/components/SetupDataModelOverview';
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import axios from 'axios';
-import { useAuth } from './contexts/AuthProvider';
-import { useRouter } from 'next/router';
+import {Button} from "@/components/Buttons"
+import SetupOverview from "@/components/SetupDataModelOverview"
+import React from "react"
+import {useEffect} from "react"
+import {useState} from "react"
+import axios from "axios"
+import {useAuth} from "./contexts/AuthProvider"
+import {useRouter} from "next/router"
+import {data_models_to_use} from "../utils/data.js"
 
-
-const account_setup_progress = 0;
-const data_models_to_use = [
-    { "modelname": "Personenprofil", "setup_status": 2, "href": "#", "img": "personal.png" },
-    { "modelname": "AIST", "setup_status": 2, "href": "#", "img": "curious.png" },
-    { "modelname": "Kognitive Fähigkeiten", "setup_status": 2, "href": "#", "img": "brain.png" },
-    { "modelname": "Internale-Externale-Kontrollüberzeugung", "setup_status": 1, "href": "#", "img": "specification.png" },
-    { "modelname": "Fachwissenstest Mathematik", "setup_status": 1, "href": "#", "img": "function.png" },
-    { "modelname": "Motivation", "setup_status": 1, "href": "#", "img": "motivation.png" },
-    { "modelname": "Persönlichkeits-skala", "setup_status": 0, "href": "#", "img": "personality.png" },
-    { "modelname": "Panas", "setup_status": 0, "href": "#", "img": "mood.png" },
-];
-
-
+const account_setup_progress = 0
 
 export default function Main() {
+  // States defined below
+  const [userRole, setUserRole] = useState(null)
+  const [backgroundStatus, setBackgroundStatus] = useState({})
+  const [enrichedDataModels, setEnrichedDataModels] = useState([])
+  const {user, isAuthenticated, saveUser, clearUser} = useAuth()
 
-    const setupStatusList = data_models_to_use.map((model) => model.setup_status);
-    const current_progress = setupStatusList.reduce((partialSum, a) => partialSum + a, 0) / (setupStatusList.length * 2);
-    const [userRole, setUserRole] = useState(null)
-    const { user, isAuthenticated, saveUser, clearUser } = useAuth();
-    const router = useRouter()
+  // Packages defined below
+  const router = useRouter()
 
-    useEffect(() => {
-        const getUserRole = async (e) => {
-            //e.preventDefault()
+  // Functions defined below
+  const setupStatusList = data_models_to_use.map((model) => model.setup_status)
+  const current_progress =
+    setupStatusList.reduce((partialSum, a) => partialSum + a, 0) /
+    (setupStatusList.length * 2)
 
-            try {
-                const response = await axios.get(
-                    `http://52.5.114.46//api/getUserType/${user.id}`
-                )
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Assuming user.id is available and correct
+        const userTypeResponse = await axios.get(
+          `http://52.5.114.46/api/getUserType/${user.id}`
+        )
+        setUserRole(userTypeResponse.data)
 
-                setUserRole(response.data)
-            } catch (error) {
-                console.log("error during login", error)
-            }
+        const backgroundStatusResponse = await axios.get(
+          `http://127.0.0.1:8000/api/${4}/background_status`
+        )
+        const {completed_forms, not_completed_forms} =
+          backgroundStatusResponse.data
 
+        setBackgroundStatus(backgroundStatusResponse.data)
+        // Enrich data_models_to_use with resolution status
+        const enrichedModels = data_models_to_use.map((model) => {
+          let status = "" // Default status
+          if (completed_forms.includes(model.type)) {
+            status = "COMPLETED"
+          } else if (not_completed_forms.includes(model.type)) {
+            status = "NOT_COMPLETED"
+          }
+
+          return {...model, status: status} // Add status field to the model
+        })
+
+        setEnrichedDataModels(enrichedModels)
+        console.log("background", backgroundStatus)
+        if (backgroundStatus.personal_onboarding == false) {
+          router.push("/registration_forms/benutzerdaten_input")
         }
-
-        getUserRole()
-    })
-
-    // Funky logic to only allow non-students to create modules, and to hide pre-rendering
-    if (userRole === null) {
-        return (<p> </p>)
-    } else if (userRole !== 1) {
-        router.push("/cockpit/")
-    } else {
-
-        return (
-            <RootLayout show_main_links={false} >
-                <main className="flex-row justify-between px-10 pt-10">
-                    <Greeting account_setup_progress={account_setup_progress} />
-                    <div className=' my-10  w-full text-center'>
-                        <h1 className='mb-5 text-2xl'>Prozess jetzt starten!</h1>
-                        <Button text="Loslegen!" highlighted={true} href="./registration_forms/AIST_input/"></Button>
-
-                        <a href="/" className='text-xs text-lightgrey mt-5 block hover:underline'><p>Ich habe gerade keine Zeit</p></a>
-                    </div>
-                    <h3> Oder in einen Fragebogen direkt einsteigen!</h3>
-                    <SetupOverview data_models={data_models_to_use} />
-                </main>
-            </RootLayout>
-        )
-    }
-}
-function Greeting({ account_setup_progress }) {
-
-    if (account_setup_progress == 0) {
-        return (
-            <>
-                <div className='flex items-center'>
-                    <img src="alien.png" className='ml-2 w-10 mr-4' />
-                    <h1 className='tracking-wider text-xl'>Hey Max, willkommen bei Luna!</h1>
-                </div>
-                <div className='text-text-grey text-sm mt-5'>
-                    <p className='mb-3'>Für unsere Analysen brauchen wir eine Menge Daten. Wir wissen, dass es viel ist, und wir haben versucht, den Prozess für dich so einfach wie möglich zu machen. Dein Fortschritt wird automatisch gespeichert, sodass du die Seite verlassen und später wiederkommen kannst, ohne deine bisherigen Daten zu verlieren!</p>
-                    <p className='mb-3'>Es ist nicht zwingend erforderlich, alle Daten einzugeben, aber unsere Modelle benötigen bestimmte Daten, um ordnungsgemäß zu funktionieren. Wenn du dich entscheidest, die notwendigen Daten für ein bestimmtes Modell nicht zu teilen, wird dieses Modell leider nicht für dich funktionieren.</p>
-                    <p className='mb-3'>Als Anreiz für diesen Prozess werden wir dir wissenschaftliche Analysen bereitstellen, die speziell für dich erstellt wurden!</p>
-                </div>
-            </>
-        )
-    } else {
-        return (
-            <>
-                <div className='flex items-center'>
-                    <img src="alien.png" className='ml-2 w-10 mr-4' />
-                    <h1 className='tracking-wider text-xl'>Übersicht</h1>
-                </div>
-                <div className='text-text-grey text-sm mt-5'>
-                    <p className='mb-3'>Für unsere Analysen brauchen wir eine Menge Daten. Wir wissen, dass es viel ist, und wir haben versucht, den Prozess für dich so einfach wie möglich zu machen. Dein Fortschritt wird automatisch gespeichert, sodass du die Seite verlassen und später wiederkommen kannst, ohne deine bisherigen Daten zu verlieren!</p>
-                    <p className='mb-3'>Es ist nicht zwingend erforderlich, alle Daten einzugeben, aber unsere Modelle benötigen bestimmte Daten, um ordnungsgemäß zu funktionieren. Wenn du dich entscheidest, die notwendigen Daten für ein bestimmtes Modell nicht zu teilen, wird dieses Modell leider nicht für dich funktionieren.</p>
-                    <p className='mb-3'>Als Anreiz für diesen Prozess werden wir dir wissenschaftliche Analysen bereitstellen, die speziell für dich erstellt wurden!</p>
-                </div>
-            </>
-        )
+      } catch (error) {
+        console.error("Error fetching data:", error)
+      }
     }
 
+    fetchData()
+  }, [user.id])
+
+  if (userRole === null) {
+    return <p> </p>
+  } else if (userRole !== 1) {
+    router.push("/cockpit/")
+  } else {
+    return (
+      <RootLayout show_main_links={false}>
+        <main className='flex-row justify-between px-10 pt-10'>
+          <Greeting account_setup_progress={account_setup_progress} />
+          <div className=' my-10  w-full text-center'>
+            <h1 className='mb-5 text-2xl'>Prozess jetzt starten!</h1>
+            <Button
+              text='Loslegen!'
+              highlighted={true}
+              href='./registration_forms/AIST_input/'
+            ></Button>
+
+            <a
+              href='/'
+              className='text-xs text-lightgrey mt-5 block hover:underline'
+            >
+              <p>Ich habe gerade keine Zeit</p>
+            </a>
+          </div>
+          <h3> Oder in einen Fragebogen direkt einsteigen!</h3>
+          <SetupOverview data_models={enrichedDataModels} />
+        </main>
+      </RootLayout>
+    )
+  }
 }
 
-
+function Greeting({account_setup_progress}) {
+  if (account_setup_progress == 0) {
+    return (
+      <>
+        <div className='flex items-center'>
+          <img src='alien.png' className='ml-2 w-10 mr-4' />
+          <h1 className='tracking-wider text-xl'>
+            Hey Max, willkommen bei Luna!
+          </h1>
+        </div>
+        <div className='text-text-grey text-sm mt-5'>
+          <p className='mb-3'>
+            Für unsere Analysen brauchen wir eine Menge Daten. Wir wissen, dass
+            es viel ist, und wir haben versucht, den Prozess für dich so einfach
+            wie möglich zu machen. Dein Fortschritt wird automatisch
+            gespeichert, sodass du die Seite verlassen und später wiederkommen
+            kannst, ohne deine bisherigen Daten zu verlieren!
+          </p>
+          <p className='mb-3'>
+            Es ist nicht zwingend erforderlich, alle Daten einzugeben, aber
+            unsere Modelle benötigen bestimmte Daten, um ordnungsgemäß zu
+            funktionieren. Wenn du dich entscheidest, die notwendigen Daten für
+            ein bestimmtes Modell nicht zu teilen, wird dieses Modell leider
+            nicht für dich funktionieren.
+          </p>
+          <p className='mb-3'>
+            Als Anreiz für diesen Prozess werden wir dir wissenschaftliche
+            Analysen bereitstellen, die speziell für dich erstellt wurden!
+          </p>
+        </div>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <div className='flex items-center'>
+          <img src='alien.png' className='ml-2 w-10 mr-4' />
+          <h1 className='tracking-wider text-xl'>Übersicht</h1>
+        </div>
+        <div className='text-text-grey text-sm mt-5'>
+          <p className='mb-3'>
+            Für unsere Analysen brauchen wir eine Menge Daten. Wir wissen, dass
+            es viel ist, und wir haben versucht, den Prozess für dich so einfach
+            wie möglich zu machen. Dein Fortschritt wird automatisch
+            gespeichert, sodass du die Seite verlassen und später wiederkommen
+            kannst, ohne deine bisherigen Daten zu verlieren!
+          </p>
+          <p className='mb-3'>
+            Es ist nicht zwingend erforderlich, alle Daten einzugeben, aber
+            unsere Modelle benötigen bestimmte Daten, um ordnungsgemäß zu
+            funktionieren. Wenn du dich entscheidest, die notwendigen Daten für
+            ein bestimmtes Modell nicht zu teilen, wird dieses Modell leider
+            nicht für dich funktionieren.
+          </p>
+          <p className='mb-3'>
+            Als Anreiz für diesen Prozess werden wir dir wissenschaftliche
+            Analysen bereitstellen, die speziell für dich erstellt wurden!
+          </p>
+        </div>
+      </>
+    )
+  }
+}
