@@ -45,7 +45,6 @@ export default function Main() {
         const {completed_forms, not_completed_forms} =
           backgroundStatusResponse.data
 
-        setBackgroundStatus(backgroundStatusResponse.data)
         // Enrich data_models_to_use with resolution status
         const enrichedModels = data_models_to_use.map((model) => {
           let status = "" // Default status
@@ -59,10 +58,7 @@ export default function Main() {
         })
 
         setEnrichedDataModels(enrichedModels)
-        console.log("background", backgroundStatus)
-        if (backgroundStatus.personal_onboarding == false) {
-          router.push("/registration_forms/benutzerdaten_input")
-        }
+        setBackgroundStatus(backgroundStatusResponse.data)
       } catch (error) {
         console.error("Error fetching data:", error)
       }
@@ -71,13 +67,24 @@ export default function Main() {
     fetchData()
   }, [user.id])
 
+  console.log(typeof backgroundStatus.personal_onboarding)
+
+  // if (backgroundStatus.personal_onboarding == false) {
+  //   router.push("/registration_forms/benutzerdaten_input")
+  // }
+
   if (userRole === null) {
     return <p> </p>
   } else if (userRole !== 1) {
     router.push("/cockpit/")
   } else {
     return (
-      <RootLayout show_main_links={false}>
+      <RootLayout
+        show_main_links={false}
+        show_progress_bar={true}
+        show_billboard={false}
+        percentage={backgroundStatus.percentage}
+      >
         <main className='flex-row justify-between px-10 pt-10'>
           <Greeting account_setup_progress={account_setup_progress} />
           <div className=' my-10  w-full text-center'>
