@@ -25,13 +25,13 @@ export default function SetupOverview({data_models}) {
 
 function StatusIcon({status}) {
   let bg_col = "bg-white"
-  let border_col = "border-lunapurple"
+  let border_col = "lunapurple"
   let text = "Offen"
   let text_col = "text-lunapurple"
 
   switch (status) {
     case "NOT_COMPLETED":
-      bg_col = "bg-progred"
+      bg_col = "bg-lunapurple"
       border_col = "border-lunayellow"
       text = "Unvollständig"
       text_col = "text-white"
