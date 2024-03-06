@@ -19,14 +19,16 @@ export function SurveyQuestion({ maintext, subtitle, scale = 5 }) {
     // input options [0,1,2,3,4]
     let options = [...Array(scale).keys()];
     return (
-        <div className="flex items-center w-full my-2 hover:bg-[#eeeeee] rounded">
+        <div className="flex items-center w-full hover:bg-[#eeeeee] rounded">
             <div className='flex-grow'>
                 <p className="" >{maintext}</p>
                 <p className=" subtitle text-text-grey">{subtitle}</p>
             </div>
             <div className="flex justify-between w-72 mx-2">
                 {options.map((option) => (
-                    <input className="" key={option} id={maintext + option} name={maintext} type="radio" />
+                    <label className="group flex-1 grid py-1 justify-items-center rounded">
+                        <input className="" key={option} id={maintext + option} name={maintext} type="radio" />
+                    </label>
                 ))}
             </div>
         </div>
@@ -71,7 +73,9 @@ export function FormInput({ placeholder, readOnly, type, options, name, value, o
     } else if (type === "likert") {
         <div>
             {options.map((option, key) => (
-                <input readOnly={readOnly} key={key} id={name + option} name={name} type={"radio"} />
+                <label>
+                    <input readOnly={readOnly} key={key} id={name + option} name={name} type={"radio"} />
+                </label>
             ))}
         </div>
 

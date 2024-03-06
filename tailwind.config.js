@@ -23,6 +23,7 @@ module.exports = {
       'white': '#ffffff',
       'lunapurple': '#5210DC',
       'lunagreen': "#9ADC10",
+      'lunared': "#DC107E",
       'lunayellow': "#FFB800",
       'lightpurple': '#E5E0F2',
       'alertpurple': '#6F39E2',
