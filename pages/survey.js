@@ -5,21 +5,40 @@ import RootLayout from '@/components/RootLayout.js';
 import { Button, FormButton } from '@/components/Buttons';
 import { SurveyQuestion } from '@/components/FormElements';
 import React from 'react';
+import Router, {useRouter} from "next/router"
 
 const account_setup_progress = 0;
 
+
+
+
 export default function Main() {
+    
 
+    const router = useRouter()
 
-
-
+    const handleFormSubmission = async (e) => {
+        e.preventDefault()
+        try {
+          //const response = await axios.post(
+          //  ``,
+          //  request
+          //)
+    
+          router.push("./cockpit")
+        } catch (error) {
+          console.log("error", error)
+          // Temporary until working
+          router.push("./cockpit")
+        }
+      }
 
     return (
         <RootLayout>
             <main className="flex-row justify-between px-10 pt-10">
                 <h1 className='tracking-wider text-3xl'>[class.name]</h1>
                 <p className='text-sm text-text-grey'>SUBTITLE - STILL NEED TO TURN THIS INTO A FORM</p>
-                <form action="">
+                <form onSubmit={handleFormSubmission}>
                     <div className='h-8' />
                     <div className="flex items-center w-full my-2">
                         <div className='flex-grow'>
@@ -94,9 +113,11 @@ export default function Main() {
                     <SurveyQuestion maintext="Waren Sie in der Übungsgruppe?" subtitle="" />
 
                     <div className="flex justify-end mt-24">
-                        <FormButton text="Abbrechen" formAction="/" />
-                        <FormButton text="Senden" highlighted="true" formAction="/" />
+                        <FormButton text="Abbrechen" onClick={(e) => router.push("./cockpit")} type='reset'/>
+                        <FormButton text="Senden" highlighted="true" type="submit" />
                     </div>
+                    
+                
                 </form>
             </main>
         </RootLayout>

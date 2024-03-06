@@ -145,7 +145,7 @@ export default function Main({model}) {
               return (
                 <InputRow
                   key={response.question_id}
-                  type='text' // or "number", depending on your data
+                  type='number' // or "number", depending on your data
                   maintext={
                     question
                       ? question.question
