@@ -40,7 +40,7 @@ export default function Main() {
         setUserRole(userTypeResponse.data)
 
         const backgroundStatusResponse = await axios.get(
-          `http://127.0.0.1:8000/api/${4}/background`
+          `http://127.0.0.1:8000/api/${5}/background`
         )
         const {completed_forms, not_completed_forms} =
           backgroundStatusResponse.data
@@ -49,9 +49,9 @@ export default function Main() {
         const enrichedModels = data_models_to_use.map((model) => {
           let status = "" // Default status
           if (completed_forms.includes(model.type)) {
-            status = "COMPLETED"
+            status = "completed"
           } else if (not_completed_forms.includes(model.type)) {
-            status = "NOT_COMPLETED"
+            status = "not_completed"
           }
 
           return {...model, status: status} // Add status field to the model
@@ -69,9 +69,23 @@ export default function Main() {
 
   console.log(typeof backgroundStatus.personal_onboarding)
 
-  if (backgroundStatus.personal_info === "NOT_COMPLETED") {
-    router.push("/registration_forms/benutzerdaten_input")
-  }
+  useEffect(() => {
+    if (backgroundStatus.personal_info === "not_completed") {
+      router.push("/registration_forms/benutzerdaten_input")
+    } else if (
+      backgroundStatus.completed_forms &&
+      backgroundStatus.completed_forms.length === 7
+    ) {
+      router.push("/cockpit/")
+      //   } else {
+      //     const firstNotCompletedForm = enrichedDataModels.find(
+      //       (model) => model.status === "not_completed"
+      //     )
+      //     if (firstNotCompletedForm) {
+      //       router.push(`/registration_forms/${firstNotCompletedForm.redirect_url}`)
+      //     }
+    }
+  }, [backgroundStatus, enrichedDataModels, router])
 
   if (userRole === null) {
     return <p> </p>

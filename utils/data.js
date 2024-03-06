@@ -19,7 +19,8 @@ export const data_models_to_use = [
     href: "#",
     img: "specification.png",
     id: 3,
-    type: "INTERNAL_EXTERNAL"
+    type: "INTERNAL_EXTERNAL",
+    redirect_url: "IntExt_input"
   },
   {
     modelname: "Fachwissenstest Mathematik",
@@ -49,3 +50,4 @@ export const data_models_to_use = [
     type: "PANAS"
   }
 ]
+export const url = "http://127.0.0.1:8000"
