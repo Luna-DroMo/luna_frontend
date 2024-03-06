@@ -40,7 +40,7 @@ export default function Main() {
         setUserRole(userTypeResponse.data)
 
         const backgroundStatusResponse = await axios.get(
-          `http://127.0.0.1:8000/api/${4}/background_status`
+          `http://127.0.0.1:8000/api/${4}/background`
         )
         const {completed_forms, not_completed_forms} =
           backgroundStatusResponse.data
@@ -69,9 +69,9 @@ export default function Main() {
 
   console.log(typeof backgroundStatus.personal_onboarding)
 
-  // if (backgroundStatus.personal_onboarding == false) {
-  //   router.push("/registration_forms/benutzerdaten_input")
-  // }
+  if (backgroundStatus.personal_info === "NOT_COMPLETED") {
+    router.push("/registration_forms/benutzerdaten_input")
+  }
 
   if (userRole === null) {
     return <p> </p>
