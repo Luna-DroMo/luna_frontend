@@ -29,7 +29,7 @@ export default function Home() {
 
       try {
         const response = await axios.get(
-          `http://52.5.114.46//api/getUserType/${user.id}`
+          `http://52.5.114.46/api/getUserType/${user.id}`
         )
         
         setUserRole(response.data)

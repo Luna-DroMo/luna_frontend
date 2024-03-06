@@ -5,33 +5,51 @@ import RootLayout from '@/components/RootLayout.js';
 import { Button } from '@/components/Buttons';
 import Overview from '@/components/SetupDataModelOverview';
 import React from 'react';
-
-const account_setup_progress = 0;
-const data_models_to_use = [
-    { "modelname": "Personenprofil", "setup_status": 2, "href": "#", "img": "personal.png" },
-    { "modelname": "AIST", "setup_status": 2, "href": "#", "img": "curious.png" },
-    { "modelname": "Kognitive Fähigkeiten", "setup_status": 2, "href": "#", "img": "brain.png" },
-    { "modelname": "Internale-Externale-Kontrollüberzeugung", "setup_status": 1, "href": "#", "img": "specification.png" },
-    { "modelname": "Fachwissenstest Mathematik", "setup_status": 1, "href": "#", "img": "function.png" },
-    { "modelname": "Motivation", "setup_status": 1, "href": "#", "img": "motivation.png" },
-    { "modelname": "Persönlichkeits-skala", "setup_status": 0, "href": "#", "img": "personality.png" },
-    { "modelname": "Panas", "setup_status": 0, "href": "#", "img": "mood.png" },
-];
+import Dropdown from '@/components/Dropdown';
+import LineChart from '@/components/SampleChart';
 
 
 
 export default function Main() {
 
-    const setupStatusList = data_models_to_use.map((model) => model.setup_status);
-    const current_progress = setupStatusList.reduce((partialSum, a) => partialSum + a, 0) / (setupStatusList.length * 2);
-
+    const mean_line = [54, 45, 42, 48, 58, 68, 65, 62, 41, 43, 78, 54, 32, 11, 33, 55, 77, 44, 33]
+    const st_dev = [10, 11, 8, 6, 14, 2, 13, 15, 6, 7, 4, 8, 10, 2, 11, 14, 32, 35, 25]
+    const students_at_risk = [
+        {id: "12345",
+        data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
+    }
+]
 
     return (
         <RootLayout>
+
             <main className="flex-row justify-between px-10 pt-10">
-                <h1>Analysis</h1>
+                <div className='flex flex-row justify-between'>
+                    <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
+                    <div id="Dropdown-container" className=''>
+                        <Dropdown header={"Probabilistic Machine Learning"} dropdown_options={['Probabilistic Machine Learning', "Statistical Machine Learning", "Statistics of Financial Markets"]} />
+                    </div>
+                </div>
+
+                <div className='flex flex-row justify-between mt-4'>
+                    <a href="" className='text-lunapurple text-base'>Daten Herunterladen</a>
+                    <a href="" className='text-lunapurple text-base'>Vollständigen Bericht Herunterladen</a>
+                </div>
+
+
+                <div id='dropoutChartContainer' className='h-[850px] mt-8'>
+                    <h1>Durchschnittsrisiko das Modul abzubrechen</h1>
+                    <p>Die blaue Linie stellt das durchschnittliche Risiko deiner Studenten dar, das Modul abzubrechen. In rot werden Studierende angezeigt, die ein erhöhtes Risiko zeigen.</p>
+                    <div className='relativ h-[250px] px-12 mt-8'>
+                        <LineChart title="Durschnittsrisiko das Modul abzubrechen" line={mean_line} deviation={st_dev} students_at_risk={students_at_risk} />
+                    </div>
+                </div>
+
+
             </main>
-        </RootLayout>
+
+
+        </RootLayout >
     )
 }
 
