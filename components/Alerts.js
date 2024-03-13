@@ -94,7 +94,7 @@ function Alert({ survey }) {
     
     
     return (
-        <a href="#" className='flex items-center w-full h-14 bg-alertpurple rounded-xl my-1 hover:bg-[#5C27CC]'>
+        <a href="#" className='flex items-center w-full h-14 bg-alertpurple rounded-xl my-1 hover:bg-[#5C27CC] shadow-md'>
             <div className="date relative ml-5">
                 <img src="alertdateshape.svg" className='w-12' />
                 <p className='absolute top-0 text-[9px] text-lightgrey ml-2 mt-0.5'>{getDayOfWeek(due_date.getDay())}</p>

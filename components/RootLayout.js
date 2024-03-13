@@ -20,7 +20,7 @@ export default function RootLayout({
         percentage={percentage}
       />
 
-      <div className='mainbody'>{children}</div>
+      <div className='mainbody drop-shadow-sm'>{children}</div>
     </>
   )
 }
