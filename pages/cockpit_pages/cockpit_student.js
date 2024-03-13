@@ -30,7 +30,7 @@ export default function Cockpit_student() {
 
           <AlertSection />
           <div className='mt-8 flex space-x-2 mb-12'>
-            <div className='flex-1 items-center rounded-xl p-2 bg-lightpurple pl-6'>
+            <div className='flex-1 items-center rounded-xl p-2 bg-lightpurple pl-6 shadow-md'>
               <div className='flex items-center'>
                 <div className='metric my-1 bg-lunapurple w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
                   4
@@ -40,7 +40,7 @@ export default function Cockpit_student() {
                 </div>
               </div>
             </div>
-            <div className='flex-1 items-center rounded-xl p-2 bg-lightgreen pl-6'>
+            <div className='flex-1 items-center rounded-xl p-2 bg-lightgreen pl-6 shadow-md'>
               <div className='flex items-center'>
                 <div className='metric my-1 bg-green w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
                   15%
@@ -51,7 +51,7 @@ export default function Cockpit_student() {
               </div>
             </div>
             <div
-              className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 bg-lunapurple'
+              className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 bg-lunapurple shadow-md'
               style={{ backgroundImage: 'url("solarsystem.png")' }}
             >
               <div className='absolute inset-0 bg-white opacity-10'></div>
