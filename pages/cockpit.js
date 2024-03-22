@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { SignupReminderBanner } from '@/components/Banners.js'
 import axios from 'axios'
 import { useEffect } from 'react'
+import Link from 'next/link.js'
 
 export default function Home() {
 
@@ -42,6 +43,7 @@ export default function Home() {
 
   // Page logic for an authenticated user
 
+  // Students
   if (userRole === 1) {
     return (
       <RootLayout show_billboard={true}>
@@ -104,9 +106,10 @@ export default function Home() {
             </a>
           </div>
 
-          <a
-            href='#'
+          <Link
+            href='./module_search'
             className='cursor-pointer flex border border-lightpurple rounded-full my-5 s-50 py-3 pl-5 hover:border-lunapurple z-1'
+            
           >
             <div className='inline-block w-3 h-3 relative items-center z-10 my-1'>
               <div className='absolute bg-lunapurple w-full h-0.5 top-1/2 left-0 transform -translate-y-1/2 rounded-full z-10'></div>
@@ -116,7 +119,7 @@ export default function Home() {
             <h4 className='ml-5 text-lunapurple tracking-wider text-base z-10'>
               Modul beitreten
             </h4>
-          </a>
+          </Link>
 
           <Table />
         </main>
@@ -124,6 +127,7 @@ export default function Home() {
 
     )
   }
+  // Lecturers
   if (userRole === 2) {
     return (
       <RootLayout show_billboard={true}>
@@ -183,8 +187,8 @@ export default function Home() {
             </a>
           </div>
 
-          <a
-            onClick={(e) => router.push("./createModule/")}
+          <Link
+            href="./createModule"
             className='cursor-pointer flex border border-lightpurple rounded-full my-5 s-50 py-3 pl-5 hover:border-lunapurple z-1'
           >
             <div className='inline-block w-3 h-3 relative items-center z-10 my-1'>
@@ -195,7 +199,7 @@ export default function Home() {
             <h4 className='ml-5 text-lunapurple tracking-wider text-base z-10'>
               Modul erstellen
             </h4>
-          </a>
+          </Link>
           <Table />
         </main>
       </RootLayout>
