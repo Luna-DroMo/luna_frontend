@@ -5,6 +5,7 @@ import { FormInput, InputRow } from '@/components/FormElements';
 import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { faC } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Main() {
@@ -111,7 +112,7 @@ function TableRow({ code, name, semester, status, faculty, staff }) {
             <td className='text-[#4a4a4a] text-base tracking-wide'>{semester} </td>
             <td > <Status status={status} /></td>
             <td> <Person img={staff.img} name={staff.name} /></td>
-            <td> <Link href="#" className='' title="Modul Beitreten"> <img src="join.png" className='w-4 mx-auto' /></Link></td>
+            <td> <Link href={{pathname: "join_module", query: {code: code, name: name, semester: semester, faculty: faculty, staff: staff.name}}} className='' title="Modul Beitreten"> <img src="join.png" className='w-4 mx-auto' /></Link></td>
 
         </tr>
     )
