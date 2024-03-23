@@ -22,20 +22,27 @@ export default function ModuleTable() {
 
     if (modules.length > 0) {
         return (
-            <div className="container rounded-lg mx-auto">
-                <table className="table-fixed border-collapse  rounded min-w-full divide-y tracking-wider">
+            <div className='rounded-xl overflow-hidden  mt-4'>
+                    <div className='flex h-15 px-4 py-3 bg-white ' >
+                        <h3>Beigetretene Module</h3>
+                        <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
+                            <span className='text-base text-lunapurple'>{modules.length} Modul{modules.length !== 1 ? ('e') : ("")}</span>
+                        </div>
 
-                    <thead>
-                        <tr className=''>
-                            <th className="border-b-[#dddddd] border-b-2 px-0 font-normal border-b dark:border-slate-600 p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"> </th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-left font-normal text-base ">Modul ID</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-left w-40 font-normal text-base ">Modul</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-center font-normal text-base ">Umfragestatus</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-center font-normal text-base ">Nächste Umfrage</th>
-                            <th className="border-b-[#dddddd] border-b-2 px-4 py-2 text-right font-normal text-base "></th>
+                    </div>
+                <table className="table-auto w-full rounded-xl text-left">
+
+                    <thead className='bg-[#f7f7f7] text-lunapurple h-8 text-base'>
+                        <tr className='text-left border-none'>
+                            <th className=""> </th>
+                            <th className="">Modul ID</th>
+                            <th className="">Modul</th>
+                            <th className="">Umfragestatus</th>
+                            <th className="text-center">Nächste Umfrage</th>
+                            <th className=""></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='rounded-b-lg'>
                         {modules.map((module) => (
                             <TableRow key={module.moduleid} module={module} />
                         ))}
@@ -58,13 +65,13 @@ function TableRow({ module }) {
 
     const nextsurveypublished = new Date(module.nextsurveypublished);
     return (
-        <tr className='hover:bg-pagebg text-text-grey text-base'>
-            <td className="py-3 w-10 text-center"><img src="moon.png" className="w-8 m-0 p-0 inline-block" /></td>
-            <td className="px-4 py-2 w-24">{module.moduleid}</td>
-            <td className="px-4 py-2 max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap">{module.modulename}</td>
-            <td className="px-4 py-2 text-center w-48"><StatusElement nextsurveyduedate={module.nextsurveydue} /></td>
-            <td className="px-4 py-2 text-center">{formatDate(nextsurveypublished)}</td>
-            <td className="px-4 py-2"><a href="#" className="rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white">Verwalten</a></td>
+        <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
+            <td className="text-[#4a4a4a] text-base tracking-wide text-center"><img src="moon.png" className="w-8 m-0 p-0 inline-block" /></td>
+            <td className="text-[#4a4a4a] text-base tracking-wide w-24">{module.moduleid}</td>
+            <td className="text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap">{module.modulename}</td>
+            <td className="text-[#4a4a4a] text-base tracking-wide text-center w-48"><StatusElement nextsurveyduedate={module.nextsurveydue} /></td>
+            <td className="text-[#4a4a4a] text-base tracking-wide text-center">{formatDate(nextsurveypublished)}</td>
+            <td className="text-[#4a4a4a] text-base tracking-wide"><a href="#" className="rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white">Verwalten</a></td>
         </tr>
     );
 };
@@ -122,3 +129,5 @@ function formatDate(date) {
     let day = date.getDate().toString();
     return `${month}.${day}.${year}`;
 }
+
+
