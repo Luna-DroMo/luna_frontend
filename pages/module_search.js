@@ -53,10 +53,10 @@ export default function Main() {
                 <h3>Modul Beitreten</h3>
                 <p className='text-lightgrey'>Available modules are determined by your enrolled course / degree. To join a module outside of your standard faculty, <Link href="#" className='text-lunapurple'>click here</Link></p>
                 <h5 className='text-md mt-8'>Modul Finden</h5>
-                <input className='border rounded-xl border-[#dddddd] pl-4 h-12 w-full my-2' placeholder='Ex. MATH101' onChange={(e) => setSearchTerms(e.target.value.toLowerCase())} />
+                <input className='rounded-xl pl-4 h-12 w-full my-2' placeholder='Ex. MATH101' onChange={(e) => setSearchTerms(e.target.value.toLowerCase())} />
 
-                <div className='border rounded-xl overflow-hidden border-[#dddddd] mt-4'>
-                    <div className='flex h-15 px-4 py-3 bg-white border-b border-[#dddddd]' >
+                <div className='rounded-xl overflow-hidden  mt-4'>
+                    <div className='flex h-15 px-4 py-3 bg-white ' >
                         <h3>Verfügbare Module</h3>
                         <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
                             <span className='text-base text-lunapurple'>{modules.length} Modul{modules.length !== 1 ? ('e') : ("")}</span>
@@ -65,7 +65,7 @@ export default function Main() {
                     </div>
                     <table className='table-auto w-full rounded-xl text-left'>
 
-                        <thead className='bg-[#fafafa] text-lunapurple h-8 text-base'>
+                        <thead className='bg-[#f7f7f7] text-lunapurple h-8 text-base'>
                             <tr className='text-left border-none'>
 
                                 <th></th>
@@ -99,7 +99,7 @@ export default function Main() {
 
 function TableRow({ code, name, semester, status, faculty, staff }) {
     return (
-        <tr href="#" className='items-center h-12 bg-white hover:bg-[#fafafa] border-t border-t-[#dddddd]'>
+        <tr href="#" className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
             <td className="">
                 <img className="m-auto mx-4 w-6" src="asteroid.png" />
             </td>
