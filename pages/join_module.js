@@ -15,7 +15,7 @@ export default function Main() {
     const data = router.query;
 
     const module = {
-        id: "placeholderid",
+        id: data.id,
         name: data.name,
         code: data.code,
         startdate: "01-01-2025",
@@ -35,6 +35,10 @@ export default function Main() {
                 <div className='flex'>
                     <h3 className='mr-4'>Module:</h3>
                     <h3>{module.name}</h3>
+                </div>
+                <div className='flex'>
+                    <h3 className='mr-4'>ID (system ID): </h3>
+                    <h3>{module.id}</h3>
                 </div>
                 <div className='flex'>
                     <h3 className='mr-4'>Module Code:</h3>
@@ -58,7 +62,7 @@ export default function Main() {
                 </div>
                 <input type="password" placeholder='password'></input>
                 <p className='mt-5'> </p>
-                <Button text="Beitreten" highlighted="false" type='submit'/>
+                <Button text="Beitreten" highlighted="false" type='submit' />
             </main>
         </RootLayout>
     )
