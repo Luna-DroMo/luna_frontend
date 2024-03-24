@@ -6,43 +6,80 @@ import { Button, FormButton } from '@/components/Buttons';
 import { SurveyQuestion } from '@/components/FormElements';
 import React from 'react';
 import Router, { useRouter } from "next/router"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 
 export default function Main() {
 
-
     const router = useRouter()
-
     const survey = router.query
 
     // State to store the selected option for each question
     const [selectedOptions, setSelectedOptions] = useState({});
+    const [blockFilled, setBlockFilled] = useState([]);
+    const [isExpanded, setIsExpanded] = useState(Array(4).fill(true));
 
+    
     // Function to handle change in selected option for a question
     const handleOptionChange = (questionIndex, optionIndex, isChecked) => {
         setSelectedOptions(prevOptions => ({
             ...prevOptions,
-            [questionIndex]: true, // Store the selected option index or null if unselected
-        }));
-        console.log(selectedOptions)
+            [questionIndex]: true, // Store whether the option is checked
+    }));
+        console.log("updating")
+        console.log("SelOp", selectedOptions)
     };
 
 
-    const indicesToCheck = [
-        [0,1,2,3,4,5,6,7,8,9,10,11],
-        [12,13,14,15,16,17],
-        [18],
-        [19,20,21,22,23,24,25]
-      ];
-      
-      const blockFilled = indicesToCheck.map(block =>
-        block.every(index => selectedOptions[index])
-      );
+    useEffect(() => {
+        const indicesToCheck = [
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            [12, 13, 14, 15, 16, 17],
+            [18],
+            [19, 20, 21, 22, 23, 24, 25]
+        ];
 
-    // Count the number of filled out survey questions
-    const filledOutCount = Object.values(selectedOptions).filter(optionIndex => optionIndex !== null).length;
-    
+        const updatedBlockFilled = indicesToCheck.map(block =>
+            block.every(index => selectedOptions[index])
+        );
+
+        
+        setBlockFilled(updatedBlockFilled);
+    }, [selectedOptions]);
+
+    let prevBlockFilled = useRef();
+
+
+    useEffect(() => {
+        prevBlockFilled.current = blockFilled;
+      }, [blockFilled]);
+
+    useEffect(() => {
+
+        blockFilled.forEach((value, index) => {
+            console.log(value, prevBlockFilled.current[index])
+            if (value && (!prevBlockFilled.current[index])) {
+                // If a block changes from false to true, set the corresponding isExpanded to false
+                console.log("setting to collapse")
+                setIsExpanded(prevState => {
+                    const newState = [...prevState];
+                    newState[index] = false;
+                    return newState;
+                });
+            }
+
+        });
+    }, [blockFilled]);
+
+    const toggleExpansion = (index) => {
+        setIsExpanded(prevState => {
+            const newState = [...prevState];
+            newState[index] = !newState[index];
+            return newState;
+        });
+    };
+
+
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
@@ -61,11 +98,9 @@ export default function Main() {
     }
 
 
-
     return (
         <RootLayout>
             <main className="flex-row justify-between px-10 pt-10">
-                <p>{blockFilled}</p>
                 <div className='flex items-center'>
                     <img src="alien.png" className='w-12 h-12 bg-lightgrey rounded-full overflow-hidden mr-4' />
                     <div className='flex-none'>
@@ -82,7 +117,11 @@ export default function Main() {
                 </div>
                 <form onSubmit={handleFormSubmission}>
 
-                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 mt-8 border border-2 ${blockFilled[0] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                    <div className={`bg-white overflow-hidden transition ease-in-out delay-250 rounded-lg px-2 pt-3 pb-7 mb-12 mt-8 border border-2 ${!isExpanded[0] ? 'h-16' : ''} ${blockFilled[0] ? 'border-lunagreen' : 'border-transparent'}`}>
+                        <div className='flex my-2 px-4'>
+                            <h3>Block Title</h3>
+                            
+                        </div>
                         <div className="flex items-center w-full my-2 px-4">
                             <div className='flex-grow'>
                                 <p className='text-lunapurple'>Ich stimme den folgenden Aussagen zu:</p>
@@ -109,7 +148,11 @@ export default function Main() {
                         <SurveyQuestion maintext="Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert." subtitle="" onChange={(isChecked) => handleOptionChange(10, isChecked)} />
                         <SurveyQuestion maintext="So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein." subtitle="" onChange={(isChecked) => handleOptionChange(11, isChecked)} />
                     </div>
-                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${blockFilled[1] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${!isExpanded[1] ? 'h-16' : ''} ${blockFilled[1] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                        <div className='flex my-2 px-4'>
+                            <h3>Block Title</h3>
+                            
+                        </div>
                         <div className="flex items-center w-full my-2 px-4">
                             <div className='flex-grow'>
                                 <p className='text-lunapurple'>Bitte angeben, wie weit im Moment deine Gefühlswelt am besten zu beschreiben ist. Im Moment fühle ich mich…</p>
@@ -129,7 +172,12 @@ export default function Main() {
                         <SurveyQuestion scale={4} maintext="... Ängstlich" subtitle="" onChange={(isChecked) => handleOptionChange(16, isChecked)} />
                         <SurveyQuestion scale={4} maintext="... Bekümmert" subtitle="" onChange={(isChecked) => handleOptionChange(17, isChecked)} />
                     </div>
-                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${blockFilled[2] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                    <div className={`bg-white rounded-lg overflow-hidden transition-all ease-in-out delay-150 px-2 pt-3 pb-7 mb-12 border border-2 ${!isExpanded[2] ? 'h-16' : ''} ${blockFilled[2] ? 'border-lunagreen' : 'border-transparent'}`}>
+                        <div className='flex my-2 px-4'>
+                            <h3>Block Title</h3>
+                            
+                        </div>
+
                         <div className="flex items-center w-full my-2 px-4">
                             <div className='flex-grow'>
                                 <p className='text-lunapurple'>Bitte angeben</p>
@@ -143,8 +191,13 @@ export default function Main() {
                         </div>
 
                         <SurveyQuestion scale={4} maintext="So schätze ich im Moment mein Wissen und Können im Mathematikstudium ein" subtitle="DOES THIS NEED ITS OWN SCALE TITLES?" onChange={(isChecked) => handleOptionChange(18, isChecked)} />
+
                     </div>
-                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${blockFilled[3] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${!isExpanded[3] ? 'h-16' : ''} ${blockFilled[3] ? 'border-lunagreen' : 'border-transparent'}`}>
+                        <div className='flex my-2 px-4'>
+                            <h3>Block Title</h3>
+                            
+                        </div>
                         <div className="flex items-center w-full my-2 px-4">
                             <div className='flex-grow'>
                                 <p className='text-lunapurple'>Bitte angeben, wie weit .... </p>
@@ -162,8 +215,8 @@ export default function Main() {
                         <SurveyQuestion maintext="Ich habe bei schwierigen Übungsaufgaben schnell aufgegeben." subtitle="" onChange={(isChecked) => handleOptionChange(21, isChecked)} />
                         <SurveyQuestion maintext="Ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht." subtitle="" onChange={(isChecked) => handleOptionChange(22, isChecked)} />
                         <SurveyQuestion maintext="Wie lange haben Sie sich außerhalb der Veranstaltungen mit Mathematik beschäftigt" subtitle="" onChange={(isChecked) => handleOptionChange(23, isChecked)} />
-                        <SurveyQuestion maintext="Wie oft waren Sie in der Vorlesung anwesend?" subtitle="" onChange={(isChecked) => handleOptionChange(24, isChecked)}/>
-                        <SurveyQuestion maintext="Waren Sie in der Übungsgruppe?" subtitle="" onChange={(isChecked) => handleOptionChange(25, isChecked)}/>
+                        <SurveyQuestion maintext="Wie oft waren Sie in der Vorlesung anwesend?" subtitle="" onChange={(isChecked) => handleOptionChange(24, isChecked)} />
+                        <SurveyQuestion maintext="Waren Sie in der Übungsgruppe?" subtitle="" onChange={(isChecked) => handleOptionChange(25, isChecked)} />
 
                     </div>
                     <div className="flex justify-end mt-24">

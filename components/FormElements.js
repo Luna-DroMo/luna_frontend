@@ -26,7 +26,7 @@ export function SurveyQuestion({ maintext, subtitle, scale = 5, onChange=null}) 
             </div>
             <div className="flex justify-between w-72 mx-2 pl-2">
                 {options.map((option, index) => (
-                    <label key={index} className="flex-1 grid py-1 justify-items-center rounded">
+                    <label key={index} className="flex-1 grid py-1 h-full justify-items-center rounded">
                         <input
                             className="group"
                             id={maintext + option}
