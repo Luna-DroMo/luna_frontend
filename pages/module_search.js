@@ -6,6 +6,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { faC } from '@fortawesome/free-solid-svg-icons';
+import Person from '@/components/PersonTag';
 
 
 export default function Main() {
@@ -52,7 +53,7 @@ export default function Main() {
 
             <main className="flex-row justify-between px-10 pt-10">
                 <h3>Modul Beitreten</h3>
-                <p className='text-lightgrey'>Available modules are determined by your enrolled course / degree. To join a module outside of your standard faculty, <Link href="#" className='text-lunapurple'>click here</Link></p>
+                <p className='text-lightgrey'>Available modules are determined by your enrolled course / degree. To join a module outside of your standard faculty, <Link href="join_hidden_module" className='text-lunapurple'>click here</Link></p>
                 <h5 className='text-md mt-8'>Modul Finden</h5>
                 <input className='rounded-xl pl-4 h-12 w-full my-2' placeholder='Ex. MATH101' onChange={(e) => setSearchTerms(e.target.value.toLowerCase())} />
 
@@ -137,20 +138,7 @@ function Status({ status }) {
     )
 }
 //
-function Person({ img, name }) {
-    return (
-        <div className='flex'>
 
-            <div className='border rounded-md border-[#dddddd] inline-block flex items-center px-0 hover:bg-white hover:shadow-sm hover:shadow-lunapurple'>
-
-                <img src={img} className='w-4 ml-1 float-left shrink fill-lunapurple' />
-                <span className={'text-base text-[#4a4a4a] px-4 shrink'}>{name}</span>
-
-            </div>
-
-        </div>
-    )
-}
 
 // <div className='border rounded-md border-[#dddddd] inline-block'>
 // <img src={img} className='w-4 ml-1 float-left' />
