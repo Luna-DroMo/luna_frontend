@@ -5,119 +5,173 @@ import RootLayout from '@/components/RootLayout.js';
 import { Button, FormButton } from '@/components/Buttons';
 import { SurveyQuestion } from '@/components/FormElements';
 import React from 'react';
-import Router, {useRouter} from "next/router"
-
-const account_setup_progress = 0;
-
-
+import Router, { useRouter } from "next/router"
+import { useState, useEffect } from 'react';
 
 
 export default function Main() {
-    
+
 
     const router = useRouter()
+
+    const survey = router.query
+
+    // State to store the selected option for each question
+    const [selectedOptions, setSelectedOptions] = useState({});
+
+    // Function to handle change in selected option for a question
+    const handleOptionChange = (questionIndex, optionIndex, isChecked) => {
+        setSelectedOptions(prevOptions => ({
+            ...prevOptions,
+            [questionIndex]: true, // Store the selected option index or null if unselected
+        }));
+        console.log(selectedOptions)
+    };
+
+
+    const indicesToCheck = [
+        [0,1,2,3,4,5,6,7,8,9,10,11],
+        [12,13,14,15,16,17],
+        [18],
+        [19,20,21,22,23,24,25]
+      ];
+      
+      const blockFilled = indicesToCheck.map(block =>
+        block.every(index => selectedOptions[index])
+      );
+
+    // Count the number of filled out survey questions
+    const filledOutCount = Object.values(selectedOptions).filter(optionIndex => optionIndex !== null).length;
+    
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
         try {
-          //const response = await axios.post(
-          //  ``,
-          //  request
-          //)
-    
-          router.push("./cockpit")
+            //const response = await axios.post(
+            //  ``,
+            //  request
+            //)
+
+            router.push("./cockpit")
         } catch (error) {
-          console.log("error", error)
-          // Temporary until working
-          router.push("./cockpit")
+            console.log("error", error)
+            // Temporary until working
+            router.push("./cockpit")
         }
-      }
+    }
+
+
 
     return (
         <RootLayout>
             <main className="flex-row justify-between px-10 pt-10">
-                <h1 className='tracking-wider text-3xl'>[class.name]</h1>
-                <p className='text-sm text-text-grey'>SUBTITLE - STILL NEED TO TURN THIS INTO A FORM</p>
+                <p>{blockFilled}</p>
+                <div className='flex items-center'>
+                    <img src="alien.png" className='w-12 h-12 bg-lightgrey rounded-full overflow-hidden mr-4' />
+                    <div className='flex-none'>
+                        <h1 className='tracking-wider text-xl'>{survey.module}</h1>
+
+                        <div className='flex'>
+                            <p className='text-base text-text-grey mr-1'>CODE</p>
+                            <p className='text-base text-text-grey mr-1'>| </p>
+                            <p className='text-base text-text-grey mr-1'>Befragung {survey.surveyno} </p>
+                            <p className='text-base text-text-grey mr-1'>| </p>
+                            <p className='text-base text-text-grey mr-1'> bis {survey.duedate}</p>
+                        </div>
+                    </div>
+                </div>
                 <form onSubmit={handleFormSubmission}>
-                    <div className='h-8' />
-                    <div className="flex items-center w-full my-2">
-                        <div className='flex-grow'>
-                            <p className='text-lunapurple'>I agree with the following statements:</p>
+
+                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 mt-8 border border-2 ${blockFilled[0] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                        <div className="flex items-center w-full my-2 px-4">
+                            <div className='flex-grow'>
+                                <p className='text-lunapurple'>Ich stimme den folgenden Aussagen zu:</p>
+                            </div>
+                            <div className="flex justify-between w-72 text-lunapurple pr-3">
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Gar nicht</p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Sehr</p>
+                            </div>
                         </div>
-                        <div className="flex justify-between w-80 text-lunapurple">
-                            <p>Gar nicht</p>
-                            <p>Sehr</p>
-                        </div>
+
+                        <SurveyQuestion maintext="Ich mochte die Inhalte" subtitle="" onChange={(isChecked) => handleOptionChange(0, isChecked)} />
+                        <SurveyQuestion maintext="Mir ist es wichtig über die Inhalte viel zu wissen" subtitle="" onChange={(isChecked) => handleOptionChange(1, isChecked)} />
+                        <SurveyQuestion maintext="Diese Inhalte werden für meinen späteren Beruf nützlich sein" subtitle="" onChange={(isChecked) => handleOptionChange(2, isChecked)} />
+                        <SurveyQuestion maintext="Um diese Inhalte zu verstehen, wird viel Zeit für andere Dinge verloren gehen" subtitle="" onChange={(isChecked) => handleOptionChange(3, isChecked)} />
+                        <SurveyQuestion maintext="Die Beschäftigung mit diesen Inhalten erschöpft mich" subtitle="" onChange={(isChecked) => handleOptionChange(4, isChecked)} />
+                        <SurveyQuestion maintext="Im Moment denke ich darüber nach, das Mathematikstudium abzubrechen." subtitle="" onChange={(isChecked) => handleOptionChange(5, isChecked)} />
+                        <SurveyQuestion maintext="Im Moment habe ich Angst, das Studium nicht zu schaffen." subtitle="" onChange={(isChecked) => handleOptionChange(6, isChecked)} />
+                        <SurveyQuestion maintext="Ich verstehe die derzeitigen Inhalte der Vorlesung." subtitle="" onChange={(isChecked) => handleOptionChange(7, isChecked)} />
+                        <SurveyQuestion maintext="Die Aufgaben des derzeitigen Übungsblattes kann ich bearbeiten." subtitle="" onChange={(isChecked) => handleOptionChange(8, isChecked)} />
+                        <SurveyQuestion maintext="Im Moment fühle ich mich im Mathematik-Studium gestresst." subtitle="" onChange={(isChecked) => handleOptionChange(9, isChecked)} />
+                        <SurveyQuestion maintext="Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert." subtitle="" onChange={(isChecked) => handleOptionChange(10, isChecked)} />
+                        <SurveyQuestion maintext="So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein." subtitle="" onChange={(isChecked) => handleOptionChange(11, isChecked)} />
                     </div>
-
-                    <SurveyQuestion maintext="Ich mochte die Inhalte" subtitle="" />
-                    <SurveyQuestion maintext="Mir ist es wichtig über die Inhalte viel zu wissen" subtitle="" />
-                    <SurveyQuestion maintext="Diese Inhalte werden für meinen späteren Beruf nützlich sein" subtitle="" />
-                    <SurveyQuestion maintext="Um diese Inhalte zu verstehen, wird viel Zeit für andere Dinge verloren gehen" subtitle="" />
-                    <SurveyQuestion maintext="Die Beschäftigung mit diesen Inhalten erschöpft mich" subtitle="" />
-                    <SurveyQuestion maintext="Im Moment denke ich darüber nach, das Mathematikstudium abzubrechen." subtitle="" />
-                    <SurveyQuestion maintext="Im Moment habe ich Angst, das Studium nicht zu schaffen." subtitle="" />
-                    <SurveyQuestion maintext="Ich verstehe die derzeitigen Inhalte der Vorlesung." subtitle="" />
-                    <SurveyQuestion maintext="Die Aufgaben des derzeitigen Übungsblattes kann ich bearbeiten." subtitle="" />
-                    <SurveyQuestion maintext="Im Moment fühle ich mich im Mathematik-Studium gestresst." subtitle="" />
-                    <SurveyQuestion maintext="Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert." subtitle="" />
-                    <SurveyQuestion maintext="So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein." subtitle="" />
-
-                    <div className='h-8' />
-                    <div className="flex items-center w-full my-2">
-                        <div className='flex-grow'>
-                            <p className='text-lunapurple'>Bitte geben Sie an, wie weit im Moment Ihre Gefühlswelt am besten zu beschreiben ist. Im Moment fühle ich mich…</p>
+                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${blockFilled[1] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                        <div className="flex items-center w-full my-2 px-4">
+                            <div className='flex-grow'>
+                                <p className='text-lunapurple'>Bitte angeben, wie weit im Moment deine Gefühlswelt am besten zu beschreiben ist. Im Moment fühle ich mich…</p>
+                            </div>
+                            <div className="flex justify-between w-72 text-lunapurple pr-3">
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Gar nicht</p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Sehr</p>
+                            </div>
                         </div>
-                        <div className="flex justify-between w-80 text-lunapurple">
-                            <p>Gar nicht</p>
-                            <p>Sehr</p>
-                        </div>
+
+                        <SurveyQuestion scale={4} maintext="... Aufmerksam" subtitle="" onChange={(isChecked) => handleOptionChange(12, isChecked)} />
+                        <SurveyQuestion scale={4} maintext="... Aktiv" subtitle="" onChange={(isChecked) => handleOptionChange(13, isChecked)} />
+                        <SurveyQuestion scale={4} maintext="... Angeregt" subtitle="" onChange={(isChecked) => handleOptionChange(14, isChecked)} />
+                        <SurveyQuestion scale={4} maintext="... Nervös" subtitle="" onChange={(isChecked) => handleOptionChange(15, isChecked)} />
+                        <SurveyQuestion scale={4} maintext="... Ängstlich" subtitle="" onChange={(isChecked) => handleOptionChange(16, isChecked)} />
+                        <SurveyQuestion scale={4} maintext="... Bekümmert" subtitle="" onChange={(isChecked) => handleOptionChange(17, isChecked)} />
                     </div>
-
-                    <SurveyQuestion scale={4} maintext="... Aufmerksam" subtitle="" />
-                    <SurveyQuestion scale={4} maintext="... Aktiv" subtitle="" />
-                    <SurveyQuestion scale={4} maintext="... Angeregt" subtitle="" />
-                    <SurveyQuestion scale={4} maintext="... Nervös" subtitle="" />
-                    <SurveyQuestion scale={4} maintext="... Ängstlich" subtitle="" />
-                    <SurveyQuestion scale={4} maintext="... Bekümmert" subtitle="" />
-
-                    <div className='h-8' />
-                    <div className="flex items-center w-full my-2">
-                        <div className='flex-grow'>
-                            <p className='text-lunapurple'>Bitte geben Sie an…</p>
+                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${blockFilled[2] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                        <div className="flex items-center w-full my-2 px-4">
+                            <div className='flex-grow'>
+                                <p className='text-lunapurple'>Bitte angeben</p>
+                            </div>
+                            <div className="flex justify-between w-72 text-lunapurple pr-3">
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Nicht Gut</p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Sehr Gut</p>
+                            </div>
                         </div>
-                        <div className="flex justify-between w-80 text-lunapurple">
-                            <p>Nicht Gut</p>
-                            <p>Sehr Gut</p>
-                        </div>
+
+                        <SurveyQuestion scale={4} maintext="So schätze ich im Moment mein Wissen und Können im Mathematikstudium ein" subtitle="DOES THIS NEED ITS OWN SCALE TITLES?" onChange={(isChecked) => handleOptionChange(18, isChecked)} />
                     </div>
-
-                    <SurveyQuestion scale={4} maintext="So schätze ich im Moment mein Wissen und Können im Mathematikstudium ein" subtitle="DOES THIS NEED ITS OWN SCALE TITLES?" />
-
-                    <div className='h-8' />
-                    <div className="flex items-center w-full my-2">
-                        <div className='flex-grow'>
-                            <p className='text-lunapurple'>Bitte geben Sie an, wie weit .... </p>
+                    <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${blockFilled[3] ? 'border-lunagreen ' : 'border-transparent'}`}>
+                        <div className="flex items-center w-full my-2 px-4">
+                            <div className='flex-grow'>
+                                <p className='text-lunapurple'>Bitte angeben, wie weit .... </p>
+                            </div>
+                            <div className="flex justify-between w-72 text-lunapurple pr-3">
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Nicht Gut</p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded"></p>
+                                <p className="flex-1 grid py-1 justify-items-center rounded">Sehr Gut</p>
+                            </div>
                         </div>
-                        <div className="flex justify-between w-80 text-lunapurple">
-                            <p>Nicht Gut</p>
-                            <p>Sehr Gut</p>
-                        </div>
+                        <SurveyQuestion maintext="Ich habe viel in Lerngruppen gearbeitet." subtitle="" onChange={(isChecked) => handleOptionChange(19, isChecked)} />
+                        <SurveyQuestion maintext="Die meisten meiner abgegebenen Lösungen verstehe ich komplett." subtitle="" onChange={(isChecked) => handleOptionChange(20, isChecked)} />
+                        <SurveyQuestion maintext="Ich habe bei schwierigen Übungsaufgaben schnell aufgegeben." subtitle="" onChange={(isChecked) => handleOptionChange(21, isChecked)} />
+                        <SurveyQuestion maintext="Ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht." subtitle="" onChange={(isChecked) => handleOptionChange(22, isChecked)} />
+                        <SurveyQuestion maintext="Wie lange haben Sie sich außerhalb der Veranstaltungen mit Mathematik beschäftigt" subtitle="" onChange={(isChecked) => handleOptionChange(23, isChecked)} />
+                        <SurveyQuestion maintext="Wie oft waren Sie in der Vorlesung anwesend?" subtitle="" onChange={(isChecked) => handleOptionChange(24, isChecked)}/>
+                        <SurveyQuestion maintext="Waren Sie in der Übungsgruppe?" subtitle="" onChange={(isChecked) => handleOptionChange(25, isChecked)}/>
+
                     </div>
-                    <SurveyQuestion maintext="Ich habe viel in Lerngruppen gearbeitet." subtitle="" />
-                    <SurveyQuestion maintext="Die meisten meiner abgegebenen Lösungen verstehe ich komplett." subtitle="" />
-                    <SurveyQuestion maintext="Ich habe bei schwierigen Übungsaufgaben schnell aufgegeben." subtitle="" />
-                    <SurveyQuestion maintext="Ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht." subtitle="" />
-                    <SurveyQuestion maintext="Wie lange haben Sie sich außerhalb der Veranstaltungen mit Mathematik beschäftigt" subtitle="" />
-                    <SurveyQuestion maintext="Wie oft waren Sie in der Vorlesung anwesend?" subtitle="" />
-                    <SurveyQuestion maintext="Waren Sie in der Übungsgruppe?" subtitle="" />
-
                     <div className="flex justify-end mt-24">
-                        <FormButton text="Abbrechen" onClick={(e) => router.push("./cockpit")} type='reset'/>
+                        <FormButton text="Abbrechen" onClick={(e) => router.push("./cockpit")} type='reset' />
                         <FormButton text="Senden" highlighted="true" type="submit" />
                     </div>
-                    
-                
+
+
                 </form>
             </main>
         </RootLayout>

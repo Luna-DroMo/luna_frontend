@@ -14,26 +14,32 @@ export function InputRow({ placeholder = "", readOnly = false, type = "text", ma
     )
 }
 
-export function SurveyQuestion({ maintext, subtitle, scale = 5 }) {
+export function SurveyQuestion({ maintext, subtitle, scale = 5, onChange=null}) {
 
     // input options [0,1,2,3,4]
     let options = [...Array(scale).keys()];
     return (
-        <div className="flex items-center w-full hover:bg-[#eeeeee] rounded">
+        <div className="flex items-center w-full hover:bg-[#eeeeee] rounded customlabel py-1 px-4">
             <div className='flex-grow'>
-                <p className="" >{maintext}</p>
-                <p className=" subtitle text-text-grey">{subtitle}</p>
+                <p className="parent-hover:text-lunapurple">{maintext}</p>
+                <p className="subtitle text-text-grey">{subtitle}</p>
             </div>
-            <div className="flex justify-between w-72 mx-2">
-                {options.map((option) => (
-                    <label className="group flex-1 grid py-1 justify-items-center rounded">
-                        <input className="" key={option} id={maintext + option} name={maintext} type="radio" />
+            <div className="flex justify-between w-72 mx-2 pl-2">
+                {options.map((option, index) => (
+                    <label key={index} className="flex-1 grid py-1 justify-items-center rounded">
+                        <input
+                            className="group"
+                            id={maintext + option}
+                            name={maintext}
+                            type="radio"
+                            value={index} // Assign value to radio button
+                            onChange={(e) => onChange(index, e.target.checked)} // Call onChange with the index and checked status
+                        />
                     </label>
                 ))}
             </div>
         </div>
-
-    )
+    );
 }
 
 export function FormInput({ placeholder, readOnly, type, options, name, value, onChange }) {
@@ -49,7 +55,7 @@ export function FormInput({ placeholder, readOnly, type, options, name, value, o
                 {Object.entries(options).map(([option, key]) => (
                     <div key={key}>
                         <label className='mx-5 text-text-grey'> {option} </label>
-                        <input readOnly={readOnly} id={name + option.value} name={name} type={type} value={key} onChange={onChange} />
+                        <input readOnly={readOnly} id={name + option.value} name={name} type={type} value={key} onChange={onChange} required="True" />
                     </div>
                 ))}
             </>

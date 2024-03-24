@@ -156,3 +156,8 @@ select {
   -webkit-appearance: none;
   appearance: none;
 }
+
+.customlabel:has(div>label>input:checked) p{
+  color: #cccccc;
+  
+}

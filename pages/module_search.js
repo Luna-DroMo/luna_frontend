@@ -71,12 +71,13 @@ export default function Main() {
                             <tr className='text-left border-none'>
 
                                 <th></th>
+                                <th className='text-center'>Beitreten</th>
                                 <th>Modul</th>
                                 <th>Fakultät</th>
                                 <th>Semester</th>
                                 <th>Status</th>
                                 <th>Dozent</th>
-                                <th className='text-center'>Beitreten</th>
+                                
                             </tr>
                         </thead>
                         <tbody className='rounded-b-lg'>
@@ -106,6 +107,7 @@ function TableRow({ id, code, name, semester, status, faculty, staff }) {
             <td className="">
                 <img className="m-auto mx-4 w-6" src="asteroid.png" />
             </td>
+            <td> <Link href={{pathname: "join_module", query: {id: id, code: code, name: name, semester: semester, faculty: faculty, staff: staff.name}}} className='' title="Modul Beitreten"> <img src="join.png" className='w-5 mx-auto' /></Link></td>
             <td className=''>
                 <p className='text-[#4a4a4a] text-base tracking-wide h-4'>{name}</p>
                 <p className='text-base tracking-wide text-lightgrey'>{code}</p>
@@ -114,7 +116,7 @@ function TableRow({ id, code, name, semester, status, faculty, staff }) {
             <td className='text-[#4a4a4a] text-base tracking-wide'>{semester} </td>
             <td > <Status status={status} /></td>
             <td> <Person img={staff.img} name={staff.name} /></td>
-            <td> <Link href={{pathname: "join_module", query: {id: id, code: code, name: name, semester: semester, faculty: faculty, staff: staff.name}}} className='' title="Modul Beitreten"> <img src="join.png" className='w-4 mx-auto' /></Link></td>
+            
 
         </tr>
     )

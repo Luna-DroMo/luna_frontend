@@ -1,7 +1,7 @@
 "use client";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect } from 'react';
-
+import Link from 'next/link';
 
 
 export default function AlertSection() {
@@ -74,13 +74,6 @@ function Alert({ survey }) {
     let avaiable_time = due_date - publish_date;
     let time_remaining = due_date - cur_date;
 
-    /* // For checking date parsing
-    console.log("current date",cur_date);
-    console.log("due_date", due_date);
-    console.log("publish_date",publish_date);
-    console.log("availtime",avaiable_time);
-    console.log("time_remaining",time_remaining);
-    */
 
     let rel_time_remaining = Math.round((time_remaining * 100) / avaiable_time);
     //rel_time_remaining = 66;
@@ -94,7 +87,7 @@ function Alert({ survey }) {
     
     
     return (
-        <a href="#" className='flex items-center w-full h-14 bg-alertpurple rounded-xl my-1 hover:bg-[#5C27CC] shadow-md'>
+        <Link href={{pathname:"survey", query: survey}} className='flex items-center w-full h-14 bg-alertpurple rounded-xl my-1 hover:bg-[#5C27CC] shadow-md'>
             <div className="date relative ml-5">
                 <img src="alertdateshape.svg" className='w-12' />
                 <p className='absolute top-0 text-[9px] text-lightgrey ml-2 mt-0.5'>{getDayOfWeek(due_date.getDay())}</p>
@@ -109,7 +102,7 @@ function Alert({ survey }) {
                     <div className={`float-right ${bg_col} h-2 rounded-full`} style={{ 'width': `${rel_time_remaining}%` }}></div>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 }
 
