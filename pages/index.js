@@ -35,8 +35,27 @@ export default function Home() {
                 </div>
 
             </div>
-            <div className='h-32 bg-lunapurple w-screen'>
-
+            <div className='h-32 bg-lunapurple w-screen flex items-center text-center justify-items-center px-48'>
+                <div className='w-32 flex-1'>
+                    <img src="placeholderlogo.png" className='m-auto w-12 h-18 filter-invert'/>
+                    <p className='text-white opacity-80'>Company Name</p>
+                </div>
+                <div className='w-32 flex-1'>
+                    <img src="placeholderlogo.png" className='m-auto w-12 h-18 filter-invert'/>
+                    <p className='text-white opacity-80'>Company Name</p>
+                </div>
+                <div className='w-32 flex-1'>
+                    <img src="placeholderlogo.png" className='m-auto w-12 h-18 filter-invert'/>
+                    <p className='text-white opacity-80'>Company Name</p>
+                </div>
+                <div className='w-32 flex-1'>
+                    <img src="placeholderlogo.png" className='m-auto w-12 h-18 filter-invert'/>
+                    <p className='text-white opacity-80'>Company Name</p>
+                </div>
+                <div className='w-32 flex-1'>
+                    <img src="placeholderlogo.png" className='m-auto w-12 h-18 filter-invert'/>
+                    <p className='text-white opacity-80'>Company Name</p>
+                </div>
             </div>
 
             <div className='h-screen bg-pagebg w-screen px-48 py-12'>
