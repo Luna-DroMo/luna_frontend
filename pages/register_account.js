@@ -3,7 +3,7 @@ import SignUpForm from '@/components/SignupForm'
 import Navbar from '@/components/LandingNavBar'
 export default function Home() {
     return (
-        <div className='w-screen h-screen bg-lunapurple'>
+        <div className='w-screen min-h-screen bg-lunapurple'>
             <Navbar/>
             <SignUpForm/>
         </div >
