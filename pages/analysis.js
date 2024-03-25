@@ -5,7 +5,7 @@ import RootLayout from '@/components/RootLayout.js';
 import { Button } from '@/components/Buttons';
 import Overview from '@/components/SetupDataModelOverview';
 import { useState, useEffect, React } from 'react';
-import { useAuth } from './contexts/AuthProvider';
+import { useAuth } from '../components/AuthProvider';
 import axios from 'axios';
 
 import Dropdown from '@/components/Dropdown';

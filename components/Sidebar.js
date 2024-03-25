@@ -11,7 +11,7 @@ import Billboard from "./Billboard"
 import ProgressBar from "./ProgressBar"
 import Link from "next/link"
 
-import {useAuth} from "@/pages/contexts/AuthProvider"
+import {useAuth} from "@/components/AuthProvider"
 
 const main_links = [
   {href: "/cockpit/", icon: faSatellite, text: "Übersicht"},

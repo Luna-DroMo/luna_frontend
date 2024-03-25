@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import axios from 'axios'
 import {useRouter} from 'next/router'
-import {useAuth} from '@/pages/contexts/AuthProvider'
+import {useAuth} from '@/components/AuthProvider'
 
 function LoginForm() {
   const [email, setEmail] = useState('')
