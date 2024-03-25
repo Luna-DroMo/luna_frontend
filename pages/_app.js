@@ -23,7 +23,7 @@ export default function App({Component, pageProps}) {
 
   const NonPrivateRoutes = ["/","/register_account"];
 
-  console.log("starting here")
+
   return (
     <>
       <AuthProvider>
