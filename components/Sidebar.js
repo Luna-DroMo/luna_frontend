@@ -40,9 +40,10 @@ export default function Sidebar({
         <div className='flex flex-col justify-between h-full p-6'>
           <div className='flex items-center p-5 mb-2'>
             <img
-              src='/LogoPurple3.svg'
-              className='inline-block w-32 mr-4 mt-5'
+              src='/crap_logo.png'
+              className='inline-block w-8 mr-4'
             />
+            <p className="text-3xl">LUNA</p>
           </div>
           <SidebarContent
             show_billboard={show_billboard}

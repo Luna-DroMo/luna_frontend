@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import ModuleTable from '@/components/Table.js'
+import { StudentModuleTable } from '@/components/Table.js'
 import AlertSection from '@/components/Alerts.js'
 import RootLayout from '@/components/RootLayout.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -126,7 +126,7 @@ export default function Cockpit_student() {
           </h4>
         </Link>
 
-        <ModuleTable modules={modules}/>
+        <StudentModuleTable modules={modules}/>
       </main>
     </RootLayout>
   )
