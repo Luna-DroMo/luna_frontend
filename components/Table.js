@@ -2,34 +2,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle as faCircleSolid, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCircle as faCircleReg } from '@fortawesome/free-regular-svg-icons';
 import React from 'react';
+import Link from 'next/link';
 
 
 
 
 
 
-export default function ModuleTable() {
-
-    const modules = [
-
-        // dates must be year-mo-da
-        { "moduleid": "CS504", "modulename": "Probabilistic Machine Learning", "nextsurveydue": "2023-09-08", "nextsurveypublished": "2023-09-15" },
-        { "moduleid": "QDS432", "modulename": "Bayesian Modelling", "nextsurveydue": "2023-09-15", "nextsurveypublished": "2023-09-25" },
-        { "moduleid": "FINC512", "modulename": "Advanced Time Series Analysis", "nextsurveydue": "2023-10-25", "nextsurveypublished": "2023-09-21" }
-       
-    ];
+export default function ModuleTable({ modules = [] }) {
 
 
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
-                    <div className='flex h-15 px-4 py-3 bg-white ' >
-                        <h3>Beigetretene Module</h3>
-                        <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
-                            <span className='text-base text-lunapurple'>{modules.length} Modul{modules.length !== 1 ? ('e') : ("")}</span>
-                        </div>
-
+                <div className='flex h-15 px-4 py-3 bg-white ' >
+                    <h3>Beigetretene Module</h3>
+                    <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
+                        <span className='text-base text-lunapurple'>{modules.length} Modul{modules.length !== 1 ? ('e') : ("")}</span>
                     </div>
+
+                </div>
                 <table className="table-auto w-full rounded-xl text-left">
 
                     <thead className='bg-[#f7f7f7] text-lunapurple h-8 text-base'>
@@ -52,9 +44,13 @@ export default function ModuleTable() {
             </div>
         );
     } else {
-        return <>
-        <h3 className='text-center text-text-grey text-lg mt-10 tracking-wider'>Du bist noch keinen Modulen beigetreten.</h3>
-        <img src="satellite.png" className='w-52 m-auto mt-16'/></>
+        return (
+            <div className='text-center'>
+                <h3 className='text-center text-text-grey text-lg mt-10 tracking-wider'>Du bist noch keinen Modulen beigetreten.</h3>
+                <img src="satellite.png" className='w-24 m-auto mt-8' />
+                <p className='mt-8 text-lg'>Maybe you can find some <Link href="module_search.js" className='underline text-lunapurple'>here</Link></p>
+            </div>
+        )
     }
 
 };
