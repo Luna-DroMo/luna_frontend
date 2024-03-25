@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { SignupReminderBanner } from '@/components/Banners.js'
 import axios from 'axios'
 import { useEffect } from 'react'
+import Link from 'next/link.js'
 
 export default function Cockpit_student() {
 
@@ -111,8 +112,8 @@ export default function Cockpit_student() {
           </a>
         </div>
 
-        <a
-          href='#'
+        <Link
+          href={{pathname: 'module_search', query: user}}
           className='cursor-pointer flex border border-lightpurple rounded-full my-5 s-50 py-3 pl-5 hover:border-lunapurple z-1'
         >
           <div className='inline-block w-3 h-3 relative items-center z-10 my-1'>
@@ -123,7 +124,7 @@ export default function Cockpit_student() {
           <h4 className='ml-5 text-lunapurple tracking-wider text-base z-10'>
             Modul beitreten
           </h4>
-        </a>
+        </Link>
 
         <ModuleTable modules={modules}/>
       </main>
