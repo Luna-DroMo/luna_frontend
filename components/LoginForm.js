@@ -32,9 +32,9 @@ function LoginForm() {
   return (
     <form
       onSubmit={handleLogin}
-      className='mx-auto mt-16 p-4 w-1/2 borderrounded'
+      className='mt-4 w-full rounded'
     >
-      <div className='mb-10'>
+      <div className='flex w-full space-x-4'>
         <input
           type='text'
           id='username'
@@ -42,11 +42,11 @@ function LoginForm() {
           placeholder='Emailadresse'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className='w-full p-6 border border-lightgrey placeholder-text-grey rounded-full h-14 tracking-wider'
+          className='w-1/2 p-6 border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
           required
         />
-      </div>
-      <div className='mb-10'>
+      
+      
         <input
           type='password'
           id='password'
@@ -54,23 +54,25 @@ function LoginForm() {
           value={password}
           placeholder='Passwort'
           onChange={(e) => setPassword(e.target.value)}
-          className='w-full p-6 border border-lightgrey placeholder-text-grey rounded-full h-14 tracking-wider'
+          className='w-1/2 p-6 border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
           required
         />
-      </div>
-      <div className='text-center'>
-        <a
-          href='/register_account'
-          className='block text-left text-white px-6 mb-10 hover:underline'
-        >
-          Noch kein Konto?{' '}
-        </a>
-        <button
+          <button
           type='submit'
-          className='text-black bg-white px-12 py-2 rounded-full hover:text-lunapurple'
+          className='text-black bg-lunapurple px-12 py-2 rounded-lg text-white hover:bg-lunagreen'
         >
           Anmelden
         </button>
+      </div>
+      <div className='mt-4'>
+        
+      
+        <a
+          href='/register_account'
+          className='block text-left text-lightgrey mb-10 hover:underline'
+        >
+          Noch kein Konto?
+        </a>
       </div>
     </form>
   )
