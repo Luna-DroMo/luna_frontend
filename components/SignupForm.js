@@ -48,7 +48,9 @@ function SignUpForm() {
 
       // If Student
       if (user_type === "1") { router.push('/registration_forms/benutzerdaten_input/') }
-      // If Lecturer / ADmin
+      // If lecturer
+      if (user_type === "2") { router.push('/registration_forms/staff_registration/') }
+      // Else
       else { router.push('/cockpit/') }
 
     } catch (error) {
