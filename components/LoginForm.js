@@ -42,7 +42,7 @@ function LoginForm() {
           placeholder='Emailadresse'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className='w-1/2 p-6 border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
+          className='p-6 text-base border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
           required
         />
       
@@ -54,12 +54,12 @@ function LoginForm() {
           value={password}
           placeholder='Passwort'
           onChange={(e) => setPassword(e.target.value)}
-          className='w-1/2 p-6 border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
+          className='flex-auto text-base p-6 border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
           required
         />
           <button
           type='submit'
-          className='text-black bg-lunapurple px-12 py-2 rounded-lg text-white hover:bg-lunagreen'
+          className='flex-auto text-black text-base bg-lunapurple px-12 py-2 rounded-lg text-white hover:bg-lunagreen'
         >
           Anmelden
         </button>
