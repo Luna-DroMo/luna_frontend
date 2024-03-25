@@ -5,11 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 
 
-
-
-
-
-export default function ModuleTable({ modules = [] }) {
+export function StudentModuleTable({ modules = [] }) {
 
 
     if (modules.length > 0) {
@@ -46,14 +42,63 @@ export default function ModuleTable({ modules = [] }) {
     } else {
         return (
             <div className='text-center'>
-                <h3 className='text-center text-text-grey text-lg mt-10 tracking-wider'>Du bist noch keinen Modulen beigetreten.</h3>
+                <h3 className='text-center text-text-grey text-lg mt-10 tracking-wider'>Du hast noch keinen Modulen beigetreten.</h3>
                 <img src="satellite.png" className='w-24 m-auto mt-8' />
-                <p className='mt-8 text-lg'>Maybe you can find some <Link href="module_search.js" className='underline text-lunapurple'>here</Link></p>
+                <p className='mt-8 text-lg'>Maybe you can find some <Link href="module_search" className='underline text-lunapurple'>here</Link></p>
             </div>
         )
     }
 
 };
+
+
+export function LecturerModuleTable({ modules = [] }) {
+
+
+    if (modules.length > 0) {
+        return (
+            <div className='rounded-xl overflow-hidden  mt-4'>
+                <div className='flex h-15 px-4 py-3 bg-white ' >
+                    <h3>Beigetretene Module</h3>
+                    <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
+                        <span className='text-base text-lunapurple'>{modules.length} Modul{modules.length !== 1 ? ('e') : ("")}</span>
+                    </div>
+
+                </div>
+                <table className="table-auto w-full rounded-xl text-left">
+
+                    <thead className='bg-[#f7f7f7] text-lunapurple h-8 text-base'>
+                        <tr className='text-left border-none'>
+                            <th className=""> </th>
+                            <th className="">Modul ID</th>
+                            <th className="">Modul</th>
+                            <th className="">Umfragestatus</th>
+                            <th className="text-center">Nächste Umfrage</th>
+                            <th className=""></th>
+                        </tr>
+                    </thead>
+                    <tbody className='rounded-b-lg'>
+                        {modules.map((module) => (
+                            <TableRow key={module.moduleid} module={module} />
+                        ))}
+
+                    </tbody>
+                </table>
+            </div>
+        );
+    } else {
+        return (
+            <div className='text-center'>
+                <h3 className='text-center text-text-grey text-lg mt-10 tracking-wider'>Es sieht so aus, als wärst du der Owner von keinem Modul...</h3>
+                <img src="satellite.png" className='w-24 m-auto mt-8' />
+                <p className='mt-8 text-lg'>Klicke <Link href="createModule" className='underline text-lunapurple'>hier</Link>, um eins zu erstellen!.</p>
+            </div>
+        )
+    }
+
+};
+
+
 
 
 
