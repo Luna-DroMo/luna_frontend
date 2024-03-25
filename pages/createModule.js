@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Button } from '@/components/Buttons';
 import { useEffect } from 'react';
-import { useAuth } from './contexts/AuthProvider';
+import { useAuth } from '../components/AuthProvider';
 
 
 export default function Main() {

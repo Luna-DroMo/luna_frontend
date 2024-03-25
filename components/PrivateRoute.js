@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import {useAuth} from '../pages/contexts/AuthProvider.js'
+import {useAuth} from './AuthProvider.js'
 //import FullPageLoader from './FullPageLoader';
  
 export default function PrivateRoute({ publicroutes, children }) {

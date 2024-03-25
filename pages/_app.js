@@ -9,7 +9,7 @@ config.autoAddCss = false /* eslint-disable import/first */
 
 //const inria = Inria_Sans({ weight: ['300', '400', '700'], subsets: ['latin'] })
 
-import {AuthProvider} from './contexts/AuthProvider'
+import {AuthProvider} from '../components/AuthProvider'
 import PrivateRoute from '../components/PrivateRoute.js'
 
 export const metadata = {

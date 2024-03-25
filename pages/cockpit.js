@@ -5,7 +5,7 @@ import RootLayout from '@/components/RootLayout.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-import { useAuth } from './contexts/AuthProvider.js'
+import { useAuth } from '../components/AuthProvider.js'
 import { useRouter } from 'next/router';
 import { SignupReminderBanner } from '@/components/Banners.js'
 import axios from 'axios'

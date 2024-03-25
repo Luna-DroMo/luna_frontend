@@ -8,7 +8,7 @@ import React from "react"
 import {useEffect} from "react"
 import {useState} from "react"
 import axios from "axios"
-import {useAuth} from "./contexts/AuthProvider"
+import {useAuth} from "../components/AuthProvider"
 import {useRouter} from "next/router"
 import {data_models_to_use} from "../utils/data.js"
 

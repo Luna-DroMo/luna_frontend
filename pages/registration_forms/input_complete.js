@@ -7,7 +7,7 @@ import { FormInput, InputRow } from '@/components/FormElements';
 import React from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useAuth } from '../contexts/AuthProvider';
+import { useAuth } from '../../components/AuthProvider';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
