@@ -35,12 +35,12 @@ export default function Main() {
       try {
         // Assuming user.id is available and correct
         const userTypeResponse = await axios.get(
-          `http://52.5.114.46/api/getUserType/${user.id}`
+          `https://mz-bdev.de/api/getUserType/${user.id}`
         )
         setUserRole(userTypeResponse.data)
 
         const backgroundStatusResponse = await axios.get(
-          `http://127.0.0.1:8000/api/${5}/background`
+          `http://mz-bdev.de/api/${5}/background`
         )
         const {completed_forms, not_completed_forms} =
           backgroundStatusResponse.data

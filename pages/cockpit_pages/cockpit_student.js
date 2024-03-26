@@ -25,7 +25,7 @@ export default function Cockpit_student() {
 
       try {
         const response = await axios.get(
-          `http://52.5.114.46/api/student/${user.id}/modules`
+          `https://mz-bdev.de/api/student/${user.id}/modules`
         )
 
         setModules(response.data)
