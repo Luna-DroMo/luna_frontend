@@ -7,11 +7,33 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { faC } from '@fortawesome/free-solid-svg-icons';
 import Person from '@/components/PersonTag';
-
+import { useEffect } from 'react';
 
 export default function Main() {
 
+    const [modules_av, setModules] = useState([])
 
+    useEffect(() => {
+        const getModules = async (e) => {
+          //e.preventDefault()
+    
+          try {
+            const response = await axios.get(
+              `https://mz-bdev.de/api/${user.id}/modules/available`
+            )
+    
+            
+        setModules(response)
+          } catch (error) {
+            console.log("error during login", error)
+          }
+    
+        }
+    
+        getModules()
+      }, [])
+
+    console.log(modules_av)
     const modules_open = [
         { id: 12345, code: 'QDS-FO1', name: 'Mathematical Introduction', faculty: 'Methods Center', semester: 'Summer Semester 2024', status: 1, staff: { img: "user.png", name: "Erin Ritchie" } },
         { id: 12344, code: 'QDS-FO2', name: 'Advanced Statistics', faculty: 'Methods Center', semester: 'Summer Semester 2024', status: 1, staff: { img: "user.png", name: "Max Mustermann" } },
