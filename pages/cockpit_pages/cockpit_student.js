@@ -36,10 +36,10 @@ export default function Cockpit_student() {
     }
 
     getModules()
-    console.log(modules)
+
   }, [])
 
-
+  
   if (modules.length == 0) {
     setModules([
 
@@ -51,10 +51,12 @@ export default function Cockpit_student() {
     ])
   }
 
+  console.log(user)
   return (
     <RootLayout show_billboard={true}>
       <main className='flex-row justify-between px-10 pt-10'>
-        <SignupReminderBanner />
+      {!user.is_verified && <SignupReminderBanner />}
+        
         <div className='flex items-center'>
           <img src='alien.png' className='ml-2 w-10 mr-4' />
           <h1 className='tracking-wider text-xl'>
