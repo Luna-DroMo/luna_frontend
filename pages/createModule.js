@@ -33,7 +33,7 @@ export default function Main() {
 
             try {
                 const response = await axios.get(
-                    `http://52.5.114.46/api/getUserType/${user.id}`
+                    `https://mz-bdev.de/api/getUserType/${user.id}`
                 )
 
                 setUserRole(response.data)
@@ -77,7 +77,7 @@ export default function Main() {
                 if (modulePassword === modulePassword_val) {
                     try {
                         const response = await axios.post(
-                            `http://52.5.114.46/api/createModule`,
+                            `https://mz-bdev.de/api/createModule`,
                             data
                         )
                         setSubmitted(true)

@@ -13,7 +13,7 @@ function LoginForm() {
     e.preventDefault()
     try {
       const response = await axios.post(
-        'http://52.5.114.46/login',
+        'https://mz-bdev.de/login',
         {email, password}
       )
       console.log("logged in")
