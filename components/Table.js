@@ -108,8 +108,8 @@ function TableRow({ module }) {
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
             <td className="text-[#4a4a4a] text-base tracking-wide text-center"><img src="moon.png" className="w-8 m-0 p-0 inline-block" /></td>
-            <td className="text-[#4a4a4a] text-base tracking-wide w-24">{module.moduleid}</td>
-            <td className="text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap">{module.modulename}</td>
+            <td className="text-[#4a4a4a] text-base tracking-wide w-24">{module.code}</td>
+            <td className="text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap">{module.name}</td>
             <td className="text-[#4a4a4a] text-base tracking-wide text-center w-48"><StatusElement nextsurveyduedate={module.nextsurveydue} /></td>
             <td className="text-[#4a4a4a] text-base tracking-wide text-center">{formatDate(nextsurveypublished)}</td>
             <td className="text-[#4a4a4a] text-base tracking-wide"><a href="#" className="rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white">Verwalten</a></td>

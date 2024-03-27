@@ -40,7 +40,7 @@ export default function Cockpit_student() {
   }, [])
 
   
-  if (modules.length == 0) {
+  if (false) {
     setModules([
 
     // dates must be year-mo-da
@@ -51,7 +51,7 @@ export default function Cockpit_student() {
     ])
   }
 
-  console.log(user)
+  console.log(modules)
   return (
     <RootLayout show_billboard={true}>
       <main className='flex-row justify-between px-10 pt-10'>
