@@ -28,9 +28,9 @@ export default function cockpit_lecturer() {
       //e.preventDefault()
 
       try {
-        //const response = await axios.get(
-        //  `https://mz-bdev.de/api/student/${user.id}/modules`
-        //)
+        const response = await axios.get(
+          `https://mz-bdev.de/api/lecturer/${user.id}/modules`
+        )
 
         setModules(response.data)
       } catch (error) {
