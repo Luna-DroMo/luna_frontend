@@ -30,7 +30,7 @@ export default function Main({ model }) {
 
             try {
                 const response = await axios.get(
-                    `http://52.5.114.46/api/getUserType/${user.id}`
+                    `https://mz-bdev.de/api/getUserType/${user.id}`
                 )
 
                 setUserRole(response.data)
@@ -62,7 +62,7 @@ export default function Main({ model }) {
             console.log("Writing:", data)
             try {
                 const response = await axios.post(
-                    `http://52.5.114.46/api/student/save_form/${user.id}`,
+                    `https://mz-bdev.de/api/student/save_form/${user.id}`,
                     data
                 )
 
