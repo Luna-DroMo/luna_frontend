@@ -13,7 +13,6 @@ import Router, {useRouter} from "next/router"
 import {ErrorBanner} from "@/components/Errors"
 import {hasNullValue} from "@/utils/utils"
 import {useEffect} from "react"
-import {url} from "@/utils/data"
 
 const AIST_questions = [
   {id: 1, question: "AIST_R", subtitle: "Realistic (Your Practical Side)"},
@@ -77,7 +76,7 @@ export default function Main({model}) {
     const getUserRole = async (e) => {
       try {
         const response = await axios.get(
-          `http://52.5.114.46/api/getUserType/${user.id}`
+          `https://mz-bdev.de/api/getUserType/${user.id}`
         )
 
         setUserRole(response.data)
@@ -110,7 +109,7 @@ export default function Main({model}) {
     e.preventDefault()
     try {
       const response = await axios.post(
-        `${url}/api/${user.id}/forms/3`,
+        `https://mz-bdev.de/api/${user.id}/forms/3`,
         request
       )
 

@@ -24,7 +24,7 @@ export default function Main() {
 
             try {
                 const response = await axios.get(
-                    `http://52.5.114.46/api/getUserType/${user.id}`
+                    `https://mz-bdev.de/api/getUserType/${user.id}`
                 )
 
                 setUserRole(response.data)
