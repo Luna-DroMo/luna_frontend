@@ -22,17 +22,17 @@ function SignUpForm() {
         password: password,
         first_name: 'John',
         last_name: 'Doe',
-        faculty_id: 1
+        university: null // or 2 for Tuebingen
       }
 
-      console.log(data)
+      
       const register_response = await axios.post(
         'https://mz-bdev.de/signup',
         data
       )
 
       // Log user in
-      /*try {
+      try {
         const response = await axios.post(
           'https://mz-bdev.de/login',
           { email, password }
@@ -54,7 +54,7 @@ function SignUpForm() {
       } catch (error) {
         console.log("error during login", error)
       }
-        */
+        
     } catch (error) {
       console.error(error.response.data)
     }
