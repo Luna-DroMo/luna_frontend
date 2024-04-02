@@ -12,7 +12,7 @@ import {useEffect} from "react"
 import {useAuth} from "../components/AuthProvider"
 
 export default function Main() {
-  const [moduleID, setModuleID] = useState("")
+  const [code, setCode] = useState("")
   const [moduleName, setModuleName] = useState("")
   const [faculty, setFaculty] = useState("")
   const [modulePassword, setModulePassword] = useState("")
@@ -50,7 +50,7 @@ export default function Main() {
     router.push("/cockpit/")
   } else {
     const data = {
-      module_id: moduleID,
+      code: code,
       name: moduleName,
       faculty: faculty,
       password: modulePassword,
@@ -92,7 +92,7 @@ export default function Main() {
             </h1>
             <div className='h-8'></div>
             <InputRow
-              value={data["module_id"]}
+              value={data["code"]}
               readOnly={true}
               type='text'
               maintext='Module ID'
@@ -170,7 +170,7 @@ export default function Main() {
                 maintext='Module ID'
                 subtitle='Universitäts-interne Identifikationsnummer. Z.B. CS101'
                 onChange={(e) => {
-                  setModuleID(e.target.value)
+                  setCode(e.target.value)
                 }}
               />
               <InputRow
