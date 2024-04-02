@@ -22,7 +22,7 @@ function SignUpForm() {
         password: password,
         first_name: 'John',
         last_name: 'Doe',
-        university: null // or 2 for Tuebingen
+        university: 2, // or 2 for Tuebingen
       }
 
       
