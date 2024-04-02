@@ -28,7 +28,10 @@ export default function Main() {
     }
 
     try {
-      const response = await axios.post(`${url}/api/${user.id}/module`, data)
+      const response = await axios.post(
+        `${url}/api/${user.id}/enroll_module`,
+        data
+      )
     } catch (error) {
       console.error("Fetch error:", error)
     }
