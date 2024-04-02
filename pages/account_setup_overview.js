@@ -100,7 +100,7 @@ export default function Main() {
         percentage={backgroundStatus.percentage}
       >
         <main className='flex-row justify-between px-10 pt-10'>
-          <Greeting account_setup_progress={account_setup_progress} />
+          <Greeting user = {user} account_setup_progress={account_setup_progress} />
           <div className=' my-10  w-full text-center'>
             <h1 className='mb-5 text-2xl'>Prozess jetzt starten!</h1>
             <Button
@@ -124,14 +124,14 @@ export default function Main() {
   }
 }
 
-function Greeting({account_setup_progress}) {
+function Greeting({user, account_setup_progress}) {
   if (account_setup_progress == 0) {
     return (
       <>
         <div className='flex items-center'>
           <img src='alien.png' className='ml-2 w-10 mr-4' />
           <h1 className='tracking-wider text-xl'>
-            Hey Max, willkommen bei Luna!
+            Hey {user.first_name}, willkommen bei Luna!
           </h1>
         </div>
         <div className='text-text-grey text-sm mt-5'>
