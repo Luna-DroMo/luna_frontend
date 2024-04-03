@@ -37,7 +37,7 @@ export default function Main() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = {
-      code: module.code,
+      module_code: module.code,
       password: password
     }
     console.log("formData", formData)
