@@ -14,17 +14,43 @@ import { ErrorBanner } from '@/components/Errors';
 import { hasNullValue } from '@/utils/utils';
 import { useEffect } from 'react';
 
+const questions = [
+    { id: 1, question: "BFI_ex", subtitle: "Extraversion" },
+    { id: 2, question: "BFI_ve", subtitle: "Vertraglichkeit" },
+    { id: 3, question: "BFI_ge", subtitle: "Gewissenhaftigkeit" },
+    { id: 4, question: "BFI_ne", subtitle: "Neurotizismus" },
+    { id: 5, question: "BFI_of", subtitle: "Offentheit" },
+]
+
+
 export default function Main({ model }) {
     const { user, isAuthenticated, saveUser, clearUser } = useAuth();
     const router = useRouter();
     const [userRole, setUserRole] = useState(null)
-    const [EX, setEX] = useState('')
-    const [VE, setVE] = useState('')
-    const [GE, setGE] = useState('')
-    const [NE, setNE] = useState('')
-    const [OF, setOF] = useState('')
+    
     const [error_message, setErrorMessage] = useState('')
-
+    const [request, setRequest] = useState([
+        {
+            question_id: 1,
+            value: ""
+        },
+        {
+            question_id: 2,
+            value: ""
+        },
+        {
+            question_id: 3,
+            value: ""
+        },
+        {
+            question_id: 4,
+            value: ""
+        },
+        {
+            question_id: 5,
+            value: ""
+        }
+    ])
 
     useEffect(() => {
         const getUserRole = async (e) => {
@@ -54,29 +80,15 @@ export default function Main({ model }) {
         // Data points
 
 
-        let data = {
-            name: "BFI",
-            user: user.id,
-            content: {
-                EX: EX,
-                VE: VE,
-                GE: GE,
-                NE: NE,
-                OF: OF
-            }
-        }
-
         const handleUserDataUpdate = async (e) => {
             e.preventDefault()
-            console.log("Writing:", data)
+            console.log("Writing:", request)
 
-            if (hasNullValue(data.content)) {
-                setErrorMessage("Missing values")
-            } else {
+            
                 try {
                     const response = await axios.post(
-                        `https://mz-bdev.de/api/student/save_form/${user.id}`,
-                        data
+                        `https://mz-bdev.de/api/${user.id}/forms/8`,
+                        request
                     )
 
                     router.push("./panas_input")
@@ -84,7 +96,17 @@ export default function Main({ model }) {
                     console.log("error", error)
                     setErrorMessage(error.message)
                 }
-            }
+            
+        }
+
+        const handleResponseChange = (question_id, newValue) => {
+            setRequest((prevResponses) =>
+                prevResponses.map((response) =>
+                    response.question_id === question_id
+                        ? { ...response, value: newValue }
+                        : response
+                )
+            )
         }
 
         let forms1 = [
@@ -107,11 +129,27 @@ export default function Main({ model }) {
                         <form onSubmit={handleUserDataUpdate}>
                             <h1 className='tracking-wider text-xl'>{model.name}</h1>
                             <p className='mb-10'>This section covers stuff about BFI Personality questionnaire</p>
-                            <InputRow type="number" maintext="BFI_ex" subtitle="Subtitle" value={EX} onChange={(e) => setEX(e.target.value)} />
-                            <InputRow type="number" maintext="BFI_ve" subtitle="Subtitle" value={VE} onChange={(e) => setVE(e.target.value)} />
-                            <InputRow type="number" maintext="BFI_ge" subtitle="Subtitle" value={GE} onChange={(e) => setGE(e.target.value)} />
-                            <InputRow type="number" maintext="BFI_ne" subtitle="Subtitle" value={NE} onChange={(e) => setNE(e.target.value)} />
-                            <InputRow type="number" maintext="BFI_of" subtitle="Subtitle" value={OF} onChange={(e) => setOF(e.target.value)} />
+                            {request.map((response) => {
+                                const question = questions.find(
+                                    (q) => q.id === response.question_id
+                                )
+                                return (
+                                    <InputRow
+                                        key={response.question_id}
+                                        type='number' // or "number", depending on your data
+                                        maintext={
+                                            question
+                                                ? question.question
+                                                : `Question ${response.question_id}`
+                                        }
+                                        subtitle={question.subtitle}
+                                        value={response.value}
+                                        onChange={(e) =>
+                                            handleResponseChange(response.question_id, e.target.value)
+                                        }
+                                    />
+                                )
+                            })}
                             { /* Error block */
                                 error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
                             }

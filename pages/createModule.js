@@ -1,15 +1,16 @@
 import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
-import {FormButton} from "@/components/Buttons"
-import {FormInput, InputRow} from "@/components/FormElements"
+import { FormButton } from "@/components/Buttons"
+import { FormInput, InputRow } from "@/components/FormElements"
 import React from "react"
-import {useState} from "react"
-import {hasNullValue} from "@/utils/utils"
+import { useState } from "react"
+import { hasNullValue } from "@/utils/utils"
 import axios from "axios"
-import {useRouter} from "next/router"
-import {Button} from "@/components/Buttons"
-import {useEffect} from "react"
-import {useAuth} from "../components/AuthProvider"
+import { useRouter } from "next/router"
+import { Button } from "@/components/Buttons"
+import { useEffect } from "react"
+import { useAuth } from "../components/AuthProvider"
+import { faC } from "@fortawesome/free-solid-svg-icons"
 
 export default function Main() {
   const [code, setCode] = useState("")
@@ -24,7 +25,7 @@ export default function Main() {
   const [userRole, setUserRole] = useState(null)
 
   const router = useRouter()
-  const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+  const { user, isAuthenticated, saveUser, clearUser } = useAuth()
   useEffect(() => {
     const getUserRole = async (e) => {
       //e.preventDefault()
@@ -43,7 +44,11 @@ export default function Main() {
     getUserRole()
   })
 
+
+
+  const FAKE_FACULTIES_FROM_ENDPOINT = { '----': 0, 'Stats': 1, 'Non-Existent': 2 }
   // Funky logic to only allow non-students to create modules, and to hide pre-rendering
+
   if (userRole === null) {
     return <p> </p>
   } else if (userRole === 1) {
@@ -52,18 +57,21 @@ export default function Main() {
     const data = {
       code: code,
       name: moduleName,
-      faculty: faculty,
+      faculty: 1, // 1: Stats
       password: modulePassword,
       start_date: startDate,
-      end_date: endDate
+      end_date: endDate,
+      survey_days: '1'  // 1: monday, 2: tuesday,... etc
     }
 
     const handleModuleCreation = async (e) => {
       e.preventDefault()
       console.log("Writing:", data)
 
-      if (hasNullValue(data)) {
+
+      if (false) { //hasNullValue(data)) {
         setErrorMessage("Missing values")
+        console.log("here")
       } else {
         if (modulePassword === modulePassword_val) {
           try {
@@ -71,6 +79,7 @@ export default function Main() {
               `https://mz-bdev.de/api/${user.id}/module/create`,
               data
             )
+            console.log("Created Module?")
             setSubmitted(true)
             //router.push({pathname:"./moduleCreationSuccess/",query:{module: JSON.stringify(data)}},
             //"./moduleCreationSuccess/")
@@ -80,6 +89,7 @@ export default function Main() {
           }
         } else {
           setErrorMessage("Passwords do not match")
+          console.log("Some error")
         }
       }
     }
@@ -104,13 +114,6 @@ export default function Main() {
               type='text'
               maintext='Module Name'
               subtitle='Name des Moduls. Z.B. Einführung in die Datenanalyse'
-            />
-            <InputRow
-              value={data["faculty"]}
-              readOnly={true}
-              type='text'
-              maintext='Fakultät'
-              subtitle='Zuständige Fakultät des Moduls'
             />
 
             <div className='h-8'></div>
@@ -164,116 +167,118 @@ export default function Main() {
               <h3 className='text-text-grey'>
                 Trage bitte alle Informationen ein, um ein Modul anzulegen.
               </h3>
-              <div className='h-8'></div>
-              <InputRow
-                type='text'
-                maintext='Module ID'
-                subtitle='Universitäts-interne Identifikationsnummer. Z.B. CS101'
-                onChange={(e) => {
-                  setCode(e.target.value)
-                }}
-              />
-              <InputRow
-                type='text'
-                maintext='Module Name'
-                subtitle='Name des Moduls. Z.B. Einführung in die Datenanalyse'
-                onChange={(e) => {
-                  setModuleName(e.target.value)
-                }}
-              />
-              <InputRow
-                type='text'
-                maintext='Fakultät'
-                subtitle='Zuständige Fakultät des Moduls'
-                onChange={(e) => {
-                  setFaculty(e.target.value)
-                }}
-              />
-
-              <div className='h-8'></div>
-              <InputRow
-                type='password'
-                maintext='Passwort'
-                subtitle='Das Passwort wird bei dem Beitreten des Moduls benötigt'
-                onChange={(e) => {
-                  setModulePassword(e.target.value)
-                }}
-              />
-              <InputRow
-                type='password'
-                maintext='Passwort wiederholen'
-                subtitle=''
-                onChange={(e) => {
-                  setModulePassword_val(e.target.value)
-                }}
-              />
-
-              <div className='h-8'></div>
-              <InputRow
-                type='date'
-                maintext='Startdatum'
-                subtitle='Begin der Veranstaltung'
-                onChange={(e) => {
-                  setStartDate(e.target.value)
-                }}
-              />
-              <InputRow
-                type='date'
-                maintext='Enddatum'
-                subtitle='End der Veranstaltung'
-                onChange={(e) => {
-                  setEndDate(e.target.value)
-                }}
-              />
-
-              <div className='h-8'></div>
-              <InputRow
-                type='dropdown'
-                options={["Vollständig", "Reduziert"]}
-                maintext='Befragungsart'
-                subtitle='Die Befragungsart kann nach der Erstellung nicht mehr geändert werden!'
-              />
-              <div className='w-100 h-15 py-2 px-5 bg-[#FFF0CB] rounded'>
-                <p className='text-text-grey'>
-                  [NEEDS TO BE DYNAMIC] Achtung! Analysen und Prognosen
-                  eingeschränkt. Für vollständige Analysen, bitte “Standard”
-                  wählen.
-                </p>
-              </div>
-              <div className='h-12' />
-              <div className='flex-grow'>
-                <p>Eigene Frage festlegen</p>
-                <p className='subtitle text-text-grey'>
-                  Du kannst bis zu 2 eigene Fragen zur Befragung hinzufügen. Die
-                  Antworten werden dir angezeigt aber nicht in unseren Analysen
-                  verwendet.{" "}
-                </p>
-              </div>
-              <hr className='mt-5 border-lightgrey' />
-              <div>
-                <p>NEEDS TO BE IMPLEMENTED</p>
+              
+              <div className='rounded-xl bg-white px-5 py-5 mb-4 mt-8'>
+                <InputRow
+                  type='text'
+                  maintext='Module ID'
+                  subtitle='Universitäts-interne Identifikationsnummer. Z.B. CS101'
+                  onChange={(e) => {
+                    setCode(e.target.value)
+                  }}
+                />
+                <InputRow
+                  type='text'
+                  maintext='Module Name'
+                  subtitle='Name des Moduls. Z.B. Einführung in die Datenanalyse'
+                  onChange={(e) => {
+                    setModuleName(e.target.value)
+                  }}
+                />
               </div>
 
-              <div className='h-8'></div>
-              <InputRow
-                type='checkbox'
-                options={["MO", "DI", "MI", "DO", "FR", "SA", "SO"]}
-                maintext='Bitte die Tage wählen, an denen die Befragungen stattfinden sollen. '
-                subtitle='Jede einzelne Befragung ist für 3 Tagen aktiv.'
-              />
-              <InputRow
-                type='date'
-                maintext='Ausnahme Tage [NEEDS PROPER IMPLEMENTATION]'
-                subtitle='Falls die Befragung an manchen Tagen nicht stattfinden soll, können diese hier festgelegt werden.'
-              />
+              
+              <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                <InputRow
+                  type='password'
+                  maintext='Passwort'
+                  subtitle='Das Passwort wird bei dem Beitreten des Moduls benötigt'
+                  onChange={(e) => {
+                    setModulePassword(e.target.value)
+                  }}
+                />
+                <InputRow
+                  type='password'
+                  maintext='Passwort wiederholen'
+                  subtitle=''
+                  onChange={(e) => {
+                    setModulePassword_val(e.target.value)
+                  }}
+                />
+              </div>
 
-              <div className='h-8'></div>
-              <InputRow
-                type='checkbox'
-                options={["Privat"]}
-                maintext='Modul als Privat markieren'
-                subtitle='Private Module werden nicht in der Suche nach Modulen erscheinen. Ein Passwort wird weiterhin benötigt.'
-              />
+
+              <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                <InputRow
+                  type='date'
+                  maintext='Startdatum'
+                  subtitle='Begin der Veranstaltung'
+                  onChange={(e) => {
+                    setStartDate(e.target.value)
+                  }}
+                />
+                <InputRow
+                  type='date'
+                  maintext='Enddatum'
+                  subtitle='End der Veranstaltung'
+                  onChange={(e) => {
+                    setEndDate(e.target.value)
+                  }}
+                />
+              </div>
+              
+              <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                <InputRow
+                  type='dropdown'
+                  options={["Vollständig", "Reduziert"]}
+                  maintext='Befragungsart'
+                  subtitle='Die Befragungsart kann nach der Erstellung nicht mehr geändert werden!'
+                />
+                <div className='w-100 h-15 py-2 px-5 bg-[#FFF0CB] rounded'>
+                  <p className='text-text-grey'>
+                    [NEEDS TO BE DYNAMIC] Achtung! Analysen und Prognosen
+                    eingeschränkt. Für vollständige Analysen, bitte “Standard”
+                    wählen.
+                  </p>
+                </div>
+                <div className='h-12' />
+                <div className='flex-grow'>
+                  <p>Eigene Frage festlegen</p>
+                  <p className='subtitle text-text-grey'>
+                    Du kannst bis zu 2 eigene Fragen zur Befragung hinzufügen. Die
+                    Antworten werden dir angezeigt aber nicht in unseren Analysen
+                    verwendet.{" "}
+                  </p>
+                </div>
+                <hr className='mt-5 border-lightgrey' />
+                <div>
+                  <p>NEEDS TO BE IMPLEMENTED</p>
+                </div>
+              </div>
+
+              
+              <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                <InputRow
+                  type='checkbox'
+                  options={["MO", "DI", "MI", "DO", "FR", "SA", "SO"]}
+                  maintext='Bitte die Tage wählen, an denen die Befragungen stattfinden sollen. '
+                  subtitle='Jede einzelne Befragung ist für 3 Tagen aktiv.'
+                />
+                <InputRow
+                  type='date'
+                  maintext='Ausnahme Tage [NEEDS PROPER IMPLEMENTATION]'
+                  subtitle='Falls die Befragung an manchen Tagen nicht stattfinden soll, können diese hier festgelegt werden.'
+                />
+              </div>
+              <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                
+                <InputRow
+                  type='checkbox'
+                  options={["Privat"]}
+                  maintext='Modul als Privat markieren'
+                  subtitle='Private Module werden nicht in der Suche nach Modulen erscheinen. Ein Passwort wird weiterhin benötigt.'
+                />
+              </div>
               <div className='flex justify-evenly w-3/5 mt-24'>
                 <FormButton text='Abbrechen' />
                 <FormButton

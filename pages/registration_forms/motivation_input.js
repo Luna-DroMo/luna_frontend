@@ -2,28 +2,53 @@ import Image from "next/image"
 import InputLayout from "@/components/InputLayout.js"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import {FormButton} from "@/components/Buttons"
-import {FormInput, InputRow} from "@/components/FormElements"
-import {Progressbar} from "@/components/InputProgressTracker"
+import { FormButton } from "@/components/Buttons"
+import { FormInput, InputRow } from "@/components/FormElements"
+import { Progressbar } from "@/components/InputProgressTracker"
 import React from "react"
-import {useAuth} from "../../components/AuthProvider"
-import {useState} from "react"
+import { useAuth } from "../../components/AuthProvider"
+import { useState } from "react"
 import axios from "axios"
-import Router, {useRouter} from "next/router"
-import {ErrorBanner} from "@/components/Errors"
-import {hasNullValue} from "@/utils/utils"
-import {useEffect} from "react"
+import Router, { useRouter } from "next/router"
+import { ErrorBanner } from "@/components/Errors"
+import { hasNullValue } from "@/utils/utils"
+import { useEffect } from "react"
 
-export default function motivation_input({model}) {
-  const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+const questions = [
+  { id: 1, question: "AV", subtitle: "" },
+  { id: 2, question: "IV", subtitle: "" },
+  { id: 3, question: "SE", subtitle: "" },
+  { id: 4, question: "UV", subtitle: "" },
+  { id: 5, question: "CO", subtitle: "" },
+]
+
+export default function motivation_input({ model }) {
+  const { user, isAuthenticated, saveUser, clearUser } = useAuth()
   const router = useRouter()
   const [userRole, setUserRole] = useState(null)
   // Data points
-  const [AV, setAV] = useState("")
-  const [IV, setIV] = useState("")
-  const [SE, setSE] = useState("")
-  const [UV, setUV] = useState("")
-  const [CO, setCO] = useState("")
+  const [request, setRequest] = useState([
+    {
+      question_id: 1,
+      value: ""
+    },
+    {
+      question_id: 2,
+      value: ""
+    },
+    {
+      question_id: 3,
+      value: ""
+    },
+    {
+      question_id: 4,
+      value: ""
+    },
+    {
+      question_id: 5,
+      value: ""
+    }
+  ])
   const [error_message, setErrorMessage] = useState("")
 
   useEffect(() => {
@@ -50,29 +75,17 @@ export default function motivation_input({model}) {
   } else if (userRole !== 1) {
     router.push("/cockpit/")
   } else {
-    let data = {
-      name: "Motivation",
-      user: user.id,
-      content: {
-        AV: AV,
-        IV: IV,
-        SE: SE,
-        UV: UV,
-        CO: CO
-      }
-    }
+
 
     const handleUserDataUpdate = async (e) => {
       e.preventDefault()
-      console.log("Writing:", data)
+      console.log("Writing:", request)
 
-      if (hasNullValue(data.content)) {
-        setErrorMessage("Missing values")
-      } else {
+      
         try {
           const response = await axios.post(
-            `https://mz-bdev.de/api/student/save_form/${user.id}`,
-            data
+            `https://mz-bdev.de/api/${user.id}/forms/7`,
+            request
           )
 
           router.push("./bfi_input")
@@ -80,16 +93,24 @@ export default function motivation_input({model}) {
           console.log("error", error)
           setErrorMessage(error.message)
         }
-      }
+      
     }
-
+    const handleResponseChange = (question_id, newValue) => {
+      setRequest((prevResponses) =>
+        prevResponses.map((response) =>
+          response.question_id === question_id
+            ? { ...response, value: newValue }
+            : response
+        )
+      )
+    }
     let forms1 = [
-      {name: "Fachwissen Mathematik", status: 2, item: 4},
-      {name: "Motivation", status: 1, item: 5},
-      {name: "Persönlichkeitsskala", status: 0, item: 6}
+      { name: "Fachwissen Mathematik", status: 2, item: 4 },
+      { name: "Motivation", status: 1, item: 5 },
+      { name: "Persönlichkeitsskala", status: 0, item: 6 }
     ]
 
-    model = {name: "Motivation"}
+    model = { name: "Motivation" }
 
     return (
       <InputLayout show_main_links={false}>
@@ -103,41 +124,27 @@ export default function motivation_input({model}) {
               <p className='mb-10'>
                 This section covers stuff about the Motivation questionnaire
               </p>
-              <InputRow
-                type='number'
-                maintext='AV'
-                subtitle='Subtitle'
-                value={AV}
-                onChange={(e) => setAV(e.target.value)}
-              />
-              <InputRow
-                type='number'
-                maintext='IV'
-                subtitle='Subtitle'
-                value={IV}
-                onChange={(e) => setIV(e.target.value)}
-              />
-              <InputRow
-                type='number'
-                maintext='SE'
-                subtitle='Subtitle'
-                value={SE}
-                onChange={(e) => setSE(e.target.value)}
-              />
-              <InputRow
-                type='number'
-                maintext='UV'
-                subtitle='Subtitle'
-                value={UV}
-                onChange={(e) => setUV(e.target.value)}
-              />
-              <InputRow
-                type='number'
-                maintext='CO'
-                subtitle='Subtitle'
-                value={CO}
-                onChange={(e) => setCO(e.target.value)}
-              />
+              {request.map((response) => {
+                const question = questions.find(
+                  (q) => q.id === response.question_id
+                )
+                return (
+                  <InputRow
+                    key={response.question_id}
+                    type='number' // or "number", depending on your data
+                    maintext={
+                      question
+                        ? question.question
+                        : `Question ${response.question_id}`
+                    }
+                    subtitle={question.subtitle}
+                    value={response.value}
+                    onChange={(e) =>
+                      handleResponseChange(response.question_id, e.target.value)
+                    }
+                  />
+                )
+              })}
               {
                 /* Error block */
                 error_message !== "" && (
