@@ -14,7 +14,7 @@ const data_models_to_use = [
     { "modelname": "Internale-Externale-Kontrollüberzeugung", "setup_status": 1, "href": "#", "img": "specification.png" },
     { "modelname": "Fachwissenstest Mathematik", "setup_status": 1, "href": "#", "img": "function.png" },
     { "modelname": "Motivation", "setup_status": 1, "href": "#", "img": "motivation.png" },
-    { "modelname": "Persönlichkeits-skala", "setup_status": 0, "href": "#", "img": "personality.png" },
+    { "modelname": "Persönlichkeitsskalen", "setup_status": 0, "href": "#", "img": "personality.png" },
     { "modelname": "Panas", "setup_status": 0, "href": "#", "img": "mood.png" },
 ];
 

@@ -58,7 +58,7 @@ export default function Cockpit_student() {
       {!user.is_verified && <SignupReminderBanner />}
         
         <div className='flex items-center'>
-          <img src='alien.png' className='ml-2 w-10 mr-4' />
+          <img src='alien.png' className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple' />
           <h1 className='tracking-wider text-xl'>
             Hey {user.first_name}, willkommen bei Luna!
           </h1>

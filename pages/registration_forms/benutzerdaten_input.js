@@ -21,6 +21,7 @@ export default function Main({ model }) {
     { "name": "AIST", "status": 0, "item": 2 },
     { "name": "Kognitive Fähigkeiten", "status": 0, "item": 3 }];
 
+    console.log("made it to benutzerdaten")
     const router = useRouter();
 
     model = { "name": "Benutzerdaten" };
@@ -39,9 +40,9 @@ export default function Main({ model }) {
         last_name: surname,
         nickname: alias,
         birth_date: birthdate,
-        main_language: language,
-        abitur_note: hsgrade,
-        financial_support: finsupport,
+        //main_language: language,
+        //abitur_note: hsgrade,
+        //financial_support: finsupport,
 
     }
 
@@ -80,10 +81,7 @@ export default function Main({ model }) {
                         <InputRow type="text" maintext="Alias" subtitle="Wie sollen wir dich nennen?" value = {alias} onChange={(e) => setAlias(e.target.value)}/>
                         <div className='h-12'></div>
                         <InputRow type="date" maintext="Geburtsdatum" subtitle=" " value = {birthdate} onChange={(e) => setBirthdate(e.target.value)}/>
-                        <div className='h-12'></div>
-                        <InputRow type="number" maintext="Abiturnote" subtitle=" " value = {hsgrade} onChange={(e) => setHsgrade(e.target.value)}/>
-                        <InputRow type="radio" maintext="Hauptsprache im Elternhaus" subtitle="Welche Sprache wird hauptsächlich zuhause gesprochen?" options={{"Deutsch":"DE", "Englisch":"EN", "Sonstige Sprache":"OTHER"}} value = {language} onChange={(e) => setLanguage(e.target.value)}/>
-                        <InputRow type="radio" maintext="Finanzielle Unterstützung" subtitle="Bekommst du aktuell finanzielle Unterstützung von deinen Eltern?" options={{"Ja":1, "Nein":0}} value = {finsupport} onChange={(e) => setFinsupport(e.target.value)} />
+                        
                         { /* Error block */
                             error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
                         }
@@ -97,3 +95,11 @@ export default function Main({ model }) {
         </RootLayout>
     )
 }
+/*
+
+<div className='h-12'></div>
+                        <InputRow type="number" maintext="Abiturnote" subtitle=" " value = {hsgrade} onChange={(e) => setHsgrade(e.target.value)}/>
+                        <InputRow type="radio" maintext="Hauptsprache im Elternhaus" subtitle="Welche Sprache wird hauptsächlich zuhause gesprochen?" options={{"Deutsch":"DE", "Englisch":"EN", "Sonstige Sprache":"OTHER"}} value = {language} onChange={(e) => setLanguage(e.target.value)}/>
+                        <InputRow type="radio" maintext="Finanzielle Unterstützung" subtitle="Bekommst du aktuell finanzielle Unterstützung von deinen Eltern?" options={{"Ja":1, "Nein":0}} value = {finsupport} onChange={(e) => setFinsupport(e.target.value)} />
+
+                        */

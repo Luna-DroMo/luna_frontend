@@ -14,6 +14,11 @@ import { ErrorBanner } from '@/components/Errors';
 import { hasNullValue } from '@/utils/utils';
 import { useEffect } from 'react';
 
+
+const questions = [
+  { id: 1, question: "IQ", subtitle: "How Smart are you" },
+]
+
 export default function Main({ model }) {
   const { user, isAuthenticated, saveUser, clearUser } = useAuth();
   const router = useRouter();
@@ -22,7 +27,12 @@ export default function Main({ model }) {
   const [IQ, setIQ] = useState('')
   const [error_message, setErrorMessage] = useState('')
 
-
+  const [request, setRequest] = useState([
+    {
+      question_id: 1,
+      value: ""
+    }
+  ])
   useEffect(() => {
     const getUserRole = async (e) => {
       //e.preventDefault()
@@ -48,39 +58,41 @@ export default function Main({ model }) {
   } else if (userRole !== 1) {
     router.push("/cockpit/")
   } else {
-    
-    
 
-    let data = {
-      name: "IQ",
-      user: user.id,
-      content: {
-        IQ: IQ
-      }
-    }
+
 
     const handleUserDataUpdate = async (e) => {
       e.preventDefault()
-      console.log("Writing:", data)
+      console.log("Writing:", request)
 
-      if (hasNullValue(data.content)) {
-        setErrorMessage("Missing values")
-      } else {
-        try {
-          const response = await axios.post(
-            `https://mz-bdev.de/api/${user.id}/forms/4`,
-            data
-          )
 
-          router.push("./IntExt_input")
-        } catch (error) {
-          console.log("error", error)
-          setErrorMessage(error.message)
-        }
+
+
+      try {
+        const response = await axios.post(
+          `https://mz-bdev.de/api/${user.id}/forms/4`,
+          request
+        )
+
+        router.push("./IntExt_input")
+      } catch (error) {
+        console.log("error", error)
+        setErrorMessage(error.message)
       }
+
+    }
+    
+    const handleResponseChange = (question_id, newValue) => {
+      setRequest((prevResponses) =>
+        prevResponses.map((response) =>
+          response.question_id === question_id
+            ? { ...response, value: newValue }
+            : response
+        )
+      )
     }
 
-
+    console.log(request)
     let forms1 = [
       { "name": "AIST", "status": 2, "item": 1 },
       { "name": "Kognitive Fähigkeiten", "status": 1, "item": 2 },
@@ -98,7 +110,27 @@ export default function Main({ model }) {
             <form onSubmit={handleUserDataUpdate}>
               <h1 className='tracking-wider text-xl'>{model.name}</h1>
               <p className='mb-10'>This section covers stuff about the IQ questionnaire</p>
-              <InputRow type="number" maintext="IQ Score" subtitle="Subtitle" value={IQ} onChange={(e) => setIQ(e.target.value)} />
+              {request.map((response) => {
+                const question = questions.find(
+                  (q) => q.id === response.question_id
+                )
+                return (
+                  <InputRow
+                    key={response.question_id}
+                    type='number' // or "number", depending on your data
+                    maintext={
+                      question
+                        ? question.question
+                        : `Question ${response.question_id}`
+                    }
+                    subtitle={question.subtitle}
+                    value={response.value}
+                    onChange={(e) =>
+                      handleResponseChange(response.question_id, e.target.value)
+                    }
+                  />
+                )
+              })}
               { /* Error block */
                 error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
               }

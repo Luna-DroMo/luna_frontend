@@ -14,15 +14,32 @@ import { ErrorBanner } from '@/components/Errors';
 import { hasNullValue } from '@/utils/utils';
 import { useEffect } from 'react';
 
+
+
+const questions = [
+    { id: 1, question: "INT", subtitle: "Internal Control" },
+    { id: 2, question: "EXT", subtitle: "External Control" }
+]
+
+
+
 export default function Main({ model }) {
     const { user, isAuthenticated, saveUser, clearUser } = useAuth();
     const router = useRouter();
     const [userRole, setUserRole] = useState(null)
     // Data points
-    const [INT, setINT] = useState('')
-    const [EXT, setEXT] = useState('')
     const [error_message, setErrorMessage] = useState('')
 
+    const [request, setRequest] = useState([
+        {
+            question_id: 1,
+            value: ""
+        },
+        {
+            question_id: 2,
+            value: ""
+        }
+    ])
 
     useEffect(() => {
         const getUserRole = async (e) => {
@@ -51,35 +68,35 @@ export default function Main({ model }) {
     } else {
 
 
-        let data = {
-            name: "INTEXT",
-            user: user.id,
-            content: {
-                INT: INT,
-                EXT: EXT
-            }
-        }
 
         const handleUserDataUpdate = async (e) => {
             e.preventDefault()
-            console.log("Writing:", data)
+            console.log("Writing:", request)
 
-            if (hasNullValue(data.content)) {
-                setErrorMessage("Missing values")
-            } else {
-                try {
-                    const response = await axios.post(
-                        `https://mz-bdev.de/api/${user.id}/forms/5`,
-                        data = data
-                    )
 
-                    router.push("./maths_input")
-                } catch (error) {
-                    console.log("error", error)
-                    setErrorMessage(error.message)
-                }
+            try {
+                const response = await axios.post(
+                    `https://mz-bdev.de/api/${user.id}/forms/5`,
+                    request
+                )
+
+                router.push("./maths_input")
+            } catch (error) {
+                console.log("error", error)
+                setErrorMessage(error.message)
             }
+
         }
+        const handleResponseChange = (question_id, newValue) => {
+            setRequest((prevResponses) =>
+                prevResponses.map((response) =>
+                    response.question_id === question_id
+                        ? { ...response, value: newValue }
+                        : response
+                )
+            )
+        }
+
 
 
         let forms1 = [
@@ -100,8 +117,27 @@ export default function Main({ model }) {
                         <form onSubmit={handleUserDataUpdate}>
                             <h1 className='tracking-wider text-xl'>{model.name}</h1>
                             <p className='mb-10'>This section covers stuff about the Internal and External Control questionnaire</p>
-                            <InputRow type="number" maintext="Internale Kontrolle Score" subtitle="Subtitle" value={INT} onChange={(e) => setINT(e.target.value)} />
-                            <InputRow type="number" maintext="Externale Kontrolle Score" subtitle="Subtitle" value={EXT} onChange={(e) => setEXT(e.target.value)} />
+                            {request.map((response) => {
+                                const question = questions.find(
+                                    (q) => q.id === response.question_id
+                                )
+                                return (
+                                    <InputRow
+                                        key={response.question_id}
+                                        type='number' // or "number", depending on your data
+                                        maintext={
+                                            question
+                                                ? question.question
+                                                : `Question ${response.question_id}`
+                                        }
+                                        subtitle={question.subtitle}
+                                        value={response.value}
+                                        onChange={(e) =>
+                                            handleResponseChange(response.question_id, e.target.value)
+                                        }
+                                    />
+                                )
+                            })}
                             { /* Error block */
                                 error_message !== "" && <ErrorBanner>{error_message}</ErrorBanner>
                             }

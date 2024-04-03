@@ -40,7 +40,7 @@ export default function Main() {
         setUserRole(userTypeResponse.data)
 
         const backgroundStatusResponse = await axios.get(
-          `http://mz-bdev.de/api/${5}/background`
+          `https://mz-bdev.de/api/${5}/background`
         )
         const {completed_forms, not_completed_forms} =
           backgroundStatusResponse.data
