@@ -1,16 +1,16 @@
 import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
-import { FormButton } from "@/components/Buttons"
-import { FormInput, InputRow } from "@/components/FormElements"
+import {FormButton} from "@/components/Buttons"
+import {FormInput, InputRow} from "@/components/FormElements"
 import React from "react"
-import { useState } from "react"
-import { hasNullValue } from "@/utils/utils"
+import {useState} from "react"
+import {hasNullValue} from "@/utils/utils"
 import axios from "axios"
-import { useRouter } from "next/router"
-import { Button } from "@/components/Buttons"
-import { useEffect } from "react"
-import { useAuth } from "../components/AuthProvider"
-import { faC } from "@fortawesome/free-solid-svg-icons"
+import {useRouter} from "next/router"
+import {Button} from "@/components/Buttons"
+import {useEffect} from "react"
+import {useAuth} from "../components/AuthProvider"
+import {faC} from "@fortawesome/free-solid-svg-icons"
 
 export default function Main() {
   const [code, setCode] = useState("")
@@ -25,7 +25,7 @@ export default function Main() {
   const [userRole, setUserRole] = useState(null)
 
   const router = useRouter()
-  const { user, isAuthenticated, saveUser, clearUser } = useAuth()
+  const {user, isAuthenticated, saveUser, clearUser} = useAuth()
   useEffect(() => {
     const getUserRole = async (e) => {
       //e.preventDefault()
@@ -44,9 +44,7 @@ export default function Main() {
     getUserRole()
   })
 
-
-
-  const FAKE_FACULTIES_FROM_ENDPOINT = { '----': 0, 'Stats': 1, 'Non-Existent': 2 }
+  const FAKE_FACULTIES_FROM_ENDPOINT = {"----": 0, Stats: 1, "Non-Existent": 2}
   // Funky logic to only allow non-students to create modules, and to hide pre-rendering
 
   if (userRole === null) {
@@ -57,19 +55,19 @@ export default function Main() {
     const data = {
       code: code,
       name: moduleName,
-      faculty: 1, // 1: Stats
+      university: 2, // 1: Stats
       password: modulePassword,
       start_date: startDate,
       end_date: endDate,
-      survey_days: '1'  // 1: monday, 2: tuesday,... etc
+      survey_days: "1" // 1: monday, 2: tuesday,... etc
     }
 
     const handleModuleCreation = async (e) => {
       e.preventDefault()
       console.log("Writing:", data)
 
-
-      if (false) { //hasNullValue(data)) {
+      if (false) {
+        //hasNullValue(data)) {
         setErrorMessage("Missing values")
         console.log("here")
       } else {
@@ -167,7 +165,7 @@ export default function Main() {
               <h3 className='text-text-grey'>
                 Trage bitte alle Informationen ein, um ein Modul anzulegen.
               </h3>
-              
+
               <div className='rounded-xl bg-white px-5 py-5 mb-4 mt-8'>
                 <InputRow
                   type='text'
@@ -187,7 +185,6 @@ export default function Main() {
                 />
               </div>
 
-              
               <div className='rounded-xl bg-white px-5 py-5 mb-4'>
                 <InputRow
                   type='password'
@@ -207,7 +204,6 @@ export default function Main() {
                 />
               </div>
 
-
               <div className='rounded-xl bg-white px-5 py-5 mb-4'>
                 <InputRow
                   type='date'
@@ -226,7 +222,7 @@ export default function Main() {
                   }}
                 />
               </div>
-              
+
               <div className='rounded-xl bg-white px-5 py-5 mb-4'>
                 <InputRow
                   type='dropdown'
@@ -245,9 +241,9 @@ export default function Main() {
                 <div className='flex-grow'>
                   <p>Eigene Frage festlegen</p>
                   <p className='subtitle text-text-grey'>
-                    Du kannst bis zu 2 eigene Fragen zur Befragung hinzufügen. Die
-                    Antworten werden dir angezeigt aber nicht in unseren Analysen
-                    verwendet.{" "}
+                    Du kannst bis zu 2 eigene Fragen zur Befragung hinzufügen.
+                    Die Antworten werden dir angezeigt aber nicht in unseren
+                    Analysen verwendet.{" "}
                   </p>
                 </div>
                 <hr className='mt-5 border-lightgrey' />
@@ -256,7 +252,6 @@ export default function Main() {
                 </div>
               </div>
 
-              
               <div className='rounded-xl bg-white px-5 py-5 mb-4'>
                 <InputRow
                   type='checkbox'
@@ -271,7 +266,6 @@ export default function Main() {
                 />
               </div>
               <div className='rounded-xl bg-white px-5 py-5 mb-4'>
-                
                 <InputRow
                   type='checkbox'
                   options={["Privat"]}
