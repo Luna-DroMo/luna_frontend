@@ -1,23 +1,21 @@
-import Image from 'next/image'
-import { StudentModuleTable } from '@/components/Table.js'
-import AlertSection from '@/components/Alerts.js'
-import RootLayout from '@/components/RootLayout.js'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
-import { useAuth } from '../../components/AuthProvider.js'
-import { useRouter } from 'next/router';
-import { SignupReminderBanner } from '@/components/Banners.js'
-import axios from 'axios'
-import { useEffect } from 'react'
-import Link from 'next/link.js'
+import Image from "next/image"
+import {StudentModuleTable} from "@/components/Table.js"
+import AlertSection from "@/components/Alerts.js"
+import RootLayout from "@/components/RootLayout.js"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons"
+import {useState} from "react"
+import {useAuth} from "../../components/AuthProvider.js"
+import {useRouter} from "next/router"
+import {SignupReminderBanner} from "@/components/Banners.js"
+import axios from "axios"
+import {useEffect} from "react"
+import Link from "next/link.js"
 
 export default function Cockpit_student() {
-
-  const router = useRouter();
-  const { user, isAuthenticated, saveUser, clearUser } = useAuth();
+  const router = useRouter()
+  const {user, isAuthenticated, saveUser, clearUser} = useAuth()
   const [modules, setModules] = useState([])
-
 
   useEffect(() => {
     const getModules = async (e) => {
@@ -32,22 +30,32 @@ export default function Cockpit_student() {
       } catch (error) {
         console.log("error during login", error)
       }
-
     }
 
     getModules()
-
   }, [])
 
-  
   if (false) {
     setModules([
-
-    // dates must be year-mo-da
-    { "moduleid": "CS504", "modulename": "Probabilistic Machine Learning", "nextsurveydue": "2023-09-08", "nextsurveypublished": "2023-09-15" },
-    { "moduleid": "QDS432", "modulename": "Bayesian Modelling", "nextsurveydue": "2023-09-15", "nextsurveypublished": "2023-09-25" },
-    { "moduleid": "FINC512", "modulename": "Advanced Time Series Analysis", "nextsurveydue": "2023-10-25", "nextsurveypublished": "2023-09-21" }
-
+      // dates must be year-mo-da
+      {
+        moduleid: "CS504",
+        modulename: "Probabilistic Machine Learning",
+        nextsurveydue: "2023-09-08",
+        nextsurveypublished: "2023-09-15"
+      },
+      {
+        moduleid: "QDS432",
+        modulename: "Bayesian Modelling",
+        nextsurveydue: "2023-09-15",
+        nextsurveypublished: "2023-09-25"
+      },
+      {
+        moduleid: "FINC512",
+        modulename: "Advanced Time Series Analysis",
+        nextsurveydue: "2023-10-25",
+        nextsurveypublished: "2023-09-21"
+      }
     ])
   }
 
@@ -55,8 +63,8 @@ export default function Cockpit_student() {
   return (
     <RootLayout show_billboard={true}>
       <main className='flex-row justify-between px-10 pt-10'>
-      {!user.is_verified && <SignupReminderBanner />}
-        
+        {!user.is_verified && <SignupReminderBanner />}
+
         <div className='flex items-center'>
           <img src='alien.png' className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple' />
           <h1 className='tracking-wider text-xl'>
@@ -88,7 +96,7 @@ export default function Cockpit_student() {
           </div>
           <div
             className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 bg-lunapurple'
-            style={{ backgroundImage: 'url("solarsystem.png")' }}
+            style={{backgroundImage: 'url("solarsystem.png")'}}
           >
             <div className='absolute inset-0 bg-white opacity-10'></div>
             <div className='flex items-center'>
@@ -115,7 +123,7 @@ export default function Cockpit_student() {
         </div>
 
         <Link
-          href={{pathname: 'module_search', query: user}}
+          href={{pathname: "module_search", query: {id: user.id}}}
           className='cursor-pointer flex border border-lightpurple rounded-full my-5 s-50 py-3 pl-5 hover:border-lunapurple z-1'
         >
           <div className='inline-block w-3 h-3 relative items-center z-10 my-1'>
@@ -128,9 +136,8 @@ export default function Cockpit_student() {
           </h4>
         </Link>
 
-        <StudentModuleTable modules={modules}/>
+        <StudentModuleTable modules={modules} />
       </main>
     </RootLayout>
   )
-
 }
