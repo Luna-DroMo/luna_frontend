@@ -23,7 +23,7 @@ export default function Main() {
 
   const handleSubmit = async (e) => {
     const data = {
-      code: moduleCode,
+      module_code: moduleCode,
       password: password
     }
 
