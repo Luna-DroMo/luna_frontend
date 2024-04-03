@@ -47,6 +47,8 @@ export default function Main() {
         `${url}/api/${user.id}/enroll_module`,
         formData
       )
+
+      router.push('/cockpit')
     } catch (error) {
       console.error("Fetch error:", error)
     }
