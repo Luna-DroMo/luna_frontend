@@ -17,49 +17,20 @@ export default function Cockpit_student() {
   const {user, isAuthenticated, saveUser, clearUser} = useAuth()
   const [modules, setModules] = useState([])
 
-  useEffect(() => {
+  useEffect(() => { 
     const getModules = async (e) => {
-      //e.preventDefault()
-
       try {
-        const response = await axios.get(
-          `https://mz-bdev.de/api/student/${user.id}/modules`
-        )
-
+        const response = await axios.get(`https://mz-bdev.de/api/student/${user.id}/modules`)
         setModules(response.data)
       } catch (error) {
         console.log("error during login", error)
       }
     }
-
     getModules()
   }, [])
 
-  if (false) {
-    setModules([
-      // dates must be year-mo-da
-      {
-        moduleid: "CS504",
-        modulename: "Probabilistic Machine Learning",
-        nextsurveydue: "2023-09-08",
-        nextsurveypublished: "2023-09-15"
-      },
-      {
-        moduleid: "QDS432",
-        modulename: "Bayesian Modelling",
-        nextsurveydue: "2023-09-15",
-        nextsurveypublished: "2023-09-25"
-      },
-      {
-        moduleid: "FINC512",
-        modulename: "Advanced Time Series Analysis",
-        nextsurveydue: "2023-10-25",
-        nextsurveypublished: "2023-09-21"
-      }
-    ])
-  }
 
-  console.log(modules)
+
   return (
     <RootLayout show_billboard={true}>
       <main className='flex-row justify-between px-10 pt-10'>

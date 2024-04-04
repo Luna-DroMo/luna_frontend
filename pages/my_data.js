@@ -30,7 +30,8 @@ export default function Main() {
         <RootLayout>
             <main className="flex-row justify-between px-10 pt-10">
                 <h1>Meine Daten</h1>
-                <Overview data_models={data_models_to_use} />
+               {//} <Overview data_models={data_models_to_use} />
+               }
             </main>
         </RootLayout>
     )
