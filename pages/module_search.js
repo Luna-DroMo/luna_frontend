@@ -9,12 +9,30 @@ import {faC} from "@fortawesome/free-solid-svg-icons"
 import Person from "@/components/PersonTag"
 import axios from "axios"
 import {useRouter} from "next/router"
+import { useAuth } from "@/components/AuthProvider"
 
 export default function Main() {
   const [modules, setModules] = useState([])
   const [userId, setUserId] = useState(null)
   const router = useRouter()
+  const [joinedModules, setjoinedModules] = useState([])
+  const {user, isAuthenticated, saveUser, clearUser} = useAuth()
 
+  // Modules which the student has already joined
+  useEffect(() => { 
+    const getJoinedModules = async (e) => {
+      try {
+        const response = await axios.get(`https://mz-bdev.de/api/student/${user.id}/modules`)
+        setjoinedModules(response.data)
+        
+      } catch (error) {
+        console.log("error while getting joined modules", error)
+      }
+    }
+    getJoinedModules()
+  }, [router.query.id])
+
+  // Modules that are available
   useEffect(() => {
     const getModules = async () => {
       try {
@@ -34,14 +52,16 @@ export default function Main() {
     getModules()
   }, [router.query.id])
 
-  console.log(module)
+  console.log('UserID: ',user.id)
+  console.log('Open', modules)
+  console.log('Joined',joinedModules)
 
   const [searchTerms, setSearchTerms] = useState("")
 
   let filteredModules = modules.filter(function (item) {
     return (
       item.name.toLowerCase().includes(searchTerms) ||
-      item.code.toLowerCase().includes(searchTerms)
+      item.code.toLowerCase().includes(searchTerms) 
       //item.faculty.toLowerCase().includes(searchTerms) ||
       //item.staff.name.toLowerCase().includes(searchTerms)
     )
@@ -101,6 +121,7 @@ export default function Main() {
                   status={1}
                   faculty={"Methods Center"}
                   staff={{img: "user.png", name: "Max Musterman"}}
+                  joined={(joinedModules.some(obj => obj.id === module.id))}
                 />
               ))}
             </tbody>
@@ -111,7 +132,7 @@ export default function Main() {
   )
 }
 
-function TableRow({id, code, name, semester, status, faculty, staff}) {
+function TableRow({id, code, name, semester, status, faculty, staff, joined}) {
   return (
     <tr
       href='#'
@@ -121,7 +142,7 @@ function TableRow({id, code, name, semester, status, faculty, staff}) {
         <img className='m-auto mx-4 w-6' src='asteroid.png' />
       </td>
       <td>
-        {" "}
+        {!joined && 
         <Link
           href={{
             pathname: "join_module",
@@ -132,9 +153,25 @@ function TableRow({id, code, name, semester, status, faculty, staff}) {
           className=''
           title='Modul Beitreten'
         >
-          {" "}
+          
           <img src='join.png' className='w-5 mx-auto' />
         </Link>
+      }
+      {joined && 
+        <Link
+          href={{
+            pathname: "join_module",
+            query: {
+              id: id
+            }
+          }}
+          className=''
+          title='Modul Verwalten'
+        >
+          
+          <img src='view.png' className='w-5 mx-auto' />
+        </Link>
+      }
       </td>
       <td className=''>
         <p className='text-[#4a4a4a] text-base tracking-wide h-4'>{name}</p>

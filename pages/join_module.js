@@ -34,6 +34,9 @@ export default function Main() {
     fetchModules()
   }, [router.query.id]) // It's more specific to depend on router.query.id
 
+
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = {
