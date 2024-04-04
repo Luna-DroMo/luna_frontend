@@ -137,7 +137,7 @@ export default function Main() {
                         <h1>Durchschnittsrisiko das Modul abzubrechen</h1>
                         <p>Die <span className='text-lunapurple'>blaue</span> Linie stellt das durchschnittliche Risiko deiner Studenten dar, das Modul abzubrechen. In <span className='text-lunared'>rot</span> werden Studierende angezeigt, die ein erhöhtes Risiko zeigen.</p>
                         <div className='relativ h-[250px] px-12 mt-8'>
-                            <ModuleDropoutRiskPlot title="Durschnittsrisiko das Modul abzubrechen" line={mean_line} deviation={st_dev} extra_lines={students_at_risk} />
+                            <ModuleDropoutRiskPlot title="Durschnittsrisiko das Modul abzubrechen" line={mean_line} deviation={st_dev} students_at_risk={students_at_risk} />
                         </div>
                     </div>
                 </main>

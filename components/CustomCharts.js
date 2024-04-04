@@ -55,7 +55,8 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                 label: "Stundent: " + student.id,
                 data: student.data,
                 borderColor: "#DC107E",
-                borderWidth: 2,
+                borderWidth: 1,
+                pointRadius: 0,
                 backgroundColor: '#DC107E',
                 fill: false,
 
