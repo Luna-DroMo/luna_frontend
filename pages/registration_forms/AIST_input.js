@@ -60,9 +60,9 @@ const AIST_questions = [
 ]
 
 const breadcrump = [
-    {name: "AIST", status: 1, item: 1},
-    {name: "Kognitive Fähigkeiten", status: 0, item: 2},
-    {name: "Internale-Externale Kontrollüberzeugung", status: 0, item: 3}
+    {name: "Allgemeiner Interessen Struktur-Test", status: 1, item: 1},
+    {name: "Positive - Negative", status: 0, item: 2},
+    {name: "Motivation", status: 0, item: 3}
 ]
 
 export default function Main({model}) {
@@ -172,7 +172,7 @@ export default function Main({model}) {
                             />
                             <FormButton
                                 text='Überspringen'
-                                onClick={(e) => router.push("./kognitive_faehigkeiten_input")}
+                                onClick={(e) => router.push("./panas_input")}
                                 type='reset'
                             />
                             <FormButton text='Weiter' highlighted='true' />
