@@ -53,10 +53,7 @@ export default function Main({model}) {
         e.preventDefault()
         console.log("updating:", data)
         try {
-            const response = await axios.patch(
-                `https://mz-bdev.de/api/update_student/${user.id}/`,
-                data
-            )
+            const response = await axios.patch(`${url}/api/update_student/${user.id}/`, data)
 
             router.push("../cockpit")
         } catch (error) {
