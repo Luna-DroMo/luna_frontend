@@ -85,7 +85,7 @@ export default function Main({model}) {
             console.log("Writing:", request)
 
             try {
-                const response = await axios.post(`${url}/api/${user.id}/forms/4`, request)
+                const response = await axios.post(`${url}/api/${user.id}/forms/8`, request)
 
                 router.push("/cockpit")
             } catch (error) {

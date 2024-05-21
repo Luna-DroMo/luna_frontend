@@ -157,7 +157,7 @@ export default function motivation_input({model}) {
     const handleFormSubmission = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(`${url}/api/${user.id}/forms/3`, request)
+            const response = await axios.post(`${url}/api/${user.id}/forms/7`, request)
 
             router.push("./bfi_input")
         } catch (error) {
