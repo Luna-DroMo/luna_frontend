@@ -10,7 +10,8 @@ export const data_models_to_use = [
         modelname: "Motivation",
         href: "motivation_input",
         img: "motivation.png",
-        type: "MOTIVATION"
+        type: "MOTIVATION",
+        id: 2
     },
     {
         modelname: "Panas",
@@ -18,6 +19,14 @@ export const data_models_to_use = [
         img: "mood.png",
         id: 6,
         type: "PANAS"
+    },
+
+    {
+        modelname: "Persönlichkeits-skala",
+        href: "#",
+        img: "personality.png",
+        id: 5,
+        type: "PERSONALITY"
     }
     // {
     //     modelname: "Kognitive Fähigkeiten",
@@ -42,13 +51,5 @@ export const data_models_to_use = [
     //     id: 4,
     //     type: "MATH"
     // },
-
-    // {
-    //     modelname: "Persönlichkeits-skala",
-    //     href: "#",
-    //     img: "personality.png",
-    //     id: 5,
-    //     type: "PERSONALITY"
-    // }
 ]
-export const url = "https://mz-bdev.de"
+export const url = "http://127.0.0.1:8000"

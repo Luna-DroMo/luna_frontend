@@ -13,6 +13,7 @@ import Router, {useRouter} from "next/router"
 import {ErrorBanner} from "@/components/Errors"
 import {hasNullValue} from "@/utils/utils"
 import {useEffect} from "react"
+import {url} from "@/utils/data"
 
 const AIST_questions = [
     {id: 1, question: "Mit Maschinen oder technischen Geräten arbeiten.", subtitle: ""},
@@ -78,7 +79,7 @@ export default function Main({model}) {
     useEffect(() => {
         const getUserRole = async (e) => {
             try {
-                const response = await axios.get(`https://mz-bdev.de/api/getUserType/${user.id}`)
+                const response = await axios.get(`${url}/api/getUserType/${user.id}`)
 
                 setUserRole(response.data)
             } catch (error) {
@@ -119,9 +120,9 @@ export default function Main({model}) {
     const handleFormSubmission = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(`https://mz-bdev.de/api/${user.id}/forms/3`, request)
+            const response = await axios.post(`${url}/api/${user.id}/forms/3`, request)
 
-            router.push("./kognitive_faehigkeiten_input")
+            router.push("./panas_input")
         } catch (error) {
             console.log("error", error)
             setErrorMessage(error.message)

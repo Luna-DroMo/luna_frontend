@@ -11,6 +11,7 @@ import axios from "axios"
 import {useAuth} from "../components/AuthProvider"
 import {useRouter} from "next/router"
 import {data_models_to_use} from "../utils/data.js"
+import {url} from "../utils/data.js"
 
 const account_setup_progress = 0
 
@@ -33,23 +34,19 @@ export default function Main() {
         async function fetchData() {
             try {
                 // Assuming user.id is available and correct
-                const userTypeResponse = await axios.get(
-                    `https://mz-bdev.de/api/getUserType/${user.id}`
-                )
+                const userTypeResponse = await axios.get(`${url}/api/getUserType/${user.id}`)
                 setUserRole(userTypeResponse.data)
 
-                const backgroundStatusResponse = await axios.get(
-                    `https://mz-bdev.de/api/${5}/background`
-                )
+                const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
                 const {completed_forms, not_completed_forms} = backgroundStatusResponse.data
 
                 // Enrich data_models_to_use with resolution status
                 const enrichedModels = data_models_to_use.map((model) => {
                     let status = "" // DefAult status
                     if (completed_forms.includes(model.type)) {
-                        status = "completed"
+                        status = "COMPLETED"
                     } else if (not_completed_forms.includes(model.type)) {
-                        status = "not_completed"
+                        status = "NOT_COMPLETED"
                     }
 
                     return {...model, status: status} // Add status field to the model

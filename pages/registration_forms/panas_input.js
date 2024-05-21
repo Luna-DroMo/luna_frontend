@@ -13,6 +13,7 @@ import Router, {useRouter} from "next/router"
 import {hasNullValue} from "@/utils/utils"
 import {ErrorBanner} from "@/components/Errors"
 import {useEffect} from "react"
+import {url} from "@/utils/data"
 
 const questions = [
     {id: "panp_01", question: "Aufmerksam", subtitle: ""},
@@ -54,7 +55,7 @@ export default function Main({model}) {
             //e.preventDefault()
 
             try {
-                const response = await axios.get(`https://mz-bdev.de/api/getUserType/${user.id}`)
+                const response = await axios.get(`${url}/api/getUserType/${user.id}`)
 
                 setUserRole(response.data)
             } catch (error) {
@@ -105,7 +106,7 @@ export default function Main({model}) {
     const handleFormSubmission = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(`https://mz-bdev.de/api/${user.id}/forms/3`, request)
+            const response = await axios.post(`${url}/api/${user.id}/forms/9`, request)
 
             router.push("./motivation_input")
         } catch (error) {
