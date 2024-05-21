@@ -21,6 +21,7 @@ export default function Home() {
     // Users must not be allowed to locally change their role.
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userRole, setUserRole] = useState(null)
+    const [backgroundStatus, setBackgroundStatus] = useState()
     // If not authenticated, the utility function would have handled the redirection
 
     useEffect(() => {

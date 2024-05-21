@@ -17,12 +17,15 @@ export default function Cockpit_student() {
     const router = useRouter()
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [modules, setModules] = useState([])
+    const [backgroundStatus, setBackgroundStatus] = useState()
 
     useEffect(() => {
         const getModules = async (e) => {
             try {
                 const response = await axios.get(`${url}/api/student/${user.id}/modules`)
+                const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
                 setModules(response.data)
+                setBackgroundStatus(backgroundStatusResponse.data)
             } catch (error) {
                 console.log("error during login", error)
             }
@@ -30,10 +33,12 @@ export default function Cockpit_student() {
         getModules()
     }, [])
 
+    console.log("bacgkround status", backgroundStatus)
+
     return (
         <RootLayout show_billboard={true}>
             <main className='flex-row justify-between px-10 pt-10'>
-                {!user.is_verified && <SignupReminderBanner />}
+                {backgroundStatus?.personal_info === "completed" ? null : <SignupReminderBanner />}
 
                 <div className='flex items-center'>
                     <img
