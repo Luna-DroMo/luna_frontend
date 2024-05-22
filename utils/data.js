@@ -23,7 +23,7 @@ export const data_models_to_use = [
 
     {
         modelname: "Persönlichkeits-skala",
-        href: "#",
+        href: "bfi_input",
         img: "personality.png",
         id: 5,
         type: "PERSONALITY"

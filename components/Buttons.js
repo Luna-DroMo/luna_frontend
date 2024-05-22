@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export function Button({text, highlighted, href = "#"}) {
+export function Button({text, highlighted, href, type}) {
     if (highlighted) {
         return (
             <Link href={href}>
@@ -11,11 +11,9 @@ export function Button({text, highlighted, href = "#"}) {
         )
     } else {
         return (
-            <Link href={href}>
-                <button className='border border-lunapurple rounded-xl w-44 h-10 px-4 text-lunapurple text-base leading-4 hover:border-lunagreen hover:bg-lunagreen'>
-                    {text}
-                </button>
-            </Link>
+            <button className='border border-lunapurple rounded-xl w-44 h-10 px-4 text-lunapurple text-base leading-4 hover:border-lunagreen hover:bg-lunagreen'>
+                {text}
+            </button>
         )
     }
 }

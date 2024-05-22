@@ -7,8 +7,6 @@ export default function RootLayout({
     percentage,
     children
 }) {
-    console.log("RootLayout percentage:", percentage) // Add this log to check
-
     return (
         <>
             <Sidebar
