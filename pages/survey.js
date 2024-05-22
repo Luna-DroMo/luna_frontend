@@ -119,7 +119,7 @@ export default function Main() {
 
                     <div className={`bg-white overflow-hidden transition ease-in-out delay-250 rounded-lg px-2 pt-3 pb-7 mb-12 mt-8 border border-2 ${!isExpanded[0] ? 'h-16' : ''} ${blockFilled[0] ? 'border-lunagreen' : 'border-transparent'}`}>
                         <div className='flex my-2 px-4'>
-                            <h3>Block Title</h3>
+                            <h3>Motivationsaspekt</h3>
                             
                         </div>
                         <div className="flex items-center w-full my-2 px-4">
@@ -150,7 +150,7 @@ export default function Main() {
                     </div>
                     <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${!isExpanded[1] ? 'h-16' : ''} ${blockFilled[1] ? 'border-lunagreen ' : 'border-transparent'}`}>
                         <div className='flex my-2 px-4'>
-                            <h3>Block Title</h3>
+                            <h3>Emotionsaspekt</h3>
                             
                         </div>
                         <div className="flex items-center w-full my-2 px-4">
@@ -174,7 +174,7 @@ export default function Main() {
                     </div>
                     <div className={`bg-white rounded-lg overflow-hidden transition-all ease-in-out delay-150 px-2 pt-3 pb-7 mb-12 border border-2 ${!isExpanded[2] ? 'h-16' : ''} ${blockFilled[2] ? 'border-lunagreen' : 'border-transparent'}`}>
                         <div className='flex my-2 px-4'>
-                            <h3>Block Title</h3>
+                            <h3>Fähigkeit</h3>
                             
                         </div>
 
@@ -195,7 +195,7 @@ export default function Main() {
                     </div>
                     <div className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${!isExpanded[3] ? 'h-16' : ''} ${blockFilled[3] ? 'border-lunagreen' : 'border-transparent'}`}>
                         <div className='flex my-2 px-4'>
-                            <h3>Block Title</h3>
+                            <h3>Externer Aufwand</h3>
                             
                         </div>
                         <div className="flex items-center w-full my-2 px-4">
