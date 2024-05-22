@@ -73,7 +73,7 @@ export default function Main() {
                     </div>
                     <div className='w-full inline-block bg-[#eeeeee] h-[1px] mb-3' />
                     <div className='w-4/6 mb-4 text-lightgrey'>
-                        <p>
+                        {/* <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
                             viverra laoreet arcu, ullamcorper aliquam augue lobortis elementum.
                             Pellentesque habitant morbi tristique senectus et netus et malesuada
@@ -81,7 +81,7 @@ export default function Main() {
                             Phasellus tristique purus non sapien elementum interdum. Suspendisse
                             tristique, lorem a dictum tincidunt, erat elit cursus sem, non rhoncus
                             elit urna ac arcu. Cras lacinia egestas sapien quis dignissim.
-                        </p>
+                        </p> */}
                     </div>
                 </div>
                 <div className='rounded-xl bg-white px-5 py-5'>
