@@ -20,8 +20,6 @@ const main_links = [
 ]
 
 export default function Sidebar({show_main_links, show_billboard, show_progress_bar, percentage}) {
-    console.log("Sidebar percentage:", percentage) // Add this log to check
-
     const bottom_links = [
         {href: "#", text: "Konto", icon: faGear},
         {href: "#", text: "Abmelden", icon: faSignOutAlt}
