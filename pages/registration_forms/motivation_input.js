@@ -121,19 +121,7 @@ export default function motivation_input({model}) {
     } else if (userRole !== 1) {
         router.push("/cockpit/")
     }
-    const handleUserDataUpdate = async (e) => {
-        e.preventDefault()
-        console.log("Writing:", request)
 
-        try {
-            const response = await axios.post(`${url}/api/${user.id}/forms/7`, request)
-
-            router.push("./cockpit")
-        } catch (error) {
-            console.log("error", error)
-            setErrorMessage(error.message)
-        }
-    }
     const handleResponseChange = (question_id, newValue) => {
         console.log("Updating question:", question_id, "with value:", newValue) // Debugging output
 
@@ -156,10 +144,20 @@ export default function motivation_input({model}) {
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
+
+        const unansweredQuestions = questions.filter(
+            (question) => !request.some((response) => response.question_id === question.id)
+        )
+
+        if (unansweredQuestions.length > 0) {
+            setErrorMessage("Please answer all the questions before submitting.")
+            return
+        }
+
         try {
             const response = await axios.post(`${url}/api/${user.id}/forms/7`, request)
 
-            router.push("./bfi_input")
+            router.push("./panas_input")
         } catch (error) {
             console.log("error", error)
             setErrorMessage(error.message)

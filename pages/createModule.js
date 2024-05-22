@@ -242,9 +242,9 @@ export default function Main() {
                                     </p>
                                 </div>
                                 <hr className='mt-5 border-lightgrey' />
-                                <div>
+                                {/* <div>
                                     <p>NEEDS TO BE IMPLEMENTED</p>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className='rounded-xl bg-white px-5 py-5 mb-4'>

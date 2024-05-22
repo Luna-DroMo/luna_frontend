@@ -15,8 +15,8 @@ import {useAuth} from "@/components/AuthProvider"
 
 const main_links = [
     {href: "/cockpit/", icon: faSatellite, text: "Übersicht"},
-    {href: "/analysis/", icon: faMeteor, text: "Analysen"},
-    {href: "/my_data/", icon: faUserAstronaut, text: "Meine Daten"}
+    {href: "/analysis/", icon: faMeteor, text: "Analysen"}
+    // {href: "/my_data/", icon: faUserAstronaut, text: "Meine Daten"}
 ]
 
 export default function Sidebar({show_main_links, show_billboard, show_progress_bar, percentage}) {
