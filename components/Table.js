@@ -115,7 +115,7 @@ function TableRow({module}) {
                 {module.name}
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
-                <StatusElement nextsurveyduedate={module.nextsurveydue} />
+                <StatusElement nextsurveyduedate={module.survey_end_date} />
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
                 {module.end_date}
@@ -180,7 +180,7 @@ function StatusElement({nextsurveyduedate}) {
     )
 }
 
-function formatDate(dateString) {
+export function formatDate(dateString) {
     let date = new Date(dateString)
     let year = date.getFullYear()
     let month = (date.getMonth() + 1).toString().padStart(2, "0") // Ensure two digits

@@ -10,6 +10,7 @@ import {useState, useEffect, useRef} from "react"
 import {url} from "@/utils/data"
 import {useAuth} from "@/components/AuthProvider"
 import axios from "axios"
+import {basicDateFormat} from "@/utils/utils"
 
 const surveyQuestions = [
     // Group 1
@@ -114,13 +115,29 @@ const survey = {
 export default function Main() {
     const {user} = useAuth()
     const router = useRouter()
-    const surveyId = router.query.id
+
     const [selectedOptions, setSelectedOptions] = useState({})
     const [blockFilled, setBlockFilled] = useState([])
     const [isExpanded, setIsExpanded] = useState(Array(4).fill(true))
     const [request, setRequest] = useState([])
-    const [module, setModule] = useState({})
+    const [surveyDetails, setSurveyDetails] = useState({})
     let prevBlockFilled = useRef()
+
+    useEffect(() => {
+        if (!router.query.id) return // Ensure id is defined
+
+        const fetchSurveyDetails = async () => {
+            try {
+                const response = await axios.get(
+                    `${url}/api/${user.id}/surveys/${router.query.id}/details`
+                )
+                setSurveyDetails(response.data)
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
+        fetchSurveyDetails()
+    }, [router.query.id, user.id])
 
     useEffect(() => {
         const indicesToCheck = [
@@ -215,16 +232,23 @@ export default function Main() {
                         className='w-12 h-12 bg-lightgrey rounded-full overflow-hidden mr-4'
                     />
                     <div className='flex-none'>
-                        <h1 className='tracking-wider text-xl'>{survey.module}</h1>
+                        <h1 className='tracking-wider text-xl'>{surveyDetails.module_name}</h1>
 
                         <div className='flex'>
-                            <p className='text-base text-text-grey mr-1'>CODE</p>
-                            <p className='text-base text-text-grey mr-1'>| </p>
                             <p className='text-base text-text-grey mr-1'>
-                                Befragung {survey.surveyno}{" "}
+                                {surveyDetails.module_code}
                             </p>
                             <p className='text-base text-text-grey mr-1'>| </p>
-                            <p className='text-base text-text-grey mr-1'> bis {module.duedate}</p>
+                            <p className='text-base text-text-grey mr-1'>
+                                Befragung {surveyDetails.survey_number}{" "}
+                            </p>
+                            <p className='text-base text-text-grey mr-1'>| </p>
+                            <p className='text-base text-text-grey mr-1'>
+                                bis{" "}
+                                {surveyDetails && typeof surveyDetails.end_date === "string"
+                                    ? surveyDetails.end_date.split("T")[0]
+                                    : ""}
+                            </p>
                         </div>
                     </div>
                 </div>
