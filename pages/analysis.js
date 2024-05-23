@@ -15,37 +15,69 @@ import {url} from "@/utils/data"
 export default function Main() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userRole, setUserRole] = useState(null)
-    // If not authenticated, the utility function would have handled the redirection
+
+    const [modules, setModules] = useState([])
+    const [moduleResult, setModuleResult] = useState({})
+    const [meanLine, setMeanLine] = useState([])
+    const [stDev, setStDev] = useState([])
 
     useEffect(() => {
-        const getUserRole = async (e) => {
-            //e.preventDefault()
-
+        const getUserRole = async () => {
             try {
                 const response = await axios.get(`${url}/api/getUserType/${user.id}`)
-
                 setUserRole(response.data)
             } catch (error) {
                 console.log("error during login", error)
             }
         }
 
-        getUserRole()
-    }, [])
-
-    // Students
-    if (userRole === 1) {
-        const mean_line = [
-            54, 45, 42, 48, 58, 68, 65, 62, 41, 43, 78, 54, 32, 11, 33, 55, 77, 44, 33
-        ]
-        const st_dev = [10, 11, 8, 6, 14, 2, 13, 15, 6, 7, 4, 8, 10, 2, 11, 14, 32, 35, 25]
-        const students_at_risk = [
-            {
-                id: "Meine Noten",
-                data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
+        const getModules = async () => {
+            try {
+                const response = await axios.get(`${url}/api/${user.id}/modules`)
+                setModules(response.data)
+            } catch (error) {
+                console.log("Error")
             }
-        ]
+        }
 
+        getUserRole()
+        getModules()
+    }, [user.id]) // Run this effect when user.id changes
+
+    console.log("modules", modules)
+
+    useEffect(() => {
+        const getModulesAndResults = async () => {
+            try {
+                const response = await axios.get(`${url}/api/${user.id}/modules`)
+                const modulesData = response.data
+                setModules(modulesData)
+
+                if (modulesData.length > 0) {
+                    const moduleResponse = await axios.get(
+                        `${url}/modelling/${user.id}/module/${modulesData[0].module_id}`
+                    )
+                    const moduleResult = moduleResponse.data
+
+                    const mean = moduleResult.map((result) => result.mean)
+                    const stdev = moduleResult.map((result) => result.stdev)
+                    setMeanLine(mean)
+                    setStDev(stdev)
+                }
+            } catch (error) {
+                console.log("Error")
+            }
+        }
+
+        getModulesAndResults()
+    }, [user.id])
+
+    console.log("meanLine", meanLine)
+    console.log("stDev", stDev)
+
+    if (userRole === null) {
+    }
+    if (userRole === 1) {
         const turn_in_percent = 0.93
         const class_turn_in_percent = 0.85
 
@@ -105,9 +137,9 @@ export default function Main() {
                             <div className='relativ h-[250px] px-12 mt-8 flex-auto'>
                                 <LineChartWithDeviation
                                     title='Übungsnoten'
-                                    line={mean_line}
-                                    deviation={st_dev}
-                                    extra_lines={students_at_risk}
+                                    line={meanLine}
+                                    deviation={stDev}
+                                    // extra_lines={students_at_risk}
                                 />
                             </div>
                             <div className='relativ h-[220px] px-12 mt-8 flex-auto'>
@@ -128,12 +160,12 @@ export default function Main() {
             54, 45, 42, 48, 58, 68, 65, 62, 41, 43, 78, 54, 32, 11, 33, 55, 77, 44, 33
         ]
         const st_dev = [10, 11, 8, 6, 14, 2, 13, 15, 6, 7, 4, 8, 10, 2, 11, 14, 32, 35, 25]
-        const students_at_risk = [
-            {
-                id: "12345",
-                data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
-            }
-        ]
+        // const students_at_risk = [
+        //     {
+        //         id: "12345",
+        //         data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
+        //     }
+        // ]
         return (
             <RootLayout>
                 <main className='flex-row justify-between px-10 pt-10'>
@@ -171,9 +203,9 @@ export default function Main() {
                         <div className='relativ h-[250px] px-12 mt-8'>
                             <ModuleDropoutRiskPlot
                                 title='Durschnittsrisiko das Modul abzubrechen'
-                                line={mean_line}
-                                deviation={st_dev}
-                                students_at_risk={students_at_risk}
+                                line={meanLine}
+                                deviation={stDev}
+                                // students_at_risk={students_at_risk}
                             />
                         </div>
                     </div>
