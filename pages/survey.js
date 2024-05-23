@@ -274,7 +274,12 @@ export default function Main() {
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Die Vorlesung</h3>
-                            <p className={`text-text-grey ${blockFilled[0] ? "block" : "hidden"}`}>Erweitern</p>
+                            <p 
+                                className={`text-text-grey ${blockFilled[0] ? "block" : "hidden"}`}
+                                onClick={(e) => toggleValueAtIndex(0)}
+                            >
+                                {isExpanded[0] ? 'Reduzieren' : 'Erweitern'}
+                            </p>
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -308,7 +313,12 @@ export default function Main() {
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Ich fühle mich...</h3>
-                            <p className={`text-text-grey ${blockFilled[1] ? "block" : "hidden"}`}>Erweitern</p>
+                            <p 
+                                className={`text-text-grey ${blockFilled[1] ? "block" : "hidden"}`}
+                                onClick={(e) => toggleValueAtIndex(1)}
+                            >
+                                {isExpanded[1] ? 'Reduzieren' : 'Erweitern'}
+                            </p>
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -346,7 +356,9 @@ export default function Main() {
                             <p 
                                 className={`text-text-grey ${blockFilled[2] ? "block" : "hidden"}`}
                                 onClick={(e) => toggleValueAtIndex(2)}
-                            >Erweitern</p>
+                            >
+                                {isExpanded[2] ? 'Reduzieren' : 'Erweitern'}
+                            </p>
                         </div>
 
                         <div className='flex items-center w-full my-2 px-4'>
@@ -380,7 +392,12 @@ export default function Main() {
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Außerhalb des Klassenzimmers</h3>
-                            <p className={`text-text-grey ${blockFilled[3] ? "block" : "hidden"}`}>Erweitern</p>
+                            <p 
+                                className={`text-text-grey ${blockFilled[3] ? "block" : "hidden"}`}
+                                onClick={(e) => toggleValueAtIndex(3)}
+                            >
+                                {isExpanded[3] ? 'Reduzieren' : 'Erweitern'}
+                            </p>
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
