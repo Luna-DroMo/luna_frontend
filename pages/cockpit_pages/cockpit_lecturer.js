@@ -83,7 +83,7 @@ export default function cockpit_lecturer() {
                                 84
                             </div>
                             <div className='tracking-wider metric-text z-10 '>
-                                <p>Highlight-text</p>
+                                <p className='text-white'>Gesamterfolg</p>
                             </div>
                         </div>
                     </div>
