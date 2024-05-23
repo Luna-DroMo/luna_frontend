@@ -223,6 +223,20 @@ export default function Main() {
         }
     }
 
+    const toggleValueAtIndex = (index) => {
+        setIsExpanded(prevState => {
+          // Create a copy of the previous state
+          const newState = [...prevState];
+          
+          // Update the specific index with its inverse value
+          newState[index] = !newState[index];
+          
+          // Return the updated state
+          return newState;
+        });
+      };
+
+
     return (
         <RootLayout>
             <main className='flex-row justify-between px-10 pt-10'>
@@ -258,8 +272,9 @@ export default function Main() {
                             !isExpanded[0] ? "h-16" : ""
                         } ${blockFilled[0] ? "border-lunagreen" : "border-transparent"}`}
                     >
-                        <div className='flex my-2 px-4'>
-                            <h3>Motivationsaspekt</h3>
+                        <div className='flex my-2 px-4 items-center place-content-between pr-10'>
+                            <h3>Die Vorlesung</h3>
+                            <p className={`text-text-grey ${blockFilled[0] ? "block" : "hidden"}`}>Erweitern</p>
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -291,8 +306,9 @@ export default function Main() {
                             !isExpanded[1] ? "h-16" : ""
                         } ${blockFilled[1] ? "border-lunagreen " : "border-transparent"}`}
                     >
-                        <div className='flex my-2 px-4'>
-                            <h3>Emotionsaspekt</h3>
+                        <div className='flex my-2 px-4 items-center place-content-between pr-10'>
+                            <h3>Ich fühle mich...</h3>
+                            <p className={`text-text-grey ${blockFilled[1] ? "block" : "hidden"}`}>Erweitern</p>
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -325,8 +341,12 @@ export default function Main() {
                             !isExpanded[2] ? "h-16" : ""
                         } ${blockFilled[2] ? "border-lunagreen" : "border-transparent"}`}
                     >
-                        <div className='flex my-2 px-4'>
-                            <h3>Fähigkeit</h3>
+                        <div className='flex my-2 px-4 items-center place-content-between pr-10'>
+                            <h3>Wie ich meine Fähigkeit(en) einschätze</h3>
+                            <p 
+                                className={`text-text-grey ${blockFilled[2] ? "block" : "hidden"}`}
+                                onClick={(e) => toggleValueAtIndex(2)}
+                            >Erweitern</p>
                         </div>
 
                         <div className='flex items-center w-full my-2 px-4'>
@@ -358,8 +378,9 @@ export default function Main() {
                             !isExpanded[3] ? "h-16" : ""
                         } ${blockFilled[3] ? "border-lunagreen" : "border-transparent"}`}
                     >
-                        <div className='flex my-2 px-4'>
-                            <h3>Externer Aufwand</h3>
+                        <div className='flex my-2 px-4 items-center place-content-between pr-10'>
+                            <h3>Außerhalb des Klassenzimmers</h3>
+                            <p className={`text-text-grey ${blockFilled[3] ? "block" : "hidden"}`}>Erweitern</p>
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
