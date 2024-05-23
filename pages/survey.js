@@ -5,27 +5,122 @@ import RootLayout from "@/components/RootLayout.js"
 import {Button, FormButton} from "@/components/Buttons"
 import {SurveyQuestion} from "@/components/FormElements"
 import React from "react"
-import Router, {useRouter} from "next/router"
+import {useRouter} from "next/router"
 import {useState, useEffect, useRef} from "react"
+import {url} from "@/utils/data"
+import {useAuth} from "@/components/AuthProvider"
+import axios from "axios"
+
+const surveyQuestions = [
+    // Group 1
+    [
+        {maintext: "Ich mochte die Inhalte", subtitle: "", id: 0},
+        {maintext: "Mir ist es wichtig über die Inhalte viel zu wissen", subtitle: "", id: 1},
+        {
+            maintext: "Diese Inhalte werden für meinen späteren Beruf nützlich sein",
+            subtitle: "",
+            id: 2
+        },
+        {
+            maintext:
+                "Um diese Inhalte zu verstehen, wird viel Zeit für andere Dinge verloren gehen",
+            subtitle: "",
+            id: 3
+        },
+        {maintext: "Die Beschäftigung mit diesen Inhalten erschöpft mich", subtitle: "", id: 4},
+        {
+            maintext: "Im Moment denke ich darüber nach, das Mathematikstudium abzubrechen.",
+            subtitle: "",
+            id: 5
+        },
+        {maintext: "Im Moment habe ich Angst, das Studium nicht zu schaffen.", subtitle: "", id: 6},
+        {maintext: "Ich verstehe die derzeitigen Inhalte der Vorlesung.", subtitle: "", id: 7},
+        {
+            maintext: "Die Aufgaben des derzeitigen Übungsblattes kann ich bearbeiten.",
+            subtitle: "",
+            id: 8
+        },
+        {
+            maintext: "Im Moment fühle ich mich im Mathematik-Studium gestresst.",
+            subtitle: "",
+            id: 9
+        },
+        {
+            maintext:
+                "Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert.",
+            subtitle: "",
+            id: 10
+        },
+        {
+            maintext:
+                "So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein.",
+            subtitle: "",
+            id: 11
+        }
+    ],
+    // Group 2
+    [
+        {maintext: "... Aufmerksam", subtitle: "", id: 12, scale: 4},
+        {maintext: "... Aktiv", subtitle: "", id: 13, scale: 4},
+        {maintext: "... Angeregt", subtitle: "", id: 14, scale: 4},
+        {maintext: "... Nervös", subtitle: "", id: 15, scale: 4},
+        {maintext: "... Ängstlich", subtitle: "", id: 16, scale: 4},
+        {maintext: "... Bekümmert", subtitle: "", id: 17, scale: 4}
+    ],
+    // Group 3
+    [
+        {
+            maintext: "So schätze ich im Moment mein Wissen und Können im Mathematikstudium ein",
+            subtitle: "DOES THIS NEED ITS OWN SCALE TITLES?",
+            id: 18,
+            scale: 4
+        }
+    ],
+    // Group 4
+    [
+        {maintext: "Ich habe viel in Lerngruppen gearbeitet.", subtitle: "", id: 19},
+        {
+            maintext: "Die meisten meiner abgegebenen Lösungen verstehe ich komplett.",
+            subtitle: "",
+            id: 20
+        },
+        {
+            maintext: "Ich habe bei schwierigen Übungsaufgaben schnell aufgegeben.",
+            subtitle: "",
+            id: 21
+        },
+        {
+            maintext:
+                "Ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht.",
+            subtitle: "",
+            id: 22
+        },
+        {
+            maintext:
+                "Wie lange haben Sie sich außerhalb der Veranstaltungen mit Mathematik beschäftigt",
+            subtitle: "",
+            id: 23
+        },
+        {maintext: "Wie oft waren Sie in der Vorlesung anwesend?", subtitle: "", id: 24},
+        {maintext: "Waren Sie in der Übungsgruppe?", subtitle: "", id: 25}
+    ]
+]
+
+const survey = {
+    module: "Mathematik",
+    surveyno: 1
+}
 
 export default function Main() {
+    const {user} = useAuth()
     const router = useRouter()
-    const survey = router.query
-
-    // State to store the selected option for each question
+    const surveyId = router.query.id
     const [selectedOptions, setSelectedOptions] = useState({})
     const [blockFilled, setBlockFilled] = useState([])
     const [isExpanded, setIsExpanded] = useState(Array(4).fill(true))
-
-    // Function to handle change in selected option for a question
-    const handleOptionChange = (questionIndex, optionIndex, isChecked) => {
-        setSelectedOptions((prevOptions) => ({
-            ...prevOptions,
-            [questionIndex]: true // Store whether the option is checked
-        }))
-        console.log("updating")
-        console.log("SelOp", selectedOptions)
-    }
+    const [request, setRequest] = useState([])
+    const [module, setModule] = useState({})
+    let prevBlockFilled = useRef()
 
     useEffect(() => {
         const indicesToCheck = [
@@ -36,24 +131,17 @@ export default function Main() {
         ]
 
         const updatedBlockFilled = indicesToCheck.map((block) =>
-            block.every((index) => selectedOptions[index])
+            block.every((index) => selectedOptions[index] !== undefined)
         )
 
-        setBlockFilled(updatedBlockFilled)
-    }, [selectedOptions])
+        if (JSON.stringify(blockFilled) !== JSON.stringify(updatedBlockFilled)) {
+            setBlockFilled(updatedBlockFilled)
+        }
 
-    let prevBlockFilled = useRef()
+        const prevBlockFilledValues = prevBlockFilled.current
 
-    useEffect(() => {
-        prevBlockFilled.current = blockFilled
-    }, [blockFilled])
-
-    useEffect(() => {
-        blockFilled.forEach((value, index) => {
-            console.log(value, prevBlockFilled.current[index])
-            if (value && !prevBlockFilled.current[index]) {
-                // If a block changes from false to true, set the corresponding isExpanded to false
-                console.log("setting to collapse")
+        updatedBlockFilled.forEach((value, index) => {
+            if (value && !prevBlockFilledValues[index]) {
                 setIsExpanded((prevState) => {
                     const newState = [...prevState]
                     newState[index] = false
@@ -61,7 +149,32 @@ export default function Main() {
                 })
             }
         })
-    }, [blockFilled])
+
+        prevBlockFilled.current = updatedBlockFilled
+    }, [selectedOptions])
+
+    const handleOptionChange = (questionIndex, value) => {
+        setSelectedOptions((prevOptions) => ({
+            ...prevOptions,
+            [questionIndex]: value + 1 // Store the value of the selected option
+        }))
+
+        setRequest((prev) => {
+            const existingResponseIndex = prev.findIndex(
+                (response) => response.id === questionIndex
+            )
+
+            if (existingResponseIndex > -1) {
+                return prev.map((response, index) =>
+                    index === existingResponseIndex ? {...response, value: value} : response
+                )
+            } else {
+                return [...prev, {id: questionIndex, value: value}]
+            }
+        })
+        console.log("updating")
+        console.log("Request", request)
+    }
 
     const toggleExpansion = (index) => {
         setIsExpanded((prevState) => {
@@ -73,17 +186,23 @@ export default function Main() {
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
-        try {
-            //const response = await axios.post(
-            //  ``,
-            //  request
-            //)
 
-            router.push("./cockpit")
-        } catch (error) {
-            console.log("error", error)
-            // Temporary until working
-            router.push("./cockpit")
+        if (blockFilled.every(Boolean)) {
+            try {
+                const response = await axios.post(
+                    `${url}/api/${user.id}/surveys/${router.query.id}`,
+                    request
+                )
+
+                console.log("Response:", response.data)
+                router.push("./cockpit")
+            } catch (error) {
+                console.log("error", error)
+                // Temporary until working
+                router.push("./cockpit")
+            }
+        } else {
+            alert("Please fill all the questions before submitting.")
         }
     }
 
@@ -105,23 +224,18 @@ export default function Main() {
                                 Befragung {survey.surveyno}{" "}
                             </p>
                             <p className='text-base text-text-grey mr-1'>| </p>
-                            <p className='text-base text-text-grey mr-1'> bis {survey.duedate}</p>
+                            <p className='text-base text-text-grey mr-1'> bis {module.duedate}</p>
                         </div>
                     </div>
                 </div>
                 <form onSubmit={handleFormSubmission}>
                     <div
-                        className={`bg-white overflow-hidden transition ease-in-out delay-250 rounded-lg px-2 pt-3 pb-7 mb-12 mt-8 border border-2 ${
+                        className={`bg-white overflow-hidden transition ease-in-out delay-250 rounded-lg px-2 pt-3 pb-7 mb-12 mt-8  border-2 ${
                             !isExpanded[0] ? "h-16" : ""
                         } ${blockFilled[0] ? "border-lunagreen" : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4'>
-<<<<<<< HEAD
                             <h3>Motivationsaspekt</h3>
-                            
-=======
-                            <h3>Section 1</h3>
->>>>>>> 0f5f64f8 (remove lorem, hard)
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -141,80 +255,20 @@ export default function Main() {
                                 </p>
                             </div>
                         </div>
-
-                        <SurveyQuestion
-                            maintext='Ich mochte die Inhalte'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(0, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Mir ist es wichtig über die Inhalte viel zu wissen'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(1, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Diese Inhalte werden für meinen späteren Beruf nützlich sein'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(2, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Um diese Inhalte zu verstehen, wird viel Zeit für andere Dinge verloren gehen'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(3, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Die Beschäftigung mit diesen Inhalten erschöpft mich'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(4, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Im Moment denke ich darüber nach, das Mathematikstudium abzubrechen.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(5, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Im Moment habe ich Angst, das Studium nicht zu schaffen.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(6, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Ich verstehe die derzeitigen Inhalte der Vorlesung.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(7, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Die Aufgaben des derzeitigen Übungsblattes kann ich bearbeiten.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(8, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Im Moment fühle ich mich im Mathematik-Studium gestresst.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(9, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(10, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(11, isChecked)}
-                        />
+                        {surveyQuestions[0].map((question, index) => (
+                            <SurveyQuestion
+                                maintext={question.maintext}
+                                onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
+                            />
+                        ))}
                     </div>
                     <div
-                        className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${
+                        className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border-2 ${
                             !isExpanded[1] ? "h-16" : ""
                         } ${blockFilled[1] ? "border-lunagreen " : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4'>
-<<<<<<< HEAD
                             <h3>Emotionsaspekt</h3>
-                            
-=======
-                            <h3>Section 2</h3>
->>>>>>> 0f5f64f8 (remove lorem, hard)
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -235,55 +289,20 @@ export default function Main() {
                             </div>
                         </div>
 
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='... Aufmerksam'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(12, isChecked)}
-                        />
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='... Aktiv'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(13, isChecked)}
-                        />
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='... Angeregt'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(14, isChecked)}
-                        />
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='... Nervös'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(15, isChecked)}
-                        />
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='... Ängstlich'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(16, isChecked)}
-                        />
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='... Bekümmert'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(17, isChecked)}
-                        />
+                        {surveyQuestions[1].map((question, index) => (
+                            <SurveyQuestion
+                                maintext={question.maintext}
+                                onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
+                            />
+                        ))}
                     </div>
                     <div
-                        className={`bg-white rounded-lg overflow-hidden transition-all ease-in-out delay-150 px-2 pt-3 pb-7 mb-12 border border-2 ${
+                        className={`bg-white rounded-lg overflow-hidden transition-all ease-in-out delay-150 px-2 pt-3 pb-7 mb-12 border-2 ${
                             !isExpanded[2] ? "h-16" : ""
                         } ${blockFilled[2] ? "border-lunagreen" : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4'>
-<<<<<<< HEAD
                             <h3>Fähigkeit</h3>
-                            
-=======
-                            <h3>Section 3</h3>
->>>>>>> 0f5f64f8 (remove lorem, hard)
                         </div>
 
                         <div className='flex items-center w-full my-2 px-4'>
@@ -302,25 +321,21 @@ export default function Main() {
                             </div>
                         </div>
 
-                        <SurveyQuestion
-                            scale={4}
-                            maintext='So schätze ich im Moment mein Wissen und Können im Mathematikstudium ein'
-                            subtitle='DOES THIS NEED ITS OWN SCALE TITLES?'
-                            onChange={(isChecked) => handleOptionChange(18, isChecked)}
-                        />
+                        {surveyQuestions[2].map((question, index) => (
+                            <SurveyQuestion
+                                scale={4}
+                                maintext={question.maintext}
+                                onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
+                            />
+                        ))}
                     </div>
                     <div
-                        className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border border-2 ${
+                        className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12  border-2 ${
                             !isExpanded[3] ? "h-16" : ""
                         } ${blockFilled[3] ? "border-lunagreen" : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4'>
-<<<<<<< HEAD
                             <h3>Externer Aufwand</h3>
-                            
-=======
-                            <h3>Section 4</h3>
->>>>>>> 0f5f64f8 (remove lorem, hard)
                         </div>
                         <div className='flex items-center w-full my-2 px-4'>
                             <div className='flex-grow'>
@@ -338,41 +353,12 @@ export default function Main() {
                                 </p>
                             </div>
                         </div>
-                        <SurveyQuestion
-                            maintext='Ich habe viel in Lerngruppen gearbeitet.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(19, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Die meisten meiner abgegebenen Lösungen verstehe ich komplett.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(20, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Ich habe bei schwierigen Übungsaufgaben schnell aufgegeben.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(21, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht.'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(22, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Wie lange haben Sie sich außerhalb der Veranstaltungen mit Mathematik beschäftigt'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(23, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Wie oft waren Sie in der Vorlesung anwesend?'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(24, isChecked)}
-                        />
-                        <SurveyQuestion
-                            maintext='Waren Sie in der Übungsgruppe?'
-                            subtitle=''
-                            onChange={(isChecked) => handleOptionChange(25, isChecked)}
-                        />
+                        {surveyQuestions[3].map((question, index) => (
+                            <SurveyQuestion
+                                maintext={question.maintext}
+                                onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
+                            />
+                        ))}
                     </div>
                     <div className='flex justify-end mt-24'>
                         <FormButton

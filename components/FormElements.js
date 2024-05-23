@@ -29,7 +29,7 @@ export function InputRow({
     )
 }
 
-export function SurveyQuestion({maintext, subtitle, scale = 5, onChange = null}) {
+export function SurveyQuestion({maintext, subtitle, scale = 5, onChange}) {
     // input options [0,1,2,3,4]
     let options = [...Array(scale).keys()]
     return (
