@@ -287,7 +287,7 @@ export default function Main() {
                         ))}
                     </div>
                     <div
-                        className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12 border-2 ${
+                        className={`bg-white overflow-hidden rounded-lg px-2 pt-3 pb-7 mb-12 border-2 ${
                             !isExpanded[1] ? "h-16" : ""
                         } ${blockFilled[1] ? "border-lunagreen " : "border-transparent"}`}
                     >
@@ -354,7 +354,7 @@ export default function Main() {
                         ))}
                     </div>
                     <div
-                        className={`bg-white rounded-lg px-2 pt-3 pb-7 mb-12  border-2 ${
+                        className={`bg-white overflow-hidden rounded-lg px-2 pt-3 pb-7 mb-12  border-2 ${
                             !isExpanded[3] ? "h-16" : ""
                         } ${blockFilled[3] ? "border-lunagreen" : "border-transparent"}`}
                     >
