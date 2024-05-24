@@ -21,18 +21,27 @@ const processModuleResults = (moduleResults) => {
 export default function Main() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userRole, setUserRole] = useState(null)
-
+    const [isLoading, setIsLoading] = useState([true,true]) // extend for number of API calls
     const [modules, setModules] = useState([])
     const [selectedModule, setSelectedModule] = useState(null)
     const [moduleResult, setModuleResult] = useState({})
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
 
+    const updateLoadingState = (index, newValue) => {
+        setIsLoading(prevState => {
+          const newState = [...prevState]; // Create a copy of the state array
+          newState[index] = newValue; // Update the specific index
+          return newState; // Return the new array
+        });
+      };
+
     useEffect(() => {
         const getUserRole = async () => {
             try {
                 const response = await axios.get(`${url}/api/getUserType/${user.id}`)
                 setUserRole(response.data)
+                updateLoadingState(0,false)
             } catch (error) {
                 console.log("error during login", error)
             }
@@ -43,7 +52,7 @@ export default function Main() {
                 const response = await axios.get(`${url}/api/${user.id}/modules`)
                 setModules(response.data)
                 console.log("Modules->", response.data)
-
+                updateLoadingState(1,false)
                 if (response.data.length > 0) {
                     setSelectedModule(response.data[0]) // Use response.data instead of modules
                 }
@@ -70,6 +79,7 @@ export default function Main() {
                     const {mean, stdev} = processModuleResults(moduleResult.weekly_results)
                     setMeanLine(mean)
                     setStDev(stdev)
+                    updateLoadingState(2,false)
                 } catch (error) {
                     console.log("Error->", error)
                 }

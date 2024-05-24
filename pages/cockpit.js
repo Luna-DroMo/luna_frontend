@@ -41,7 +41,6 @@ export default function Home() {
     }, [])
 
     // Page logic for an authenticated user
-
     // Students
     if (userRole === 1) {
         return <Cockpit_student />
