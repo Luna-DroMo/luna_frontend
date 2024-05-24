@@ -79,8 +79,10 @@ export default function Main() {
         getModulesAndResults()
     }, [user.id, selectedModule])
 
-    console.log("meanLine", meanLine.length)
-    console.log("stDev", stDev.length)
+    const handleSelectModule = (moduleName) => {
+        const selected = modules.find((module) => module.module_name === moduleName)
+        setSelectedModule(selected)
+    }
 
     if (userRole === null) {
     }
@@ -118,6 +120,7 @@ export default function Main() {
                                     modules.length > 0 ? modules[0].module_name : "Select a Module"
                                 }
                                 dropdown_options={modules.map((module) => module.module_name)}
+                                onSelect={handleSelectModule}
                             />
                         </div>
                     </div>
