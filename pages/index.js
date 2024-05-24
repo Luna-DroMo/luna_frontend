@@ -54,8 +54,8 @@ export default function Home() {
                             className='mx-auto w-full h-full flex flex-col pt-12 items-center justify-between'
                         >
                             <img
-                                src='landingimg.jpg'
-                                className='h-96 w-full rounded-full object-cover'
+                                src='banner2.webp'
+                                className='h-96 w-96 rounded-full object-cover'
                             />
                         </div>
                     </div>
