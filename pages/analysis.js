@@ -139,14 +139,14 @@ export default function Main() {
                         </div>
                     </div>
 
-                    <div className='flex flex-row justify-between mt-4'>
+                    {/*<div className='flex flex-row justify-between mt-4'>
                         <a href='' className='text-lunapurple text-base'>
                             Daten Herunterladen
                         </a>
                         <a href='' className='text-lunapurple text-base'>
                             Vollständigen Bericht Herunterladen
                         </a>
-                    </div>
+                            </div>*/}
 
                     <div id='dropoutChartContainer' className='h-[850px] mt-8'>
                         <h1 className='font-bold'>Übungen</h1>
@@ -203,14 +203,14 @@ export default function Main() {
                         </div>
                     </div>
 
-                    <div className='flex flex-row justify-between mt-4'>
+                    {/*<div className='flex flex-row justify-between mt-4'>
                         <a href='' className='text-lunapurple text-base'>
                             Daten Herunterladen
                         </a>
                         <a href='' className='text-lunapurple text-base'>
                             Vollständigen Bericht Herunterladen
                         </a>
-                    </div>
+                            </div>*/}
 
                     <div id='dropoutChartContainer' className='h-[850px] mt-8'>
                         <h1>Durchschnittsrisiko das Modul abzubrechen</h1>
