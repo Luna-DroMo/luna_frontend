@@ -88,7 +88,7 @@ export default function cockpit_lecturer() {
                                 <p className="text-base">Hast du schon unsere Analysen gesehen?</p>
                                 <Link href={`#`}>
                                     <button className='border border-lunagreen bg-lunagreen rounded-lg w-44 h-6 px-4 text-white text-base leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple '>
-                                        Anschauen
+                                        Entdecken
                                     </button>
                                 </Link>
                             </div>
