@@ -5,7 +5,8 @@ import {
     faUserAstronaut,
     faGear,
     faSignOutAlt,
-    faM
+    faM,
+    faAsterisk
 } from "@fortawesome/free-solid-svg-icons"
 import Billboard from "./Billboard"
 import ProgressBar from "./ProgressBar"
@@ -14,13 +15,14 @@ import Link from "next/link"
 import {useAuth} from "@/components/AuthProvider"
 
 const main_links = [
+    {href: "/account_setup_overview/", icon: faUserAstronaut, text: "Hintergrund"},
     {href: "/cockpit/", icon: faSatellite, text: "Übersicht"},
     {href: "/analysis/", icon: faMeteor, text: "Analysen"}
-    // {href: "/my_data/", icon: faUserAstronaut, text: "Meine Daten"}
 ]
 
 export default function Sidebar({show_main_links, show_billboard, show_progress_bar, percentage}) {
     const bottom_links = [
+        {href: "/cockpit/", icon: faSatellite, text: "Übersicht"},
         {href: "#", text: "Konto", icon: faGear},
         {href: "#", text: "Abmelden", icon: faSignOutAlt}
     ]
@@ -74,6 +76,18 @@ function SidebarContent({show_billboard, show_progress_bar, show_main_links, per
             {show_progress_bar ? <ProgressBar percentage={percentage} /> : <Billboard />}
 
             <ul className='space-y-2 font-medium mb-2'>
+                <li className='group rounded-lg'>
+                    <a
+                        href={"/cockpit"}
+                        className='flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg text-base group-hover:border-hidden'
+                    >
+                        <FontAwesomeIcon
+                            icon={faAsterisk}
+                            className='group-hover:text-lunapurple inline-block w-4'
+                        />
+                        <span className='ml-3'>Cockpit</span>
+                    </a>
+                </li>
                 <li className='group rounded-lg'>
                     <a
                         href={"#"}
