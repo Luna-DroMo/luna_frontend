@@ -36,7 +36,7 @@ export default function Cockpit_student() {
         getModules()
     }, [])
 
-    console.log("bacgkround status", backgroundStatus)
+    console.log(modules)
 
     // Ensure data is called first
     if (isLoading) {
