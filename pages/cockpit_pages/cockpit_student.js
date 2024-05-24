@@ -1,21 +1,22 @@
 import Image from "next/image"
-import {StudentModuleTable} from "@/components/Table.js"
+import { StudentModuleTable } from "@/components/Table.js"
 import AlertSection from "@/components/Alerts.js"
 import RootLayout from "@/components/RootLayout.js"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faChevronRight} from "@fortawesome/free-solid-svg-icons"
-import {useState} from "react"
-import {useAuth} from "../../components/AuthProvider.js"
-import {useRouter} from "next/router"
-import {SignupReminderBanner} from "@/components/Banners.js"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { useState } from "react"
+import { useAuth } from "../../components/AuthProvider.js"
+import { useRouter } from "next/router"
+import { SignupReminderBanner } from "@/components/Banners.js"
 import axios from "axios"
-import {useEffect} from "react"
+import { useEffect } from "react"
 import Link from "next/link.js"
-import {url} from "@/utils/data.js"
+import { url } from "@/utils/data.js"
+import { Button, SmallButton } from "@/components/Buttons.js"
 
 export default function Cockpit_student() {
     const router = useRouter()
-    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
     const [modules, setModules] = useState([])
     const [backgroundStatus, setBackgroundStatus] = useState()
     const [isLoading, setIsLoading] = useState(true)
@@ -38,8 +39,8 @@ export default function Cockpit_student() {
     console.log("bacgkround status", backgroundStatus)
 
     // Ensure data is called first
-    if (isLoading){
-        return <RootLayout show_billboard={true}/>
+    if (isLoading) {
+        return <RootLayout show_billboard={true} />
     }
 
     return (
@@ -79,18 +80,20 @@ export default function Cockpit_student() {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div
-                        className='flex-1 relative items-center rounded-xl p-2 pl-6 custom-gradient-bg'
-                        
+                        className='flex-1 relative items-center rounded-xl p-2 pl-6 bg-lunapurple bg-cover bg-center'
+                        style={{ backgroundImage: "url('highlightbg.png')" }}
+
                     >
-                        <div className='absolute bg-white opacity-10'></div>
-                        <div className='flex items-center'>
-                            <div className='metric my-1 bg-orange z-10 w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
-                                84
-                            </div>
-                            <div className='tracking-wider metric-text z-10 text-white'>
-                                <p>Gesamterfolg</p>
+                        <div className='flex items-center justify-center h-full'>
+                            <div className='tracking-wider metric-text z-10 text-white text-center'>
+                                <p className="text-base">Hast du schon unsere Analysen gesehen?</p>
+                                <Link href={`#`}>
+                                    <button className='border border-lunagreen bg-lunagreen rounded-lg w-44 h-6 px-4 text-white text-base leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple '>
+                                        Anschauen
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -107,7 +110,7 @@ export default function Cockpit_student() {
                 </div>
 
                 <Link
-                    href={{pathname: "module_search", query: {id: user.id}}}
+                    href={{ pathname: "module_search", query: { id: user.id } }}
                     className='cursor-pointer flex border border-lightpurple rounded-full my-5 s-50 py-3 pl-5 hover:border-lunapurple z-1'
                 >
                     <div className='inline-block w-3 h-3 relative items-center z-10 my-1'>

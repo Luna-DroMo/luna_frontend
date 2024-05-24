@@ -18,6 +18,16 @@ export default function Main() {
     const router = useRouter()
     const [joinedModules, setjoinedModules] = useState([])
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const [isLoading, setIsLoading] = useState([true, true])
+
+    const updateLoadingState = (index, newValue) => {
+        setIsLoading(prevState => {
+          const newState = [...prevState]; // Create a copy of the state array
+          newState[index] = newValue; // Update the specific index
+          return newState; // Return the new array
+        });
+      };
+
 
     // Modules which the student has already joined
     useEffect(() => {
@@ -25,6 +35,7 @@ export default function Main() {
             try {
                 const response = await axios.get(`${url}/api/student/${user.id}/modules`)
                 setjoinedModules(response.data)
+                updateLoadingState(0,false)
             } catch (error) {
                 console.log("error while getting joined modules", error)
             }
@@ -43,6 +54,7 @@ export default function Main() {
                     )
 
                     setModules(response.data)
+                    updateLoadingState(1,false)
                 }
             } catch (error) {
                 console.log("error during fetching modules", error)
@@ -66,6 +78,10 @@ export default function Main() {
             //item.staff.name.toLowerCase().includes(searchTerms)
         )
     })
+
+    if (isLoading.some(element => element === true)){
+        return <RootLayout/>
+    }
 
     return (
         <RootLayout>

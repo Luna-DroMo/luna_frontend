@@ -17,6 +17,7 @@ export default function Main() {
     const [password, setPassword] = useState("")
     const router = useRouter()
     const data = router.query
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const fetchModules = async () => {
@@ -24,6 +25,7 @@ export default function Main() {
                 if (router.query.id) {
                     const response = await axios.get(`${url}/api/module/${router.query.id}`)
                     setModule(response.data)
+                    setIsLoading(false)
                 }
             } catch (error) {
                 console.log("error during fetching modules", error)
@@ -47,6 +49,10 @@ export default function Main() {
         } catch (error) {
             console.error("Fetch error:", error)
         }
+    }
+
+    if (isLoading){
+        return <RootLayout/>
     }
 
     return (

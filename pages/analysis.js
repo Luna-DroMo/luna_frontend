@@ -94,6 +94,10 @@ export default function Main() {
         setSelectedModule(selected)
     }
 
+    if (isLoading.some(element => element === true)){
+        return <RootLayout/>
+    }
+
     if (userRole === null) {
     }
     if (userRole === 1) {
