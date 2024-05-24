@@ -79,8 +79,7 @@ export default function cockpit_lecturer() {
                         </div>
                     </div>
                     <div
-                        className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 bg-lunapurple'
-                        style={{backgroundImage: 'url("solarsystem.png")'}}
+                        className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 custom-gradient-bg bg-lunapurple'
                     >
                         <div className='absolute inset-0 bg-white opacity-10'></div>
                         <div className='flex items-center'>
