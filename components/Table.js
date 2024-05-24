@@ -149,7 +149,7 @@ function StatusElement({nextsurveyduedate}) {
 
     if (nextsurveyduedate === null) {
         bgColorClass = "uptodate"
-        text = "Up to Date"
+        text = "Aktuell"
         icon = faCircleSolid
     } else if (daysDifference >= 5) {
         bgColorClass = "uptodate"
@@ -165,7 +165,7 @@ function StatusElement({nextsurveyduedate}) {
         icon = faCircleReg
     } else {
         bgColorClass = "urgent"
-        text = "Missed"
+        text = "Verpasst"
         icon = faXmarkCircle
     }
 

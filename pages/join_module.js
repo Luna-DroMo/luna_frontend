@@ -1,23 +1,46 @@
 import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
-import {FormButton} from "@/components/Buttons"
-import {FormInput, InputRow} from "@/components/FormElements"
-import React, {useEffect, useState} from "react"
+import { FormButton } from "@/components/Buttons"
+import { FormInput, InputRow } from "@/components/FormElements"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
-import {useRouter} from "next/router"
-import {Button} from "@/components/Buttons"
+import { useRouter } from "next/router"
+import { Button } from "@/components/Buttons"
 import Person from "@/components/PersonTag"
 import axios from "axios"
-import {useAuth} from "@/components/AuthProvider"
-import {url} from "@/utils/data"
+import { useAuth } from "@/components/AuthProvider"
+import { url } from "@/utils/data"
 
 export default function Main() {
-    const {user} = useAuth()
+    const { user } = useAuth()
     const [module, setModule] = useState({})
     const [password, setPassword] = useState("")
     const router = useRouter()
     const data = router.query
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState([true, true])
+    const [joinedModules, setjoinedModules] = useState([])
+
+    const updateLoadingState = (index, newValue) => {
+        setIsLoading(prevState => {
+            const newState = [...prevState]; // Create a copy of the state array
+            newState[index] = newValue; // Update the specific index
+            return newState; // Return the new array
+        });
+    };
+
+    // Modules which the student has already joined
+    useEffect(() => {
+        const getJoinedModules = async (e) => {
+            try {
+                const response = await axios.get(`${url}/api/student/${user.id}/modules`)
+                setjoinedModules(response.data)
+                updateLoadingState(0, false)
+            } catch (error) {
+                console.log("error while getting joined modules", error)
+            }
+        }
+        getJoinedModules()
+    }, [router.query.id])
 
     useEffect(() => {
         const fetchModules = async () => {
@@ -25,7 +48,7 @@ export default function Main() {
                 if (router.query.id) {
                     const response = await axios.get(`${url}/api/module/${router.query.id}`)
                     setModule(response.data)
-                    setIsLoading(false)
+                    updateLoadingState(1, false)
                 }
             } catch (error) {
                 console.log("error during fetching modules", error)
@@ -51,9 +74,13 @@ export default function Main() {
         }
     }
 
-    if (isLoading){
-        return <RootLayout/>
+    if (isLoading.some(element => element === true)) {
+        return <RootLayout />
     }
+
+    console.log(joinedModules)
+
+    console.log(module.id)
 
     return (
         <RootLayout>
@@ -90,28 +117,31 @@ export default function Main() {
                         </p> */}
                     </div>
                 </div>
-                <div className='rounded-xl bg-white px-5 py-5'>
-                    <div className='flex mb-3'>
-                        <input type='checkbox' className='mr-4' />
-                        <p>Ich bin einverstanden dass ... </p>
-                    </div>
 
-                    <div className='flex'>
-                        <input
-                            className='border border-lightgrey rounded-xl pl-4 mr-6'
-                            type='password'
-                            placeholder='Passwort'
-                            onChange={(e) => setPassword(e.target.value)}
-                        ></input>
+                {joinedModules.some(element => element.id === module.id) ? null :
+                    <div className='rounded-xl bg-white px-5 py-5'>
+                        <div className='flex mb-3'>
+                            <input type='checkbox' className='mr-4' />
+                            <p>Ich bin einverstanden dass ... </p>
+                        </div>
 
-                        <FormButton
-                            text='Beitreten'
-                            highlighted='false'
-                            type='submit'
-                            onClick={handleSubmit}
-                        />
+                        <div className='flex'>
+                            <input
+                                className='border border-lightgrey rounded-xl pl-4 mr-6'
+                                type='password'
+                                placeholder='Passwort'
+                                onChange={(e) => setPassword(e.target.value)}
+                            ></input>
+
+                            <FormButton
+                                text='Beitreten'
+                                highlighted='false'
+                                type='submit'
+                                onClick={handleSubmit}
+                            />
+                        </div>
                     </div>
-                </div>
+                }
             </main>
         </RootLayout>
     )
