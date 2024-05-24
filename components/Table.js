@@ -147,7 +147,7 @@ function StatusElement({nextsurveyduedate}) {
     // Calculate the number of days between the two dates
     const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
 
-    if (daysDifference === null) {
+    if (nextsurveyduedate === null) {
         bgColorClass = "uptodate"
         text = "Up to Date"
         icon = faCircleSolid

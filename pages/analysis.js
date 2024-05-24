@@ -42,17 +42,18 @@ export default function Main() {
             try {
                 const response = await axios.get(`${url}/api/${user.id}/modules`)
                 setModules(response.data)
-                if (modulesData.length > 0) {
-                    setSelectedModule(modulesData[0])
+                console.log("Modules->", response.data)
+
+                if (response.data.length > 0) {
+                    setSelectedModule(response.data[0]) // Use response.data instead of modules
                 }
             } catch (error) {
-                console.log("Error")
+                console.log("Error->", error)
             }
         }
 
         getUserRole()
         getModules()
-        setSelectedModule(modules[0])
     }, [user.id]) // Run this effect when user.id changes
 
     console.log("Selected Module", selectedModule)
@@ -70,7 +71,7 @@ export default function Main() {
                     setMeanLine(mean)
                     setStDev(stdev)
                 } catch (error) {
-                    console.log(error)
+                    console.log("Error->", error)
                 }
             }
         }
