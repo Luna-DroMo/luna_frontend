@@ -79,16 +79,17 @@ export default function Cockpit_student() {
                             </div>
                         </div>
                     </div>
+                    
                     <div
-                        className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 bg-lunapurple'
-                        style={{backgroundImage: 'url("solarsystem.png")'}}
+                        className='flex-1 relative items-center rounded-xl p-2 pl-6 custom-gradient-bg'
+                        
                     >
-                        <div className='absolute inset-0 bg-white opacity-10'></div>
+                        <div className='absolute bg-white opacity-10'></div>
                         <div className='flex items-center'>
                             <div className='metric my-1 bg-orange z-10 w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
                                 84
                             </div>
-                            <div className='tracking-wider metric-text z-10 '>
+                            <div className='tracking-wider metric-text z-10 text-white'>
                                 <p>Gesamterfolg</p>
                             </div>
                         </div>

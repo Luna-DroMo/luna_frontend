@@ -161,3 +161,8 @@ select {
   color: #cccccc;
   
 }
+
+.custom-gradient-bg {
+  background: rgb(82,16,220);
+  background: linear-gradient(90deg, #764bd4 0%, #af9ed5 100%);
+}
