@@ -12,11 +12,18 @@ import Dropdown from "@/components/Dropdown"
 import {LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot} from "@/components/CustomCharts"
 import {url} from "@/utils/data"
 
+const processModuleResults = (moduleResults) => {
+    const mean = moduleResults.map((result) => result.mean)
+    const stdev = moduleResults.map((result) => result.stdev)
+    return {mean, stdev}
+}
+
 export default function Main() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userRole, setUserRole] = useState(null)
 
     const [modules, setModules] = useState([])
+    const [selectedModule, setSelectedModule] = useState(null)
     const [moduleResult, setModuleResult] = useState({})
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
@@ -35,6 +42,9 @@ export default function Main() {
             try {
                 const response = await axios.get(`${url}/api/${user.id}/modules`)
                 setModules(response.data)
+                if (modulesData.length > 0) {
+                    setSelectedModule(modulesData[0])
+                }
             } catch (error) {
                 console.log("Error")
             }
@@ -42,38 +52,34 @@ export default function Main() {
 
         getUserRole()
         getModules()
+        setSelectedModule(modules[0])
     }, [user.id]) // Run this effect when user.id changes
 
-    console.log("modules", modules)
+    console.log("Selected Module", selectedModule)
 
     useEffect(() => {
         const getModulesAndResults = async () => {
-            try {
-                const response = await axios.get(`${url}/api/${user.id}/modules`)
-                const modulesData = response.data
-                setModules(modulesData)
-
-                if (modulesData.length > 0) {
+            if (selectedModule) {
+                try {
                     const moduleResponse = await axios.get(
-                        `${url}/modelling/${user.id}/module/${modulesData[0].module_id}`
+                        `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
                     )
                     const moduleResult = moduleResponse.data
 
-                    const mean = moduleResult.map((result) => result.mean)
-                    const stdev = moduleResult.map((result) => result.stdev)
+                    const {mean, stdev} = processModuleResults(moduleResult.weekly_results)
                     setMeanLine(mean)
                     setStDev(stdev)
+                } catch (error) {
+                    console.log(error)
                 }
-            } catch (error) {
-                console.log("Error")
             }
         }
 
         getModulesAndResults()
-    }, [user.id])
+    }, [user.id, selectedModule])
 
-    console.log("meanLine", meanLine)
-    console.log("stDev", stDev)
+    console.log("meanLine", meanLine.length)
+    console.log("stDev", stDev.length)
 
     if (userRole === null) {
     }
@@ -107,12 +113,10 @@ export default function Main() {
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
-                                header={"Probabilistic Machine Learning"}
-                                dropdown_options={[
-                                    "Probabilistic Machine Learning",
-                                    "Statistical Machine Learning",
-                                    "Statistics of Financial Markets"
-                                ]}
+                                header={
+                                    modules.length > 0 ? modules[0].module_name : "Select a Module"
+                                }
+                                dropdown_options={modules.map((module) => module.module_name)}
                             />
                         </div>
                     </div>
@@ -173,12 +177,10 @@ export default function Main() {
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
-                                header={"Probabilistic Machine Learning"}
-                                dropdown_options={[
-                                    "Probabilistic Machine Learning",
-                                    "Statistical Machine Learning",
-                                    "Statistics of Financial Markets"
-                                ]}
+                                header={
+                                    modules.length > 0 ? modules[0].module_name : "Select a Module"
+                                }
+                                dropdown_options={modules.map((module) => module.module_name)}
                             />
                         </div>
                     </div>
