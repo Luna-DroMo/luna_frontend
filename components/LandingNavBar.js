@@ -23,8 +23,8 @@ export default function Navbar({theme}) {
                 </li>
                 <li className='pl-10'>
                     <a href='#' className="flex items-center">
-                        <img src={logo_source} className='w-12 h-12 inline-block' alt='logo' />
-                        <p className="text-xl align-middle">LUNA</p>                        
+                        <img src={logo_source} className='h-10 inline-block' alt='logo' />
+                                               
                     </a>
                     
                 </li>
