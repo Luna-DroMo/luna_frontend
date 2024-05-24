@@ -78,7 +78,7 @@ function SidebarContent({show_billboard, show_progress_bar, show_main_links, per
             <ul className='space-y-2 font-medium mb-2'>
                 <li className='group rounded-lg'>
                     <a
-                        href={"#"}
+                        href={"/cockpit"}
                         className='flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg text-base group-hover:border-hidden'
                     >
                         <FontAwesomeIcon
