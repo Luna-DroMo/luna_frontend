@@ -118,7 +118,7 @@ function TableRow({module}) {
                 <StatusElement nextsurveyduedate={module.survey_end_date} />
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                {module.end_date}
+                {formatDate(module.end_date)}
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide'>
                 <a
