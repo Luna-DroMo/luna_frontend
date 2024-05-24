@@ -15,7 +15,7 @@ import Link from "next/link"
 import {useAuth} from "@/components/AuthProvider"
 
 const main_links = [
-    {href: "/account_setup_overview/", icon: faUserAstronaut, text: "Hintergrund"},
+   // {href: "/account_setup_overview/", icon: faUserAstronaut, text: "Hintergrund"},
     {href: "/cockpit/", icon: faSatellite, text: "Übersicht"},
     {href: "/analysis/", icon: faMeteor, text: "Analysen"}
 ]
@@ -36,7 +36,7 @@ export default function Sidebar({show_main_links, show_billboard, show_progress_
             >
                 <div className='flex flex-col justify-between h-full p-6'>
                     <div className='flex items-center p-5 mb-2'>
-                        <img src='/crap_logo.png' className='inline-block w-8 mr-4' />
+                        <img src='/logo.png' className='inline-block w-16 mr-4' />
                         <p className='text-3xl'>LUNA</p>
                     </div>
                     <SidebarContent
@@ -76,19 +76,7 @@ function SidebarContent({show_billboard, show_progress_bar, show_main_links, per
             {show_progress_bar ? <ProgressBar percentage={percentage} /> : <Billboard />}
 
             <ul className='space-y-2 font-medium mb-2'>
-                <li className='group rounded-lg'>
-                    <a
-                        href={"/cockpit"}
-                        className='flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg text-base group-hover:border-hidden'
-                    >
-                        <FontAwesomeIcon
-                            icon={faAsterisk}
-                            className='group-hover:text-lunapurple inline-block w-4'
-                        />
-                        <span className='ml-3'>Cockpit</span>
-                    </a>
-                </li>
-                <li className='group rounded-lg'>
+                {/*<li className='group rounded-lg'>
                     <a
                         href={"#"}
                         className='flex items-center pl-5 p-2 tracking-wider text-gray-900 rounded-lg text-base group-hover:border-hidden'
@@ -99,7 +87,7 @@ function SidebarContent({show_billboard, show_progress_bar, show_main_links, per
                         />
                         <span className='ml-3'>Konto</span>
                     </a>
-                </li>
+                </li> */}
                 <li className='group rounded-lg'>
                     <a
                         href={"/"}

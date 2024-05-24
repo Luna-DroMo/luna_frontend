@@ -20,6 +20,7 @@ export default function cockpit_lecturer() {
     // If not authenticated, the utility function would have handled the redirection
 
     const [modules, setModules] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const getModules = async (e) => {
@@ -27,8 +28,8 @@ export default function cockpit_lecturer() {
 
             try {
                 const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
-
                 setModules(response.data)
+                setIsLoading(false)
             } catch (error) {
                 console.log("error during login", error)
             }
@@ -40,6 +41,10 @@ export default function cockpit_lecturer() {
 
     const avg_response_rate = 0.8522
 
+    // Ensure data is called first
+    if (isLoading){
+        return <RootLayout show_billboard={true}/>
+    }
     return (
         <RootLayout show_billboard={true}>
             <main className='flex-row justify-between px-10 pt-10'>

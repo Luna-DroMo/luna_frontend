@@ -121,6 +121,7 @@ export default function Main() {
     const [isExpanded, setIsExpanded] = useState(Array(4).fill(true))
     const [request, setRequest] = useState([])
     const [surveyDetails, setSurveyDetails] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     let prevBlockFilled = useRef()
 
     useEffect(() => {
@@ -132,6 +133,7 @@ export default function Main() {
                     `${url}/api/${user.id}/surveys/${router.query.id}/details`
                 )
                 setSurveyDetails(response.data)
+                setIsLoading(false)
             } catch (error) {
                 console.log("error", error)
             }
@@ -237,6 +239,9 @@ export default function Main() {
       };
 
 
+    if (isLoading){
+        return <RootLayout show_billboard={true} />
+    }
     return (
         <RootLayout>
             <main className='flex-row justify-between px-10 pt-10'>

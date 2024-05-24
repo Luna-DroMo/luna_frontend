@@ -38,12 +38,14 @@ export default function AlertSection() {
                         <Alert key={index} survey={survey} />
                     ))}
                 </div>
+                {surveys.length > 3 ? 
                 <button
                     className='text-lunapurple text-base ml-5 hover:underline'
                     onClick={toggleExpand}
                 >
                     {!expanded ? `Alle ${surveys.length} anzeigen` : "Weniger anzeigen"}
                 </button>
+                : null}
             </div>
         )
     } else {

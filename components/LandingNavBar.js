@@ -1,8 +1,8 @@
 export default function Navbar({theme}) {
-    let logo_source = "crap_logo.png"
+    let logo_source = "logo.png"
     let text_color = "white"
     if (theme === "dark") {
-        logo_source = "crap_logo.png"
+        logo_source = "logo.png"
         text_color = "lunapurple"
     }
 
@@ -23,8 +23,9 @@ export default function Navbar({theme}) {
                 </li>
                 <li className='pl-5'>
                     <a href='#'>
-                        <img src={logo_source} className='w-12 h-12 inline-block' alt='logo' />
+                        <img src={logo_source} className='w-12 h-11 inline-block' alt='logo' />
                     </a>
+                    
                 </li>
             </ul>
         </div>

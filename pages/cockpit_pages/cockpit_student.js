@@ -18,6 +18,7 @@ export default function Cockpit_student() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [modules, setModules] = useState([])
     const [backgroundStatus, setBackgroundStatus] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const getModules = async (e) => {
@@ -26,6 +27,7 @@ export default function Cockpit_student() {
                 const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
                 setModules(response.data)
                 setBackgroundStatus(backgroundStatusResponse.data)
+                setIsLoading(false)
             } catch (error) {
                 console.log("error during login", error)
             }
@@ -34,6 +36,11 @@ export default function Cockpit_student() {
     }, [])
 
     console.log("bacgkround status", backgroundStatus)
+
+    // Ensure data is called first
+    if (isLoading){
+        return <RootLayout show_billboard={true}/>
+    }
 
     return (
         <RootLayout show_billboard={true}>
