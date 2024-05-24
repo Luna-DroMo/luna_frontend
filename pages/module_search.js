@@ -74,11 +74,12 @@ export default function Main() {
         return (
             item.name.toLowerCase().includes(searchTerms) ||
             item.code.toLowerCase().includes(searchTerms)
-            //item.faculty.toLowerCase().includes(searchTerms) ||
+            // item.faculty.toLowerCase().includes(searchTerms) // Currently doesn't exist in API
             //item.staff.name.toLowerCase().includes(searchTerms)
         )
     })
 
+    console.log(modules)
     if (isLoading.some(element => element === true)){
         return <RootLayout/>
     }
@@ -127,7 +128,7 @@ export default function Main() {
                             </tr>
                         </thead>
                         <tbody className='rounded-b-lg'>
-                            {modules.map((module) => (
+                            {filteredModules.map((module) => (
                                 <TableRow
                                     key={module.id}
                                     id={module.id}
