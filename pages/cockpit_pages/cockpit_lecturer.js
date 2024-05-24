@@ -79,15 +79,18 @@ export default function cockpit_lecturer() {
                         </div>
                     </div>
                     <div
-                        className='flex-1 relative items-center rounded-xl p-2 bg-zoom bg-center pl-6 custom-gradient-bg bg-lunapurple'
+                        className='flex-1 relative items-center rounded-xl p-2 pl-6 bg-lunapurple bg-cover bg-center'
+                        style={{ backgroundImage: "url('highlightbg.png')" }}
+
                     >
-                        <div className='absolute inset-0 bg-white opacity-10'></div>
-                        <div className='flex items-center'>
-                            <div className='metric my-1 bg-orange z-10 w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
-                                84
-                            </div>
-                            <div className='tracking-wider metric-text z-10 '>
-                                <p className='text-white'>Gesamterfolg</p>
+                        <div className='flex items-center justify-center h-full'>
+                            <div className='tracking-wider metric-text z-10 text-white text-center'>
+                                <p className="text-base">Hast du schon unsere Analysen gesehen?</p>
+                                <Link href={`#`}>
+                                    <button className='border border-lunagreen bg-lunagreen rounded-lg w-44 h-6 px-4 text-white text-base leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple '>
+                                        Anschauen
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
