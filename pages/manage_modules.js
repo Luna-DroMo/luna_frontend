@@ -67,6 +67,13 @@ export default function Main() {
 
     const [searchTerms, setSearchTerms] = useState("")
 
+    // function that sorts modules based on status
+    const sortedCourses = joinedModules.sort((a, b) => {
+        const statusA = checkDateStatus(a.start_date, a.end_date);
+        const statusB = checkDateStatus(b.start_date, b.end_date);
+        return statusA - statusB;
+    });
+
     let filteredModules = joinedModules.filter(function (item) {
         return (
             item.name.toLowerCase().includes(searchTerms) ||
@@ -77,6 +84,11 @@ export default function Main() {
     })
 
     console.log(joinedModules)
+
+
+ 
+
+    console.log("sorted", sortedCourses)
     if (isLoading) {
         return <RootLayout />
     }
