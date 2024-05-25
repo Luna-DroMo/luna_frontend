@@ -136,6 +136,8 @@ export default function Main() {
                                     joined={joinedModules.some((obj) => obj.id === module.id)}
                                     isExpanded={isExpanded[index]}
                                     toggleFunc={(e) => toggleValueAtIndex(index)}
+                                    startDate={module.start_date}
+                                    endDate={module.end_date}
                                 />
                             ))}
                         </tbody>
@@ -154,7 +156,7 @@ export default function Main() {
     )
 }
 
-function TableRow({ id, code, name, semester, status, faculty, staff, joined, isExpanded, toggleFunc }) {
+function TableRow({ id, code, name, semester, status, faculty, staff, joined, isExpanded, toggleFunc, startDate, endDate }) {
     return (
         <>
             <tr
@@ -173,7 +175,7 @@ function TableRow({ id, code, name, semester, status, faculty, staff, joined, is
                 <td className='text-[#4a4a4a] text-base tracking-wide'>{semester} </td>
                 <td>
                     {" "}
-                    <Status status={1} />
+                    <Status status={checkDateStatus(startDate,endDate)} />
                 </td>
                 <td>
                     {" "}
@@ -193,7 +195,11 @@ function TableRow({ id, code, name, semester, status, faculty, staff, joined, is
             </tr>
             {isExpanded ?
                 <tr>
-                    <td colSpan="6" className="px-10 py-4">
+                    <td colSpan="6" className="px-10 py-4 bg-[#EEEDF1]">
+                        <div>
+                            <p>Start: {startDate}</p>
+                            <p>Ende: {endDate}</p>
+                        </div>
                         <p>Anonymität</p>
                         <div className="flex">
                             <p className="text-base pr-5 text-lightgrey">Ich möchte anonym bleiben</p>
@@ -201,7 +207,7 @@ function TableRow({ id, code, name, semester, status, faculty, staff, joined, is
                         </div>
                         <p className="mt-4">Modul Verlassen / Abbrechen</p>
                         <div className="">
-                            <a className="text-base text-lunared underline hover:text-lunagreen">Ich möchte diese Modul verlassen.</a>
+                            <a className="text-base text-lightgrey hover:text-lunared underline cursor-pointer">{`Ich möchte ${name} Modul verlassen.`}</a>
                         </div>
                     </td>
                 </tr>
@@ -213,14 +219,9 @@ function TableRow({ id, code, name, semester, status, faculty, staff, joined, is
 
 function Status({ status }) {
     const status_dictionary = {
-        1: { status: "Open", bgCol: "bg-[#E7FDD0]", txtCol: "text-[#3E7900]" },
-        2: { status: "Locked", bgCol: "bg-[#FFF4ED]", txtCol: "text-[#B32500]" },
-        3: {
-            status: "Requires Admittance",
-            bgCol: "bg-[#FCF2CF]",
-            txtCol: "text-[#7D5E00]"
-        },
-        4: { status: "Closed", bgCol: "bg-[#FFEDFC]", txtCol: "text-[#BF4324]" }
+        1: { status: "Aktiv", bgCol: "bg-[#E7FDD0]", txtCol: "text-[#3E7900]" },
+        2: { status: "Beendet", bgCol: "bg-[#EEEDF1]", txtCol: "text-text-grey" },
+        3: { status: "Anstehend",bgCol: "bg-[#FCF2CF]",txtCol: "text-[#7D5E00]" }
     }
 
     const stat = status_dictionary[status]
@@ -235,6 +236,23 @@ function Status({ status }) {
         </div>
     )
 }
+
+const checkDateStatus = (startDateStr, endDateStr) => {
+    const today = new Date();
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+
+    if (today < startDate) {
+        // status 3 = To begin
+        return 3
+    } else if (today > endDate) {
+        // status 2 = Ended
+        return 2
+    } else {
+        // status 1 = active/current
+        return 1
+    }
+};
 //
 
 // <div className='border rounded-md border-[#dddddd] inline-block'>
