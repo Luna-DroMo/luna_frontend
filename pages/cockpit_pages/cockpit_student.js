@@ -100,7 +100,7 @@ export default function Cockpit_student() {
                 </div>
                 <div className='flex w-full items-end'>
                     <h5 className='tracking-wider items-center flex-grow'>Meine Module</h5>
-                    <a href='#' className='flex-none text-lunapurple text-base pb-0.5'>
+                    <a href='manage_modules' className='flex-none text-lunapurple text-base pb-0.5'>
                         Module verwalten
                         <FontAwesomeIcon
                             icon={faChevronRight}

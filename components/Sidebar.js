@@ -36,7 +36,7 @@ export default function Sidebar({show_main_links, show_billboard, show_progress_
             >
                 <div className='flex flex-col justify-between h-full p-6'>
                     <div className='flex items-center p-5 mb-2 mx-auto'>
-                        <img src='/Logo.png' className='inline-block w-30' />
+                        <img src='/Logo.png' className='inline-block w-28' />
                         
                     </div>
                     <SidebarContent
