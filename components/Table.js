@@ -120,14 +120,14 @@ function TableRow({module}) {
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
                 {formatDate(module.end_date)}
             </td>
-            <td className='text-[#4a4a4a] text-base tracking-wide'>
+            {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
                 <a
                     href='#'
                     className='rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white'
                 >
                     Verwalten
                 </a>
-            </td>
+    </td>*/}
         </tr>
     )
 }
