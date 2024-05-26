@@ -219,7 +219,7 @@ function TableRow({ id, code, name, semester, status, faculty, staff, joined, is
                         </div>
                         <p className="mt-4">Modul Verlassen / Abbrechen</p>
                         <div className="">
-                            <a className="text-base text-lightgrey hover:text-lunared underline cursor-pointer">{`Ich möchte ${name} Modul verlassen.`}</a>
+                            <a className="text-base text-lightgrey hover:text-lunared underline cursor-pointer">{`Ich möchte ${name} verlassen.`}</a>
                         </div>
                     </td>
                 </tr>
