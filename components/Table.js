@@ -28,8 +28,8 @@ export function StudentModuleTable({modules = []}) {
                         </tr>
                     </thead>
                     <tbody className='rounded-b-lg'>
-                        {modules.map((module) => (
-                            <TableRow key={module.moduleid} module={module} />
+                        {modules.map((module, key) => (
+                            <TableRow key={key} module={module} />
                         ))}
                     </tbody>
                 </table>

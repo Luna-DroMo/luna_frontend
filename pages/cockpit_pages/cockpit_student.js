@@ -36,7 +36,18 @@ export default function Cockpit_student() {
         getModules()
     }, [])
 
-    console.log(modules)
+    const filterByEndDate = (array) => {
+        const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+    
+        return array.filter(obj => {
+            const endDate = new Date(obj['end_date']).toISOString().split('T')[0]; // Convert end_date to 'YYYY-MM-DD' format
+            return endDate >= today;
+        });
+    };
+
+   
+   let activeModules = filterByEndDate(modules)
+   
 
     // Ensure data is called first
     if (isLoading) {
@@ -63,7 +74,7 @@ export default function Cockpit_student() {
                     <div className='flex-1 items-center rounded-xl p-2 bg-lightpurple pl-6'>
                         <div className='flex items-center'>
                             <div className='metric my-1 bg-lunapurple w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
-                                {modules.length}
+                                {activeModules.length}
                             </div>
                             <div className='metric-text tracking-wider '>
                                 <p>Modulen beigetreten</p>
@@ -123,7 +134,7 @@ export default function Cockpit_student() {
                     </h4>
                 </Link>
 
-                <StudentModuleTable modules={modules} />
+                <StudentModuleTable modules={activeModules} />
             </main>
         </RootLayout>
     )
