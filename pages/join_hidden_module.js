@@ -26,7 +26,8 @@ export default function Main() {
 
         const data = {
             module_code: moduleCode,
-            password: password
+            password: password,
+            action: "enroll"
         }
         console.log("Clicked", data)
 
