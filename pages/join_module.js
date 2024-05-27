@@ -1,18 +1,18 @@
 import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
-import { FormButton } from "@/components/Buttons"
-import { FormInput, InputRow } from "@/components/FormElements"
-import React, { useEffect, useState } from "react"
+import {FormButton} from "@/components/Buttons"
+import {FormInput, InputRow} from "@/components/FormElements"
+import React, {useEffect, useState} from "react"
 import Link from "next/link"
-import { useRouter } from "next/router"
-import { Button } from "@/components/Buttons"
+import {useRouter} from "next/router"
+import {Button} from "@/components/Buttons"
 import Person from "@/components/PersonTag"
 import axios from "axios"
-import { useAuth } from "@/components/AuthProvider"
-import { url } from "@/utils/data"
+import {useAuth} from "@/components/AuthProvider"
+import {url} from "@/utils/data"
 
 export default function Main() {
-    const { user } = useAuth()
+    const {user} = useAuth()
     const [module, setModule] = useState({})
     const [password, setPassword] = useState("")
     const router = useRouter()
@@ -21,12 +21,12 @@ export default function Main() {
     const [joinedModules, setjoinedModules] = useState([])
 
     const updateLoadingState = (index, newValue) => {
-        setIsLoading(prevState => {
-            const newState = [...prevState]; // Create a copy of the state array
-            newState[index] = newValue; // Update the specific index
-            return newState; // Return the new array
-        });
-    };
+        setIsLoading((prevState) => {
+            const newState = [...prevState] // Create a copy of the state array
+            newState[index] = newValue // Update the specific index
+            return newState // Return the new array
+        })
+    }
 
     // Modules which the student has already joined
     useEffect(() => {
@@ -61,7 +61,8 @@ export default function Main() {
         e.preventDefault()
         const formData = {
             module_code: module.code,
-            password: password
+            password: password,
+            action: "enroll"
         }
         console.log("formData", formData)
 
@@ -74,7 +75,7 @@ export default function Main() {
         }
     }
 
-    if (isLoading.some(element => element === true)) {
+    if (isLoading.some((element) => element === true)) {
         return <RootLayout />
     }
 
@@ -118,7 +119,7 @@ export default function Main() {
                     </div>
                 </div>
 
-                {joinedModules.some(element => element.id === module.id) ? null :
+                {joinedModules.some((element) => element.id === module.id) ? null : (
                     <div className='rounded-xl bg-white px-5 py-5'>
                         <div className='flex mb-3'>
                             <input type='checkbox' className='mr-4' />
@@ -141,7 +142,7 @@ export default function Main() {
                             />
                         </div>
                     </div>
-                }
+                )}
             </main>
         </RootLayout>
     )
