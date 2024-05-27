@@ -21,49 +21,83 @@ const processModuleResults = (moduleResults) => {
 export default function Main() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userRole, setUserRole] = useState(null)
-    const [isLoading, setIsLoading] = useState([true,true]) // extend for number of API calls
+    const [isLoading, setIsLoading] = useState([true, true]) // extend for number of API calls
     const [modules, setModules] = useState([])
     const [selectedModule, setSelectedModule] = useState(null)
     const [moduleResult, setModuleResult] = useState({})
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
+    const [highRiskStudent, sethighRiskStudent] = useState([])
 
     const updateLoadingState = (index, newValue) => {
-        setIsLoading(prevState => {
-          const newState = [...prevState]; // Create a copy of the state array
-          newState[index] = newValue; // Update the specific index
-          return newState; // Return the new array
-        });
-      };
+        setIsLoading((prevState) => {
+            const newState = [...prevState] // Create a copy of the state array
+            newState[index] = newValue // Update the specific index
+            return newState // Return the new array
+        })
+    }
 
     useEffect(() => {
         const getUserRole = async () => {
             try {
                 const response = await axios.get(`${url}/api/getUserType/${user.id}`)
-                setUserRole(response.data)
-                updateLoadingState(0,false)
+                console.log("Fetched User Role:", response.data)
+                setUserRole(response.data) // Assuming the API returns an object with `user_type`
+                updateLoadingState(0, false)
             } catch (error) {
-                console.log("error during login", error)
-            }
-        }
-
-        const getModules = async () => {
-            try {
-                const response = await axios.get(`${url}/api/${user.id}/modules`)
-                setModules(response.data)
-                console.log("Modules->", response.data)
-                updateLoadingState(1,false)
-                if (response.data.length > 0) {
-                    setSelectedModule(response.data[0]) // Use response.data instead of modules
-                }
-            } catch (error) {
-                console.log("Error->", error)
+                console.log("Error fetching user role:", error)
+                updateLoadingState(0, false)
             }
         }
 
         getUserRole()
-        getModules()
-    }, [user.id]) // Run this effect when user.id changes
+    }, [user.id])
+
+    useEffect(() => {
+        const getStudentModules = async () => {
+            try {
+                const response = await axios.get(`${url}/api/${user.id}/modules`)
+                setModules(response.data)
+                console.log("Student Modules:", response.data)
+                updateLoadingState(1, false)
+                if (response.data.length > 0) {
+                    setSelectedModule(response.data[0]) // Use response.data instead of modules
+                }
+            } catch (error) {
+                console.log("Error fetching student modules:", error)
+                updateLoadingState(1, false)
+            }
+        }
+
+        const getLecturerModules = async () => {
+            try {
+                const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
+                setModules(response.data)
+                console.log("Lecturer Modules:", response.data)
+                updateLoadingState(1, false)
+                if (response.data.length > 0) {
+                    console.log("We are inside this loop")
+                    setSelectedModule(response.data[0]) // Use response.data instead of modules
+                }
+            } catch (error) {
+                console.log("Error fetching lecturer modules:", error)
+                updateLoadingState(1, false)
+            }
+        }
+
+        const fetchModules = async () => {
+            console.log("Fetching modules for user role:", userRole)
+            if (userRole == 1) {
+                await getStudentModules()
+            } else if (userRole == 2) {
+                await getLecturerModules()
+            }
+        }
+
+        if (userRole !== null) {
+            fetchModules()
+        }
+    }, [userRole, user.id])
 
     console.log("Selected Module", selectedModule)
 
@@ -71,31 +105,43 @@ export default function Main() {
         const getModulesAndResults = async () => {
             if (selectedModule) {
                 try {
-                    const moduleResponse = await axios.get(
-                        `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
-                    )
-                    const moduleResult = moduleResponse.data
+                    if (userRole === 1) {
+                        // Lecturer role, use the specific endpoint
+                        const moduleResponse = await axios.get(
+                            `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
+                        )
+                        setModuleResult(moduleResponse.data)
+                    } else {
+                        // Default endpoint for other roles
+                        const moduleResponse = await axios.get(
+                            `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
+                        )
+                        setModuleResult(moduleResponse.data)
+                        sethighRiskStudent(setModuleResult.high_risk_students)
+                    }
 
                     const {mean, stdev} = processModuleResults(moduleResult.weekly_results)
                     setMeanLine(mean)
                     setStDev(stdev)
-                    updateLoadingState(2,false)
+                    updateLoadingState(2, false)
                 } catch (error) {
                     console.log("Error->", error)
                 }
             }
         }
 
-        getModulesAndResults()
-    }, [user.id, selectedModule])
+        if (userRole !== null) {
+            getModulesAndResults()
+        }
+    }, [user.id, selectedModule, userRole])
 
     const handleSelectModule = (moduleName) => {
         const selected = modules.find((module) => module.module_name === moduleName)
         setSelectedModule(selected)
     }
 
-    if (isLoading.some(element => element === true)){
-        return <RootLayout/>
+    if (isLoading.some((element) => element === true)) {
+        return <RootLayout />
     }
 
     if (userRole === null) {
@@ -225,7 +271,7 @@ export default function Main() {
                                 title='Durschnittsrisiko das Modul abzubrechen'
                                 line={meanLine}
                                 deviation={stDev}
-                                // students_at_risk={students_at_risk}
+                                students_at_risk={highRiskStudent}
                             />
                         </div>
                     </div>
