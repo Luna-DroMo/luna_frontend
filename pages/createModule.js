@@ -226,6 +226,7 @@ export default function Main() {
                                     subtitle='Die Befragungsart kann nach der Erstellung nicht mehr geändert werden!'
                                 />
                                 <div className='w-100 h-15 py-2 px-5 bg-[#FFF0CB] rounded'>
+                                    
                                     <p className='text-text-grey'>
                                         [NEEDS TO BE DYNAMIC] Achtung! Analysen und Prognosen
                                         eingeschränkt. Für vollständige Analysen, bitte “Standard”
