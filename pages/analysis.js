@@ -149,7 +149,7 @@ export default function Main() {
                             </div>*/}
 
                     <div id='dropoutChartContainer' className='mt-8'>
-                        <h1 className='font-bold'>Befrageungen</h1>
+                        <h1 className='font-bold'>Befragungen</h1>
                         <p className='text-text-grey'>
                             Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
                         </p>
