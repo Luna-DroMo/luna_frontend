@@ -375,7 +375,7 @@ export function MultiLineChart({title, lines, labels}) {
 
     console.log(K)
     
-    const COLORS = ["#5210DC","#FF9900","#9ADC10"]
+    const COLORS = ["#976EEC","#5210DC","#2F0D77"]
     for (let t = 1; t <= T; t++) {
         label.push(`T${t}`);
     }
@@ -393,6 +393,9 @@ export function MultiLineChart({title, lines, labels}) {
             data: lines[i],
             borderColor: COLORS[i],
             backgroundColor: COLORS[i],
+            borderWidth: 4,
+            
+
         })
     }
 
@@ -405,6 +408,9 @@ export function MultiLineChart({title, lines, labels}) {
             elements: {
                 line: {
                     tension: 0.4,
+                },
+                point: {
+                    radius:0,
                 }
             },
             scales: {
