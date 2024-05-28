@@ -148,19 +148,20 @@ export default function Main() {
                         </a>
                             </div>*/}
 
-                    <div id='dropoutChartContainer' className='h-[850px] mt-8'>
+                    <div id='dropoutChartContainer' className='mt-8'>
                         <h1 className='font-bold'>Befrageungen</h1>
                         <p className='text-text-grey'>
                             Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
                         </p>
-                        <div className='flex flex-row justify-between mt-4'>
-                            <div className='relativ px-12 mt-8 w-2/3'>
+                        <div className='flex flex-row justify-between mt-4 h-72'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
+                            <div className='relativ w-2/3'>
                                 <MultiLineChart title={"Dein Feedback"} lines={[[1, 2, 3, 4], [3, 2, 3, 4], [4, 5, 5, 1]]} labels={["Inhalt", "Stress", "Verständis"]} />
                             </div>
                             <div className="w-1/3">
-                                <div className='relativ px-24 pb-12 mt-8 w-100'> {/* MUST BE FOR CHART ONLY */}
+                                <div className="relative w-full h-2/3">
                                     <PieChart data={pie_data} />
                                 </div>
+                                <p className="text-lunapurple text-center text-xl pt-4">{turn_in_percent * 100}%</p>
                             </div>
                         </div>
                         <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
