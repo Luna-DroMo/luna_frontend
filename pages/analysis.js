@@ -2,26 +2,26 @@ import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import {Button} from "@/components/Buttons"
+import { Button } from "@/components/Buttons"
 import Overview from "@/components/SetupDataModelOverview"
-import {useState, useEffect, React} from "react"
-import {useAuth} from "../components/AuthProvider"
+import { useState, useEffect, React } from "react"
+import { useAuth } from "../components/AuthProvider"
 import axios from "axios"
 
 import Dropdown from "@/components/Dropdown"
-import {LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot, MultiLineChart} from "@/components/CustomCharts"
-import {url} from "@/utils/data"
+import { LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot, MultiLineChart } from "@/components/CustomCharts"
+import { url } from "@/utils/data"
 
 const processModuleResults = (moduleResults) => {
     const mean = moduleResults.map((result) => result.mean)
     const stdev = moduleResults.map((result) => result.stdev)
-    return {mean, stdev}
+    return { mean, stdev }
 }
 
 export default function Main() {
-    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
     const [userRole, setUserRole] = useState(null)
-    const [isLoading, setIsLoading] = useState([true,true]) // extend for number of API calls
+    const [isLoading, setIsLoading] = useState([true, true]) // extend for number of API calls
     const [modules, setModules] = useState([])
     const [selectedModule, setSelectedModule] = useState(null)
     const [moduleResult, setModuleResult] = useState({})
@@ -30,18 +30,18 @@ export default function Main() {
 
     const updateLoadingState = (index, newValue) => {
         setIsLoading(prevState => {
-          const newState = [...prevState]; // Create a copy of the state array
-          newState[index] = newValue; // Update the specific index
-          return newState; // Return the new array
+            const newState = [...prevState]; // Create a copy of the state array
+            newState[index] = newValue; // Update the specific index
+            return newState; // Return the new array
         });
-      };
+    };
 
     useEffect(() => {
         const getUserRole = async () => {
             try {
                 const response = await axios.get(`${url}/api/getUserType/${user.id}`)
                 setUserRole(response.data)
-                updateLoadingState(0,false)
+                updateLoadingState(0, false)
             } catch (error) {
                 console.log("error during login", error)
             }
@@ -52,7 +52,7 @@ export default function Main() {
                 const response = await axios.get(`${url}/api/${user.id}/modules`)
                 setModules(response.data)
                 console.log("Modules->", response.data)
-                updateLoadingState(1,false)
+                updateLoadingState(1, false)
                 if (response.data.length > 0) {
                     setSelectedModule(response.data[0]) // Use response.data instead of modules
                 }
@@ -76,10 +76,10 @@ export default function Main() {
                     )
                     const moduleResult = moduleResponse.data
 
-                    const {mean, stdev} = processModuleResults(moduleResult.weekly_results)
+                    const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
                     setMeanLine(mean)
                     setStDev(stdev)
-                    updateLoadingState(2,false)
+                    updateLoadingState(2, false)
                 } catch (error) {
                     console.log("Error->", error)
                 }
@@ -94,8 +94,8 @@ export default function Main() {
         setSelectedModule(selected)
     }
 
-    if (isLoading.some(element => element === true)){
-        return <RootLayout/>
+    if (isLoading.some(element => element === true)) {
+        return <RootLayout />
     }
 
     if (userRole === null) {
@@ -151,19 +151,19 @@ export default function Main() {
                     <div id='dropoutChartContainer' className='h-[850px] mt-8'>
                         <h1 className='font-bold'>Befrageungen</h1>
                         <p className='text-text-grey'>
-                        Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
+                            Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
                         </p>
                         <div className='flex flex-row justify-between mt-4'>
-                            <div className='relativ h-[250px] px-12 mt-8 w-[66%]'>
-                                <MultiLineChart title = {"Dein Feedback"} lines = {[[1,2,3,4],[3,2,3,4],[4,5,5,1]]} labels={["Inhalt","Stress","Verständis"]}/>
+                            <div className='relativ px-12 mt-8 w-2/3'>
+                                <MultiLineChart title={"Dein Feedback"} lines={[[1, 2, 3, 4], [3, 2, 3, 4], [4, 5, 5, 1]]} labels={["Inhalt", "Stress", "Verständis"]} />
                             </div>
-                            <div className='relativ h-[220px] px-12 mt-8'>
-                                <PieChart data={pie_data} />
-                                <p className='text-center text-lunapurple mt-3'>
-                                    {Math.round(turn_in_percent * 100)}%
-                                </p>
+                            <div className="w-1/3">
+                                <div className='relativ px-24 pb-12 mt-8 w-100'> {/* MUST BE FOR CHART ONLY */}
+                                    <PieChart data={pie_data} />
+                                </div>
                             </div>
                         </div>
+                        <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
                     </div>
                 </main>
             </RootLayout>
@@ -218,10 +218,11 @@ export default function Main() {
                                 title='Durschnittsrisiko das Modul abzubrechen'
                                 line={meanLine}
                                 deviation={stDev}
-                                // students_at_risk={students_at_risk}
+                            // students_at_risk={students_at_risk}
                             />
                         </div>
                     </div>
+                    <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
                 </main>
             </RootLayout>
         )

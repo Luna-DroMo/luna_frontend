@@ -325,6 +325,7 @@ export function PieChart({data}) {
         data: data,
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             legend: {
                 display: false,
@@ -337,7 +338,10 @@ export function PieChart({data}) {
               display: true,
               text: 'Abgabequote'
             }
-          }
+          },
+          animation: {
+            duration: 0
+        },
         },
       };
 
@@ -453,9 +457,10 @@ export function MultiLineChart({title, lines, labels}) {
             interaction: {
                 intersect: false,
             },
-
-
-
+            animation: {
+                duration: 0
+            },
+            responsive: true,
             maintainAspectRatio: false,
         },
     };
