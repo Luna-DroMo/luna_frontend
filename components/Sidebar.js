@@ -35,8 +35,8 @@ export default function Sidebar({show_main_links, show_billboard, show_progress_
                 aria-label='Sidebar'
             >
                 <div className='flex flex-col justify-between h-full p-6'>
-                    <div className='flex items-center p-5 mb-2 mx-auto'>
-                        <img src='/Logo.png' className='inline-block w-28' />
+                    <div className='flex items-center p-5 mb-2 mt-5'>
+                        <img src='/Logo.png' className='inline-block w-34' />
                         
                     </div>
                     <SidebarContent

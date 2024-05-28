@@ -219,7 +219,7 @@ export default function Main() {
             } catch (error) {
                 console.log("error", error)
                 // Temporary until working
-                router.push("./cockpit")
+                //router.push("./cockpit")
             }
         } else {
             alert("Please fill all the questions before submitting.")

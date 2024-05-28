@@ -9,7 +9,7 @@ import {useAuth} from "../components/AuthProvider"
 import axios from "axios"
 
 import Dropdown from "@/components/Dropdown"
-import {LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot} from "@/components/CustomCharts"
+import {LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot, MultiLineChart} from "@/components/CustomCharts"
 import {url} from "@/utils/data"
 
 const processModuleResults = (moduleResults) => {
@@ -149,22 +149,15 @@ export default function Main() {
                             </div>*/}
 
                     <div id='dropoutChartContainer' className='h-[850px] mt-8'>
-                        <h1 className='font-bold'>Übungen</h1>
+                        <h1 className='font-bold'>Befrageungen</h1>
                         <p className='text-text-grey'>
-                            Hier werden deine Noten aus den Übungen dargestellt (in blau). Die graue
-                            Linie zeigt den Durchschnitt und die Standardabweichung wird durch das
-                            graue Band dargestellt.
+                        Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
                         </p>
                         <div className='flex flex-row justify-between mt-4'>
-                            <div className='relativ h-[250px] px-12 mt-8 flex-auto'>
-                                <LineChartWithDeviation
-                                    title='Übungsnoten'
-                                    line={meanLine}
-                                    deviation={stDev}
-                                    // extra_lines={students_at_risk}
-                                />
+                            <div className='relativ h-[250px] px-12 mt-8 w-[66%]'>
+                                <MultiLineChart title = {"Test"} lines = {[[1,2,3,4],[3,2,3,4],[4,5,5,1]]} labels={["Inhalt","Stress","Verständis"]}/>
                             </div>
-                            <div className='relativ h-[220px] px-12 mt-8 flex-auto'>
+                            <div className='relativ h-[220px] px-12 mt-8'>
                                 <PieChart data={pie_data} />
                                 <p className='text-center text-lunapurple mt-3'>
                                     {Math.round(turn_in_percent * 100)}%

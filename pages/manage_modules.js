@@ -186,11 +186,13 @@ function TableRow({
     startDate,
     endDate
 }) {
+    //disenroll is hardcoded on backend. Make sure to change both when fixing.
     const data = {module_code: code, action: "disenroll"}
 
-    const handleDisenroll = async () => {
+    const handleUnenroll = async () => {
         try {
             const response = await axios.post(`${url}/api/${user.id}/enroll_module`, data)
+            window.location.reload();
         } catch (e) {
             console.log("Error", e)
         }
@@ -245,7 +247,7 @@ function TableRow({
                         <p className='mt-4'>Modul Verlassen / Abbrechen</p>
                         <div>
                             <button
-                                onClick={() => handleDisenroll()}
+                                onClick={() => handleUnenroll()}
                                 className='text-base text-lightgrey hover:text-lunared underline cursor-pointer'
                             >
                                 {`Ich möchte ${name} verlassen.`}
