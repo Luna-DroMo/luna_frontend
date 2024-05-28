@@ -155,7 +155,7 @@ export default function Main() {
                         </p>
                         <div className='flex flex-row justify-between mt-4'>
                             <div className='relativ h-[250px] px-12 mt-8 w-[66%]'>
-                                <MultiLineChart title = {"Test"} lines = {[[1,2,3,4],[3,2,3,4],[4,5,5,1]]} labels={["Inhalt","Stress","Verständis"]}/>
+                                <MultiLineChart title = {"Dein Feedback"} lines = {[[1,2,3,4],[3,2,3,4],[4,5,5,1]]} labels={["Inhalt","Stress","Verständis"]}/>
                             </div>
                             <div className='relativ h-[220px] px-12 mt-8'>
                                 <PieChart data={pie_data} />
