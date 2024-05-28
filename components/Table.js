@@ -12,7 +12,7 @@ export function StudentModuleTable({modules = []}) {
                     <h3>Beigetretene Module</h3>
                     <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
                         <span className='text-base text-lunapurple'>
-                            {modules.length} Modul{modules.length !== 1 ? "e" : ""}
+                            {modules.length} Modul{modules.length !== 1 ? "e" : ""} aktiv
                         </span>
                     </div>
                 </div>

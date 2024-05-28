@@ -109,7 +109,7 @@ export default function Main() {
 
                 <div className='rounded-xl overflow-hidden  mt-4'>
                     <div className='flex h-15 px-4 py-3 bg-white '>
-                        <h3>Verfügbare Module</h3>
+                        <h3>Deine Module</h3>
                         <div
                             className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}
                         >

@@ -1,4 +1,5 @@
 import Sidebar from "./Sidebar"
+import Head from 'next/head'
 
 export default function RootLayout({
     show_main_links = true,
@@ -9,6 +10,10 @@ export default function RootLayout({
 }) {
     return (
         <>
+            <Head>
+                <title>Lyra</title>
+            </Head>
+        
             <Sidebar
                 show_main_links={show_main_links}
                 show_billboard={show_billboard}
