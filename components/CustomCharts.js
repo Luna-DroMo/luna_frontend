@@ -432,9 +432,6 @@ export function MultiLineChart({title, lines, labels}) {
                 filler: {
                     propagate: false
                 },
-                'samples-filler-analyser': {
-                    target: 'chart-analyser'
-                },
                 legend: {
                     display: true,
                     position: "bottom"
@@ -442,10 +439,6 @@ export function MultiLineChart({title, lines, labels}) {
                 title: {
                     display: true,
                     text: title,
-                    color: "black",
-                    font: {
-                        family: 'Inria Sans'
-                    }
                 },
                 annotation: {
                     annotations: {
