@@ -172,12 +172,10 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
 
 export function LineChartWithDeviation({ title, line, deviation, extra_lines = [] }) {
     const chartContainer = useRef(null);
-
     const label = [];
     for (let i = 1; i <= line.length; i++) {
         label.push(`T${i}`);
     }
-
     let data = {
         labels: label,
         datasets: [
@@ -363,3 +361,120 @@ export function PieChart({data}) {
 
     )
 }
+
+
+export function MultiLineChart({title, lines, labels}) {
+    const chartContainer = useRef(null);
+    const label = [];
+    const T = lines[1].length // Num time points
+    const K = lines.length // Num lines
+
+    console.log(K)
+    
+    const COLORS = ["#5210DC","#FF9900","#9ADC10"]
+    for (let t = 1; t <= T; t++) {
+        label.push(`T${t}`);
+    }
+
+    
+    let data = {
+        labels: label,
+        datasets: [
+
+        ]
+    };
+    for (let i = 0; i < K; i++){
+        data.datasets.push({
+            label: labels[i],
+            data: lines[i],
+            borderColor: COLORS[i],
+            backgroundColor: COLORS[i],
+        })
+    }
+
+
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    tension: 0.4,
+                }
+            },
+            scales: {
+                y: {
+                    stacked: false,
+                    title: {
+                        text: "Score",
+                        display: true,
+                    },
+                    ticks: {
+                        display: false,
+                    },
+                    grid: {
+                        display: false
+                    },
+                    suggestedMax: 5,
+                    min: 0,
+                },
+                x: {
+
+                }
+            },
+            smooth: true,
+            plugins: {
+                filler: {
+                    propagate: false
+                },
+                'samples-filler-analyser': {
+                    target: 'chart-analyser'
+                },
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                title: {
+                    display: true,
+                    text: title,
+                    color: "black",
+                    font: {
+                        family: 'Inria Sans'
+                    }
+                },
+                annotation: {
+                    annotations: {
+
+
+                    }
+                },
+            },
+            interaction: {
+                intersect: false,
+            },
+
+
+
+            maintainAspectRatio: false,
+        },
+    };
+
+    useEffect(() => {
+        if (chartContainer && chartContainer.current) {
+
+            const ctx = chartContainer.current.getContext('2d');
+            const chart = new Chart(ctx, config);
+
+            return () => {
+                chart.destroy();
+            };
+        }
+    }, [chartContainer, data]);
+
+    return (
+
+        <canvas ref={chartContainer} />
+
+    )
+};
