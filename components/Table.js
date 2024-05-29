@@ -52,8 +52,40 @@ export function StudentModuleTable({ modules = [] }) {
         )
     }
 }
+function TableRowStudent({ module }) {
+    const nextsurveypublished = new Date(module.nextsurveypublished)
+    
+    return (
+        <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
+            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
+                <img src='moon.png' className='w-8 m-0 p-0 inline-block' />
+            </td>
+            <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.code}</td>
+            <td className='text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap'>
+                {module.name}
+            </td>
+            <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
+
+                <StatusElement nextsurveyduedate={module.survey_end_date} />
+            </td>
+            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
+                {formatDate(module.end_date)}
+            </td>
+            {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
+                <a
+                    href='#'
+                    className='rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white'
+                >
+                    Verwalten
+                </a>
+    </td>*/}
+        </tr>
+    )
+}
+
 
 export function LecturerModuleTable({ modules = [] }) {
+    
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
@@ -103,36 +135,6 @@ export function LecturerModuleTable({ modules = [] }) {
     }
 }
 
-function TableRowStudent({ module }) {
-    const nextsurveypublished = new Date(module.nextsurveypublished)
-    console.log(module)
-    return (
-        <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
-            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                <img src='moon.png' className='w-8 m-0 p-0 inline-block' />
-            </td>
-            <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.code}</td>
-            <td className='text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap'>
-                {module.name}
-            </td>
-            <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
-
-                <StatusElement nextsurveyduedate={module.survey_end_date} />
-            </td>
-            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                {formatDate(module.end_date)}
-            </td>
-            {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
-                <a
-                    href='#'
-                    className='rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white'
-                >
-                    Verwalten
-                </a>
-    </td>*/}
-        </tr>
-    )
-}
 
 function TableRowLec({ module }) {
     const nextsurveypublished = new Date(module.nextsurveypublished)
@@ -155,7 +157,7 @@ function TableRowLec({ module }) {
                 </div>
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                {formatDate(module.end_date)}
+                {formatDate("2025-01-01")}
             </td>
             {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
                 <a

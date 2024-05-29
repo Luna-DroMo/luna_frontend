@@ -20,21 +20,25 @@ export default function Cockpit_student() {
     const [modules, setModules] = useState([])
     const [backgroundStatus, setBackgroundStatus] = useState()
     const [isLoading, setIsLoading] = useState(true)
-
+    const [userInfo, setUserInfo] = useState()
+    
     useEffect(() => {
-        const getModules = async (e) => {
+        const makeAPICalls = async (e) => {
             try {
                 const response = await axios.get(`${url}/api/student/${user.id}/modules`)
                 const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
+                const userInfo = await axios.get(`${url}/api/${user.id}/info`)
                 setModules(response.data)
                 setBackgroundStatus(backgroundStatusResponse.data)
+                setUserInfo(userInfo.data)
                 setIsLoading(false)
             } catch (error) {
                 console.log("error during login", error)
             }
         }
-        getModules()
+        makeAPICalls()
     }, [])
+
 
     const filterByEndDate = (array) => {
         const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
@@ -47,7 +51,7 @@ export default function Cockpit_student() {
 
    
    let activeModules = filterByEndDate(modules)
-   
+   console.log(userInfo)
 
     // Ensure data is called first
     if (isLoading) {
@@ -65,7 +69,7 @@ export default function Cockpit_student() {
                         className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple'
                     />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {user.first_name}, willkommen bei lyra!
+                        Hey {userInfo.nickname.length > 0 ? userInfo.nickname : userInfo.first_name}, willkommen bei lyra!
                     </h1>
                 </div>
 
