@@ -11,7 +11,7 @@ export default function RootLayout({
     return (
         <>
             <Head>
-                <title>Lyra</title>
+                <title>Luna</title>
             </Head>
         
             <Sidebar

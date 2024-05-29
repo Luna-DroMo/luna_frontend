@@ -64,7 +64,7 @@ export default function Main() {
             password: password,
             action: "enroll"
         }
-        console.log("formData", formData)
+        
 
         try {
             const response = await axios.post(
@@ -81,9 +81,7 @@ export default function Main() {
         return <RootLayout />
     }
 
-    console.log(joinedModules)
 
-    console.log(module.id)
 
     return (
         <RootLayout>
