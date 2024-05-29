@@ -89,7 +89,7 @@ export default function cockpit_lecturer() {
                         <div className='flex items-center justify-center h-full'>
                             <div className='tracking-wider metric-text z-10 text-white text-center'>
                                 <p className="text-base">Hast du schon unsere Analysen gesehen?</p>
-                                <Link href={`#`}>
+                                <Link href={`./analysis`}>
                                     <button className='border border-lunagreen bg-lunagreen rounded-lg w-44 h-6 px-4 text-white text-base leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple '>
                                         Entdecken
                                     </button>
