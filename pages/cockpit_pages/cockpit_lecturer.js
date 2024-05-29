@@ -18,30 +18,32 @@ export default function cockpit_lecturer() {
     // Users must not be allowed to locally change their role.
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     // If not authenticated, the utility function would have handled the redirection
-
+    const [userInfo, setUserInfo] = useState()
     const [modules, setModules] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const getModules = async (e) => {
+        const makeAPICalls = async (e) => {
             //e.preventDefault()
 
             try {
                 const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
+                //const userInfo = await axios.get(`${url}/api/${user.id}/info`)
                 setModules(response.data)
+                //setUserInfo(userInfo.data)
                 setIsLoading(false)
             } catch (error) {
-                console.log("error during login", error)
+                console.log("error during API call", error)
             }
         }
 
-        getModules()
-        console.log(modules)
+        makeAPICalls()
+        
     }, [])
 
     const avg_response_rate = 0.8522
 
-    console.log(modules)
+    
     // Ensure data is called first
     if (isLoading){
         return <RootLayout show_billboard={true}/>
@@ -55,7 +57,7 @@ export default function cockpit_lecturer() {
                         className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple'
                     />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {user.first_name}, willkommen bei Luna!
+                        Hey! willkommen bei Luna!
                     </h1>
                 </div>
                 <div className='mt-8 flex space-x-2 mb-12'>

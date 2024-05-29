@@ -157,7 +157,7 @@ export default function motivation_input({model}) {
         try {
             const response = await axios.post(`${url}/api/${user.id}/forms/7`, request)
 
-            router.push("./panas_input")
+            router.push("./input_complete")
         } catch (error) {
             console.log("error", error)
             setErrorMessage(error.message)
@@ -225,8 +225,7 @@ export default function motivation_input({model}) {
                                 onClick={(e) => router.push("../cockpit")}
                                 type='reset'
                             />
-                            <FormButton text='Weiter' highlighted='true' 
-                              onClick={(e) => router.push("./input_complete")}/>
+                            <FormButton text='Weiter' highlighted='true'/>
                         </div>
                     </form>
                 </main>
