@@ -13,7 +13,7 @@ export default function RootLayout({
             <Head>
                 <title>Luna</title>
             </Head>
-        
+            <div className="overflow-hidden">
             <Sidebar
                 show_main_links={show_main_links}
                 show_billboard={show_billboard}
@@ -21,7 +21,8 @@ export default function RootLayout({
                 percentage={percentage}
             />
 
-            <div className='mainbody drop-shadow-sm'>{children}</div>
+            <div className='mainbody drop-shadow-sm overflow-hidden'>{children}</div>
+            </div>
         </>
     )
 }
