@@ -41,6 +41,7 @@ export default function cockpit_lecturer() {
 
     const avg_response_rate = 0.8522
 
+    console.log(modules)
     // Ensure data is called first
     if (isLoading){
         return <RootLayout show_billboard={true}/>
@@ -64,7 +65,7 @@ export default function cockpit_lecturer() {
                                 {modules.length}
                             </div>
                             <div className='metric-text tracking-wider '>
-                                <p>Modulen beigetreten</p>
+                                <p>Module{modules.length >1 ? "n" : ""}</p>
                             </div>
                         </div>
                     </div>
@@ -74,7 +75,7 @@ export default function cockpit_lecturer() {
                                 {Math.round(avg_response_rate * 100)}%
                             </div>
                             <div className='metric-text tracking-wider '>
-                                <p>Rückmeldequote</p>
+                                <p>Rückmeldequote der Studierende</p>
                             </div>
                         </div>
                     </div>

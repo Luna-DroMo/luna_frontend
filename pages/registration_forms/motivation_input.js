@@ -222,10 +222,11 @@ export default function motivation_input({model}) {
                             />
                             <FormButton
                                 text='Überspringen'
-                                onClick={(e) => router.push("./motivation_input")}
+                                onClick={(e) => router.push("../cockpit")}
                                 type='reset'
                             />
-                            <FormButton text='Weiter' highlighted='true' />
+                            <FormButton text='Weiter' highlighted='true' 
+                              onClick={(e) => router.push("./input_complete")}/>
                         </div>
                     </form>
                 </main>
