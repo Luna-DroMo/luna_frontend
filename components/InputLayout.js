@@ -11,9 +11,10 @@ export default function InputLayout({ show_main_links = true, show_billboard = t
       <Head>
         <title>Luna</title>
       </Head>
+      <div className="overflow-hidden">
       <Sidebar show_main_links={show_main_links} show_billboard={show_billboard} />
       {children}
-
+      </div>
     </>
 
   )
