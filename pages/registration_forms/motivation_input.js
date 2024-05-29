@@ -181,6 +181,7 @@ export default function motivation_input({model}) {
                                     type='likert'
                                     item={question}
                                     maintext={question.question}
+                                    options={[0,1,2,3,5]}
                                     subtitle={null}
                                     onChange={(e) =>
                                         handleResponseChange(question.id, e.target.value)

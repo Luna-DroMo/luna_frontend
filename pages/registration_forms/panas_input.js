@@ -140,6 +140,7 @@ export default function Main({model}) {
                                     item={question}
                                     maintext={question.question}
                                     subtitle={null}
+                                    options={[0,1,2,3,5]}
                                     onChange={(e) =>
                                         handleResponseChange(question.id, e.target.value)
                                     }
