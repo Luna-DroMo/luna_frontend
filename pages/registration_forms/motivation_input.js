@@ -16,74 +16,74 @@ import {useEffect} from "react"
 import {url} from "@/utils/data"
 
 const questions = [
-    {id: "Se2", question: "Ich bin gut in Mathematik.", subtitle: ""},
-    {id: "Iv2", question: "Ich beschäftige mich gerne mit Mathematik.", subtitle: ""},
-    {id: "Iv4", question: "Ich finde Mathematik spannend.", subtitle: ""},
-    {id: "Uv3", question: "Mit Mathe-Kenntnissen kann ich andere beeindrucken.", subtitle: ""},
-    {id: "Av4", question: "Gute Leistungen in Mathe sind mir wichtig.", subtitle: ""},
+    {id: "Se2", question: "Ich bin gut in meinem Fachgebiet.", subtitle: ""},
+    {id: "Iv2", question: "Ich beschäftige mich gerne mit meinem Fachgebiet.", subtitle: ""},
+    {id: "Iv4", question: "Ich finde mein Fachgebiet spannend.", subtitle: ""},
+    {id: "Uv3", question: "Mit meinen Fach-Kenntnissen kann ich andere beeindrucken.", subtitle: ""},
+    {id: "Av4", question: "Gute Leistungen in meinem/Studium sind mir wichtig.", subtitle: ""},
     {
         id: "Uv1",
-        question: "Für meine berufliche Zukunft wird es sich auszahlen, gut in Mathematik zu sein.",
+        question: "Für meine berufliche Zukunft wird es sich auszahlen, gut in meinem Fachgebiet zu sein.",
         subtitle: ""
     },
     {
         id: "Iv3",
-        question: "Es macht mir Spaß, mich mit mathematischen Themen zu beschäftigen.",
+        question: "Es macht mir Spaß, mich mit meinen fachlichen Themen zu beschäftigen.",
         subtitle: ""
     },
     {
         id: "Co1",
         question:
-            "Ich befürchte, durch den zeitlichen Aufwand im Mathematikstudium wertvolle Freundschaften zu verlieren.",
+            "Ich befürchte, durch den zeitlichen Aufwand im aktuellen Studium wertvolle Freundschaften zu verlieren.",
         subtitle: ""
     },
     {
         id: "Co5",
         question:
-            "Ich befürchte, dass ich mit dem Stress, den das Mathematikstudium mit sich bringt, nicht umgehen kann.",
+            "Ich befürchte, dass ich mit dem Stress, den das aktuellen Studium mit sich bringt, nicht umgehen kann.",
         subtitle: ""
     },
-    {id: "Av2", question: "Mathematik hat für mich keine große Bedeutung.", subtitle: ""},
-    {id: "Av3", question: "Es ist mir wichtig, mathematische Inhalte zu meistern.", subtitle: ""},
-    {id: "Se1", question: "Für Mathematik fehlt mir die notwendige Begabung.", subtitle: ""},
+    {id: "Av2", question: "Mein Fachgebiet hat für mich keine große Bedeutung.", subtitle: ""},
+    {id: "Av3", question: "Es ist mir wichtig, meine fachliche Inhalte zu meistern.", subtitle: ""},
+    {id: "Se1", question: "Für mein Fachgebiet fehlt mir die notwendige Begabung.", subtitle: ""},
     {
         id: "Co4",
         question:
-            "Ich habe den Eindruck, als müsse man für den Abschluss eines Mathematikstudiums mehr Anstrengung investieren, als ich das möchte.",
+            "Ich habe den Eindruck, als müsse man für den Abschluss meines aktuellen Studiums mehr Anstrengung investieren, als ich das möchte.",
         subtitle: ""
     },
     {
         id: "Co2",
         question:
-            "Ich befürchte, dass mir durch das Mathematikstudium Zeit für andere Aktivitäten, die ich gerne verfolgen möchte, verloren geht.",
+            "Ich befürchte, dass mir durch mein aktuelles Studium Zeit für andere Aktivitäten, die ich gerne verfolgen möchte, verloren geht.",
         subtitle: ""
     },
     {
         id: "Uv2",
         question:
-            "Gute Leistungen in Mathematik werden mir für Beruf und Karriere viele Vorteile bringen.",
+            "Gute Leistungen in meinem Fachgebiet werden mir für Beruf und Karriere viele Vorteile bringen.",
         subtitle: ""
     },
     {
         id: "Co3",
-        question: "Die Beschäftigung mit Mathe kostet mich eine Menge Energie.",
+        question: "Die Beschäftigung mit meinen fachlichen Themen kostet mich eine Menge Energie.",
         subtitle: ""
     },
-    {id: "Se3", question: "Mathematik fällt mir leicht.", subtitle: ""},
+    {id: "Se3", question: "Mein Fachgebiet fällt mir leicht.", subtitle: ""},
     {
         id: "Uv4",
-        question: "Wenn ich in Mathe viel weiß, komme ich damit bei meinen Kommilitonen gut an.",
+        question: "Wenn ich in meinem Fachgebiet viel weiß, komme ich damit bei meinen Kommilitonen gut an.",
         subtitle: ""
     },
-    {id: "Se4", question: "Mathematik liegt mir nicht besonders.", subtitle: ""},
-    {id: "Iv1", question: "Mathematik macht mir Spaß.", subtitle: ""},
+    {id: "Se4", question: "Mein Fachgebiet liegt mir nicht besonders.", subtitle: ""},
+    {id: "Iv1", question: "Mein Fachgebiet macht mir Spaß.", subtitle: ""},
     {
         id: "Co6",
         question:
-            "Es wäre mir peinlich herauszufinden, wenn meine Leistungen im Mathematikstudium schlechter wären als die meiner Kommilitonen.",
+            "Es wäre mir peinlich herauszufinden, wenn meine Leistungen im aktuellen Studium schlechter wären als die meiner Kommilitonen.",
         subtitle: ""
     },
-    {id: "Av1", question: "Mathematik entspricht meinen persönlichen Neigungen.", subtitle: ""}
+    {id: "Av1", question: "Mein Fachgebiet entspricht meinen persönlichen Neigungen.", subtitle: ""}
 ]
 
 let forms1 = [
@@ -172,10 +172,29 @@ export default function motivation_input({model}) {
             <div className='input_mainbody'>
                 <main className='flex-row justify-between px-10 pt-10'>
                     <form onSubmit={handleFormSubmission}>
-                        <h1 className='tracking-wider text-xl'>{"Motivation"}</h1>
-                        <p className='mb-10'>This section covers stuff about PANAS questionnaire</p>
+                        <h1 className='tracking-wider text-xl mb-5'>{"Motivation"}</h1>
+                        <p className='mb-10 text-lightgrey'>Der Motivationsfragebogen zielt darauf ab, die unterschiedlichen Motivationsmuster und -stärken von Personen systematisch zu erfassen. Der Fragebogen untersucht die Unterschiede in den Faktoren, die „Verhalten am Arbeitsplatz aktivieren, lenken und aufrechterhalten“. Der Motivationsfragebogen besteht aus 18 Skalen, die in fünf separate Faktoren unterteilt sind: Selbstkonzept, Erreichungswert, Kosten, intrinsische Motivation und extrinsische Motivation.</p>
+                        <div className='flex items-center w-full my-2'>
+                            <div className='flex-grow'>
+                                <p className='text-lunapurple'>
+                                    Im Allgemeinen fühle Ich Mich:
+                                </p>
+                            </div>
+                            <div className='flex justify-between w-72 text-lunapurple pr-1'>
+                                <p className='flex-1 grid py-1 justify-items-center rounded'>
+                                    Gar nicht
+                                </p>
+                                <p className='flex-1 grid py-1 justify-items-center rounded'></p>
+                                <p className='flex-1 grid py-1 justify-items-center rounded'></p>
+                                <p className='flex-1 grid py-1 justify-items-center rounded'></p>
+                                <p className='flex-1 grid py-1 justify-items-center rounded'>
+                                    Äußerst
+                                </p>
+                            </div>
+                        </div>
                         {questions.map((question, index) => {
                             return (
+                                <>
                                 <InputRow
                                     key={question.id}
                                     type='likert'
@@ -187,6 +206,8 @@ export default function motivation_input({model}) {
                                         handleResponseChange(question.id, e.target.value)
                                     }
                                 />
+                                <div className={`block ${(index + 1) % 5 === 0 ? 'pb-5' : 'pb-0'}`} />
+                                </>
                             )
                         })}
                         {
