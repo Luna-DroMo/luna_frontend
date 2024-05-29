@@ -73,7 +73,7 @@ export default function Main() {
                 if (modulePassword === modulePassword_val) {
                     try {
                         const response = await axios.post(
-                            `${api}/api/${user.id}/module/create`,
+                            `${url}/api/${user.id}/module/create`,
                             data
                         )
                         console.log("Created Module?")
@@ -192,7 +192,10 @@ export default function Main() {
                                 <InputRow
                                     type='password'
                                     maintext='Passwort wiederholen'
-                                    subtitle=''
+                                    subtitle={modulePassword !== modulePassword_val && modulePassword_val.length >= 4 ? 
+                                        <div className="text-lunared">Passwörter stimmen nicht überein!</div>
+                                        : <div> &nbsp; </div>
+                                        }
                                     onChange={(e) => {
                                         setModulePassword_val(e.target.value)
                                     }}
