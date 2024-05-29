@@ -69,7 +69,7 @@ export default function Cockpit_student() {
                         className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple'
                     />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {userInfo.nickname.length > 0 ? userInfo.nickname : userInfo.first_name}, willkommen bei lyra!
+                        Hey {userInfo.nickname.length > 0 ? userInfo.nickname : userInfo.first_name}, willkommen bei Luna!
                     </h1>
                 </div>
 
