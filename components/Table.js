@@ -1,10 +1,10 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faCircle as faCircleSolid, faXmarkCircle} from "@fortawesome/free-solid-svg-icons"
-import {faCircle as faCircleReg} from "@fortawesome/free-regular-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCircle as faCircleSolid, faXmarkCircle } from "@fortawesome/free-solid-svg-icons"
+import { faCircle as faCircleReg } from "@fortawesome/free-regular-svg-icons"
 import React from "react"
 import Link from "next/link"
 
-export function StudentModuleTable({modules = []}) {
+export function StudentModuleTable({ modules = [] }) {
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
@@ -29,7 +29,7 @@ export function StudentModuleTable({modules = []}) {
                     </thead>
                     <tbody className='rounded-b-lg'>
                         {modules.map((module, key) => (
-                            <TableRow key={key} module={module} />
+                            <TableRowStudent key={key} module={module} />
                         ))}
                     </tbody>
                 </table>
@@ -53,12 +53,12 @@ export function StudentModuleTable({modules = []}) {
     }
 }
 
-export function LecturerModuleTable({modules = []}) {
+export function LecturerModuleTable({ modules = [] }) {
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
                 <div className='flex h-15 px-4 py-3 bg-white '>
-                    <h3>Beigetretene Module</h3>
+                    <h3>Meine Module</h3>
                     <div className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}>
                         <span className='text-base text-lunapurple'>
                             {modules.length} Modul{modules.length !== 1 ? "e" : ""}
@@ -77,8 +77,8 @@ export function LecturerModuleTable({modules = []}) {
                         </tr>
                     </thead>
                     <tbody className='rounded-b-lg'>
-                        {modules.map((module) => (
-                            <TableRow key={module.moduleid} module={module} />
+                        {modules.map((module, key) => (
+                            <TableRowLec key={key} module={module} />
                         ))}
                     </tbody>
                 </table>
@@ -103,8 +103,9 @@ export function LecturerModuleTable({modules = []}) {
     }
 }
 
-function TableRow({module}) {
+function TableRowStudent({ module }) {
     const nextsurveypublished = new Date(module.nextsurveypublished)
+    console.log(module)
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
@@ -115,6 +116,7 @@ function TableRow({module}) {
                 {module.name}
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
+
                 <StatusElement nextsurveyduedate={module.survey_end_date} />
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
@@ -132,8 +134,43 @@ function TableRow({module}) {
     )
 }
 
+function TableRowLec({ module }) {
+    const nextsurveypublished = new Date(module.nextsurveypublished)
+    console.log(module)
+    return (
+        <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
+            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
+                <img src='moon.png' className='w-8 m-0 p-0 inline-block' />
+            </td>
+            <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.module_code}</td>
+            <td className='text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap'>
+                {module.module_name}
+            </td>
+            <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
+
+                <div className="flex items-center pl-5 py-0.5 uptodate rounded-lg">
+                    <p className='ml-3 inline text-left overflow-hidden overflow-ellipsis whitespace-nowrap'>
+                        Aktuell
+                    </p>
+                </div>
+            </td>
+            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
+                {formatDate(module.end_date)}
+            </td>
+            {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
+                <a
+                    href='#'
+                    className='rounded-lg border py-0.5 px-2 text-lunapurple tracking-wider text-base border-lunapurple hover:bg-lunapurple hover:text-white'
+                >
+                    Verwalten
+                </a>
+    </td>*/}
+        </tr>
+    )
+}
+
 // Sets the text and the colour of the Survey Status
-function StatusElement({nextsurveyduedate}) {
+function StatusElement({ nextsurveyduedate }) {
     let bgColorClass
     let text
     let icon
