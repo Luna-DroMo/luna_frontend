@@ -110,9 +110,9 @@ export default function Main() {
                                 <TableRow
                                     user={user}
                                     key={index}
-                                    id={module.module_id}
-                                    code={module.module_code}
-                                    name={module.module_name}
+                                    id={module.id}
+                                    code={module.code}
+                                    name={module.name}
                                     semester={module.semester}
                                     status={1}
                                     faculty={"Methods Center"}

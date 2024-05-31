@@ -46,24 +46,41 @@ export default function Main() {
                 console.log("error during login", error)
             }
         }
+        getUserRole()
+        console.log("UR", user)
+
 
         const getModules = async () => {
-            try {
-                const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
-                setModules(response.data)
-                console.log("Modules->", response.data)
-                updateLoadingState(1, false)
-                if (response.data.length > 0) {
-                    setSelectedModule(response.data[0]) // Use response.data instead of modules
+            console.log(user.user_type)
+            if (user.user_type === 1) {
+                console.log("user",user)
+                try {
+                    const response = await axios.get(`${url}/api/student/${user.id}/modules`)
+                    setModules(response.data)
+                    console.log("Modules->", response.data)
+                    updateLoadingState(1, false)
+                    if (response.data.length > 0) {
+                        setSelectedModule(response.data[0]) // Use response.data instead of modules
+                    }
+                } catch (error) {
+                    console.log("Error->", error)
                 }
-            } catch (error) {
-                console.log("Error->", error)
-            }
-        }
+            } else if (user.user_type === 2){
+                try {
+                    const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
 
-        getUserRole()
-        getModules()
-    }, [user.id]) // Run this effect when user.id changes
+                    setModules(response.data)
+                    console.log("Modules (lec)->", response.data)
+                    updateLoadingState(1, false)
+                    if (response.data.length > 0) {
+                        setSelectedModule(response.data[0]) // Use response.data instead of modules
+                    }
+                } catch (error) {
+                    console.log("Error->", error)
+                } 
+            }}
+            getModules()
+        }, [user.id]) // Run this effect when user.id changes
 
 
     useEffect(() => {
@@ -71,7 +88,7 @@ export default function Main() {
             if (selectedModule) {
                 try {
                     const moduleResponse = await axios.get(
-                        `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
+                        `${url}/modelling/${user.id}/module/${selectedModule.id}`
                     )
                     const moduleResult = moduleResponse.data
 
@@ -88,8 +105,8 @@ export default function Main() {
         getModulesAndResults()
     }, [user.id, selectedModule])
 
-    function handleSelectModule(moduleName){
-        const selected = modules.find((module) => module.module_name === moduleName)
+    function handleSelectModule(moduleName) {
+        const selected = modules.find((module) => module.name === moduleName)
         setSelectedModule(selected)
     }
 
@@ -131,15 +148,14 @@ export default function Main() {
                 <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
                     <div className='flex flex-row justify-between'>
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
-                        <h3>{selectedModule}</h3>
+                        <h3>{selectedModule.name}</h3>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
-                                onSelect={handleSelectModule}
                                 header={
-                                   modules.length > 0 ? modules[0].module_name : "Select a Module"
+                                    selectedModule.name
                                 }
-                                dropdown_options={modules.map((module) => module.module_name)}
-                                
+                                dropdown_options={modules.map((module) => module.name)}
+                                onSelect={handleSelectModule}
                             />
                         </div>
                     </div>
@@ -193,13 +209,13 @@ export default function Main() {
                 <main className='flex-row justify-between px-10 pt-10'>
                     <div className='flex flex-row justify-between'>
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
-                        <h3>{selectedModule.module_name}</h3>
+                        <h3>{selectedModule.name}</h3>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
                                 header={
-                                    selectedModule.module_name
+                                    selectedModule.name
                                 }
-                                dropdown_options={modules.map((module) => module.module_name)}
+                                dropdown_options={modules.map((module) => module.name)}
                                 onSelect={handleSelectModule}
                             />
                         </div>
