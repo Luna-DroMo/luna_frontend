@@ -18,29 +18,35 @@ export default function cockpit_lecturer() {
     // Users must not be allowed to locally change their role.
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     // If not authenticated, the utility function would have handled the redirection
-
+    const [userInfo, setUserInfo] = useState()
     const [modules, setModules] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const getModules = async (e) => {
+        const makeAPICalls = async (e) => {
             //e.preventDefault()
 
             try {
                 const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
+                //const userInfo = await axios.get(`${url}/api/${user.id}/info`)
                 setModules(response.data)
+                //setUserInfo(userInfo.data)
                 setIsLoading(false)
             } catch (error) {
-                console.log("error during login", error)
+                console.log("error during API call", error)
             }
         }
 
-        getModules()
-        console.log(modules)
+        makeAPICalls()
+        
     }, [])
+
+
+
 
     const avg_response_rate = 0.8522
 
+    
     // Ensure data is called first
     if (isLoading){
         return <RootLayout show_billboard={true}/>
@@ -54,7 +60,7 @@ export default function cockpit_lecturer() {
                         className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple'
                     />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {user.first_name}, willkommen bei Luna!
+                        Hey! willkommen bei Luna!
                     </h1>
                 </div>
                 <div className='mt-8 flex space-x-2 mb-12'>
@@ -64,7 +70,7 @@ export default function cockpit_lecturer() {
                                 {modules.length}
                             </div>
                             <div className='metric-text tracking-wider '>
-                                <p>Modulen beigetreten</p>
+                                <p>Module{modules.length >1 ? "n" : ""}</p>
                             </div>
                         </div>
                     </div>
@@ -74,7 +80,7 @@ export default function cockpit_lecturer() {
                                 {Math.round(avg_response_rate * 100)}%
                             </div>
                             <div className='metric-text tracking-wider '>
-                                <p>Rückmeldequote</p>
+                                <p>Rückmeldequote der Studierende</p>
                             </div>
                         </div>
                     </div>
@@ -86,7 +92,7 @@ export default function cockpit_lecturer() {
                         <div className='flex items-center justify-center h-full'>
                             <div className='tracking-wider metric-text z-10 text-white text-center'>
                                 <p className="text-base">Hast du schon unsere Analysen gesehen?</p>
-                                <Link href={`#`}>
+                                <Link href={`./analysis`}>
                                     <button className='border border-lunagreen bg-lunagreen rounded-lg w-44 h-6 px-4 text-white text-base leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple '>
                                         Entdecken
                                     </button>
@@ -97,7 +103,7 @@ export default function cockpit_lecturer() {
                 </div>
                 <div className='flex w-full items-end'>
                     <h5 className='tracking-wider items-center flex-grow'>Meine Module</h5>
-                    <a href='#' className='flex-none text-lunapurple text-base pb-0.5'>
+                    <a href='admin_modules' className='flex-none text-lunapurple text-base pb-0.5'>
                         Module verwalten
                         <FontAwesomeIcon
                             icon={faChevronRight}

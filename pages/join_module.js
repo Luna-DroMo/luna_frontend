@@ -64,12 +64,14 @@ export default function Main() {
             password: password,
             action: "enroll"
         }
-        console.log("formData", formData)
+        
 
         try {
-            const response = await axios.post(`${url}/api/${user.id}/enroll_module`, formData)
+            const response = await axios.post(
+                `${url}/api/${user.id}/enroll_module`,
+                 formData)
 
-            router.push("/cockpit")
+            router.push({pathname: "/module_search", query: { id: user.id }})
         } catch (error) {
             console.error("Fetch error:", error)
         }
@@ -79,9 +81,7 @@ export default function Main() {
         return <RootLayout />
     }
 
-    console.log(joinedModules)
 
-    console.log(module.id)
 
     return (
         <RootLayout>

@@ -9,6 +9,8 @@ export default function SetupOverview({data_models}) {
         groupedArrays.push(data_models.slice(i, i + 3))
     }
 
+    console.log(groupedArrays)
+
     return (
         <div className='mt-5'>
             {groupedArrays.map((model_group, index) => (

@@ -59,9 +59,11 @@ export function SurveyQuestion({maintext, subtitle, scale = 5, onChange}) {
     )
 }
 
-export function FormInput({item, placeholder, readOnly, type, scale = 5, name, value, onChange}) {
-    let options = [...Array(scale).keys()]
+export function FormInput({item, placeholder, readOnly, type, scale = 5, name, value, onChange, options}) {
+    // let options = [...Array(scale).keys()]
     /* Styled Form Inputs */
+    console.log(options)
+    //console.log(options.map((option,key) => (`Printing ${option}`)))
     if (type === "range") {
         return <input className='h-8' type={type} name={name} value={value} onChange={onChange} />
     } else if (type === "radio") {
@@ -86,6 +88,7 @@ export function FormInput({item, placeholder, readOnly, type, scale = 5, name, v
         )
     } else if (type === "checkbox") {
         //const optionslist = options.split(' ');
+        //console.log(options)
         return (
             <>
                 {options.map((option, key) => (
@@ -93,10 +96,10 @@ export function FormInput({item, placeholder, readOnly, type, scale = 5, name, v
                         <label className='mx-5 text-text-grey'> {option} </label>
                         <input
                             readOnly={readOnly}
-                            id={name + option}
+                            id={name+option}
                             name={name}
                             type={type}
-                            value={value}
+                            value={option}
                             onChange={onChange}
                         />
                     </div>

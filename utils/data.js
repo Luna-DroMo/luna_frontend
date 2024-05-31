@@ -21,13 +21,13 @@ export const data_models_to_use = [
         type: "PANAS"
     },
 
-    {
-        modelname: "Persönlichkeits-skala",
-        href: "bfi_input",
-        img: "personality.png",
-        id: 5,
-        type: "PERSONALITY"
-    }
+    //{
+    //    modelname: "Persönlichkeits-skala",
+    //    href: "bfi_input",
+    //    img: "personality.png",
+    //    id: 5,
+    //    type: "PERSONALITY"
+    //}
     // {
     //     modelname: "Kognitive Fähigkeiten",
 
