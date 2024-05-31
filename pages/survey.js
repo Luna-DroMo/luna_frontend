@@ -31,7 +31,7 @@ const surveyQuestions = [
         },
         { maintext: "Die Beschäftigung mit diesen Inhalten erschöpft mich", subtitle: "", id: 4 },
         {
-            maintext: "Im Moment denke ich darüber nach, das Mathematikstudium abzubrechen.",
+            maintext: "Im Moment denke ich darüber nach, das Studium abzubrechen.",
             subtitle: "",
             id: 5
         },
@@ -43,7 +43,7 @@ const surveyQuestions = [
             id: 8
         },
         {
-            maintext: "Im Moment fühle ich mich im Mathematik-Studium gestresst.",
+            maintext: "Im Moment fühle ich mich im Studium gestresst.",
             subtitle: "",
             id: 9
         },
@@ -52,12 +52,6 @@ const surveyQuestions = [
                 "Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert.",
             subtitle: "",
             id: 10
-        },
-        {
-            maintext:
-                "So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein.",
-            subtitle: "",
-            id: 11
         }
     ],
     // Group 2
@@ -72,10 +66,16 @@ const surveyQuestions = [
     // Group 3
     [
         {
-            maintext: "So schätze ich im Moment mein Wissen und Können im Mathematikstudium ein",
+            maintext: "So schätze ich im Moment mein Wissen und Können im Studium ein",
             subtitle: "DOES THIS NEED ITS OWN SCALE TITLES?",
             id: 18,
             scale: 4
+        },
+        {
+            maintext:
+                "So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein.",
+            subtitle: "",
+            id: 11
         }
     ],
     // Group 4
@@ -99,12 +99,12 @@ const surveyQuestions = [
         },
         {
             maintext:
-                "Wie lange haben Sie sich außerhalb der Veranstaltungen mit Mathematik beschäftigt",
+                "Wie lange haben Sie sich außerhalb der Veranstaltungen mit den Vorlesungsthemen beschäftigt",
             subtitle: "",
             id: 23
         },
         { maintext: "Wie oft waren Sie in der Vorlesung anwesend?", subtitle: "", id: 24 },
-        { maintext: "Waren Sie in der Übungsgruppe?", subtitle: "", id: 25 }
+        { maintext: "Waren Sie in einer Übungsgruppe?", subtitle: "", id: 25 }
     ]
 ]
 
@@ -310,6 +310,7 @@ export default function Main() {
                         {surveyQuestions[0].map((question, index) => (
                             <SurveyQuestion
                                 maintext={question.maintext}
+                                scale={4}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
                             />
                         ))}
@@ -352,6 +353,7 @@ export default function Main() {
                         {surveyQuestions[1].map((question, index) => (
                             <SurveyQuestion
                                 maintext={question.maintext}
+                                scale={4}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
                             />
                         ))}
@@ -420,19 +422,20 @@ export default function Main() {
                             </div>
                             <div className='flex justify-between w-72 text-lunapurple pr-3'>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'>
-                                    Nicht Gut
+                                    Selten/Wenig
                                 </p>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'></p>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'></p>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'></p>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'>
-                                    Sehr Gut
+                                    Öfters/Viel
                                 </p>
                             </div>
                         </div>
                         {surveyQuestions[3].map((question, index) => (
                             <SurveyQuestion
                                 maintext={question.maintext}
+                                scale={4}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
                             />
                         ))}
