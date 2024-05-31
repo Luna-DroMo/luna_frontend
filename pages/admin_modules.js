@@ -17,18 +17,30 @@ import {url} from "@/utils/data"
 export default function Main() {
     const [userId, setUserId] = useState(null)
     const router = useRouter()
-    const [joinedModules, setjoinedModules] = useState([])
+    const [modules, setModules] = useState([])
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [isLoading, setIsLoading] = useState(true)
     const [isExpanded, setIsExpanded] = useState(Array(4).fill(false))
 
-    const toggleExpansion = (index) => {
-        setIsExpanded((prevState) => {
-            const newState = [...prevState]
-            newState[index] = !newState[index]
-            return newState
-        })
-    }
+
+    useEffect(() => {
+        const makeAPICalls = async (e) => {
+            //e.preventDefault()
+
+            try {
+                const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
+                //const userInfo = await axios.get(`${url}/api/${user.id}/info`)
+                setModules(response.data)
+                //setUserInfo(userInfo.data)
+                setIsLoading(false)
+            } catch (error) {
+                console.log("error during API call", error)
+            }
+        }
+
+        makeAPICalls()
+        
+    }, [])
 
     const updateLoadingState = (index, newValue) => {
         setIsLoading((prevState) => {
@@ -37,6 +49,8 @@ export default function Main() {
             return newState // Return the new array
         })
     }
+
+
 
     const toggleValueAtIndex = (index) => {
         setIsExpanded((prevState) => {
@@ -51,62 +65,22 @@ export default function Main() {
         })
     }
 
-    // Modules which the student has already joined
-    useEffect(() => {
-        const getJoinedModules = async (e) => {
-            try {
-                const response = await axios.get(`${url}/api/student/${user.id}/modules`)
-                setjoinedModules(response.data)
-                setIsLoading(false)
-            } catch (error) {
-                console.log("error while getting joined modules", error)
-            }
-        }
-        getJoinedModules()
-    }, [router.query.id])
-
-    const [searchTerms, setSearchTerms] = useState("")
-
-    // function that sorts modules based on status
-    const sortedCourses = joinedModules.sort((a, b) => {
-        const statusA = checkDateStatus(a.start_date, a.end_date)
-        const statusB = checkDateStatus(b.start_date, b.end_date)
-        return statusA - statusB
-    })
-
-    let filteredModules = joinedModules.filter(function (item) {
-        return (
-            item.name.toLowerCase().includes(searchTerms) ||
-            item.code.toLowerCase().includes(searchTerms)
-            // item.faculty.toLowerCase().includes(searchTerms) // Currently doesn't exist in API
-            //item.staff.name.toLowerCase().includes(searchTerms)
-        )
-    })
-    
-    if (user.user_type !== 1){
+    if (user.user_type !== 2){
         router.push("./cockpit")
     }
 
-    if (isLoading) {
+    if (isLoading){
         return <RootLayout />
     }
-
     return (
         <RootLayout>
             <main className='flex-row justify-between px-10 pt-10'>
                 <h3>Module Verwalten</h3>
                 <p className='text-lightgrey'>
-                    Willkommen auf deiner Modulverwaltungsseite. Hier findest du alle Infos zu den
-                    Kursen, für die du dich angemeldet hast. Nutze die Optionen, um deine
-                    Einstellungen zu aktualisieren und deine Module effizient zu verwalten.
+                   
                 </p>
 
                 <h5 className='text-md mt-8'>Deine Module</h5>
-                <input
-                    className='rounded-xl pl-4 h-12 w-full my-2'
-                    placeholder='Ex. MATH101'
-                    onChange={(e) => setSearchTerms(e.target.value.toLowerCase())}
-                />
 
                 <div className='rounded-xl overflow-hidden  mt-4'>
                     <div className='flex h-15 px-4 py-3 bg-white '>
@@ -115,8 +89,8 @@ export default function Main() {
                             className={`ml-5 border-none rounded-full bg-[#F4F3FF] px-4 items-center`}
                         >
                             <span className='text-base text-lunapurple'>
-                                {filteredModules.length} Modul
-                                {filteredModules.length !== 1 ? "e" : ""}
+                                {modules.length} Modul
+                                {modules.length !== 1 ? "e" : ""}
                             </span>
                         </div>
                     </div>
@@ -128,22 +102,21 @@ export default function Main() {
                                 <th>Fakultät</th>
                                 <th>Semester</th>
                                 <th>Status</th>
-                                <th>Dozent</th>
+                                
                             </tr>
                         </thead>
                         <tbody className='rounded-b-lg'>
-                            {filteredModules.map((module, index) => (
+                            {modules.map((module, index) => (
                                 <TableRow
                                     user={user}
                                     key={index}
-                                    id={module.id}
-                                    code={module.code}
-                                    name={module.name}
+                                    id={module.module_id}
+                                    code={module.module_code}
+                                    name={module.module_name}
                                     semester={module.semester}
                                     status={1}
                                     faculty={"Methods Center"}
                                     staff={{img: "user.png", name: "Max Musterman"}}
-                                    joined={joinedModules.some((obj) => obj.id === module.id)}
                                     isExpanded={isExpanded[index]}
                                     toggleFunc={(e) => toggleValueAtIndex(index)}
                                     startDate={module.start_date}
@@ -153,20 +126,7 @@ export default function Main() {
                         </tbody>
                     </table>
                 </div>
-                <div className='mt-10'>
-                    <h3 className='mb-5'>Allgemeine Infos</h3>
-                    <p>Kontakt zu den Dozenten</p>
-                    <p className='text-lightgrey mb-5'>
-                        Bei Fragen oder Unterstützung zu deinen Modulen kontaktiere bitte die
-                        jeweiligen Dozenten über ihre Uni-E-Mails oder während ihrer Sprechzeiten.
-                    </p>
-                    <p>Zeitpläne und Fristen</p>
-                    <p className='text-lightgrey'>
-                        Stell sicher, dass du die Modulzeiträume und wichtigen Fristen für Aufgaben,
-                        Projekte und Prüfungen im Blick behältst. Im zu Beginn jedes Moduls
-                        bereitgestellten Lehrplan findest du detaillierte Zeitpläne.
-                    </p>
-                </div>
+
             </main>
         </RootLayout>
     )
@@ -181,18 +141,16 @@ function TableRow({
     status,
     faculty,
     staff,
-    joined,
     isExpanded,
     toggleFunc,
     startDate,
     endDate
 }) {
-    //disenroll is hardcoded on backend. Make sure to change both when fixing.
-    const data = {module_code: code, action: "disenroll"}
+    
 
-    const handleUnenroll = async () => {
+    const handleModuleDeletion = async () => {
         try {
-            const response = await axios.post(`${url}/api/${user.id}/enroll_module`, data)
+            const response = await axios.post(`${url}/api/${user.id}/module/${id}/delete`)
             window.location.reload();
         } catch (e) {
             console.log("Error", e)
@@ -217,10 +175,6 @@ function TableRow({
                     <Status status={checkDateStatus(startDate, endDate)} />
                 </td>
                 <td>
-                    {" "}
-                    <Person img={staff.img} name={staff.name} />
-                </td>
-                <td>
                     <p className={`text-text-grey`} onClick={(e) => toggleFunc(1)}>
                         <FontAwesomeIcon
                             icon={faChevronRight}
@@ -238,20 +192,13 @@ function TableRow({
                             <p>Start: {startDate}</p>
                             <p>Ende: {endDate}</p>
                         </div>
-                        <p>Anonymität</p>
-                        <div className='flex'>
-                            <p className='text-base pr-5 text-lightgrey'>
-                                Ich möchte anonym bleiben
-                            </p>
-                            <input type='checkbox' />
-                        </div>
-                        <p className='mt-4'>Modul Verlassen / Abbrechen</p>
+                        <p className='mt-4'>Modul Löschen</p>
                         <div>
                             <button
-                                onClick={() => handleUnenroll()}
+                                onClick={() => handleModuleDeletion()}
                                 className='text-base text-lightgrey hover:text-lunared underline cursor-pointer'
                             >
-                                {`Ich möchte ${name} verlassen.`}
+                                {`Ich möchte ${name} `}<span className="underline">endgültig</span> löschen
                             </button>
                         </div>
                     </td>

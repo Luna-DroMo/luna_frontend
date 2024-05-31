@@ -123,6 +123,7 @@ export default function Main() {
 
                                 <th>Fakultät</th>
                                 <th>Semester</th>
+                                <th>Zulassung</th>
                                 <th>Status</th>
                                 <th>Dozent</th>
                             </tr>
@@ -139,6 +140,7 @@ export default function Main() {
                                     faculty={"Methods Center"}
                                     staff={{img: "user.png", name: "Max Musterman"}}
                                     joined={joinedModules.some((obj) => obj.id === module.id)}
+                                    module={module}
                                 />
                             ))}
                         </tbody>
@@ -149,7 +151,8 @@ export default function Main() {
     )
 }
 
-function TableRow({id, code, name, semester, status, faculty, staff, joined}) {
+function TableRow({id, code, name, semester, status, faculty, staff, joined, module}) {
+    console.log(module)
     return (
         <tr
             href='#'
@@ -198,7 +201,11 @@ function TableRow({id, code, name, semester, status, faculty, staff, joined}) {
             <td className='text-[#4a4a4a] text-base tracking-wide'>{semester} </td>
             <td>
                 {" "}
-                <Status status={1} />
+                <ZulassungsStatus status={1} />
+            </td>
+            <td>
+                {" "}
+                <ModuleStatus startDateStr = {module.start_date} endDateStr = {module.end_date}/>
             </td>
             <td>
                 {" "}
@@ -208,7 +215,45 @@ function TableRow({id, code, name, semester, status, faculty, staff, joined}) {
     )
 }
 
-function Status({status}) {
+
+function ModuleStatus({startDateStr, endDateStr}){
+    console.log(startDateStr)
+    const today = new Date()
+    const startDate = new Date(startDateStr)
+    const endDate = new Date(endDateStr)
+    let status = null
+
+    const statDict = {
+        1: {status: "Aktiv", bgCol: "bg-[#E7FDD0]", txtCol: "text-[#3E7900]"},
+        2: {status: "Beendet", bgCol: "bg-[#EEEDF1]", txtCol: "text-text-grey"},
+        3: {status: "Anstehend", bgCol: "bg-[#FCF2CF]", txtCol: "text-[#7D5E00]"}
+    }
+    
+    if (today < startDate) {
+        // status 3 = To begin
+        status = 3
+    } else if (today > endDate) {
+        // status 2 = Ended
+        status = 2
+    } else {
+        // status 1 = active/current
+        status = 1
+    }
+
+    const stat = statDict[status]
+
+    return(
+    <div className=''>
+            <a
+                className={`text-base border-none rounded-full ${stat.bgCol} ${stat.txtCol} px-4 py-0.5`}
+            >
+                {stat.status}
+            </a>
+        </div>
+    )
+}
+
+function ZulassungsStatus({status}) {
     const status_dictionary = {
         1: {status: "Open", bgCol: "bg-[#E7FDD0]", txtCol: "text-[#3E7900]"},
         2: {status: "Locked", bgCol: "bg-[#FFF4ED]", txtCol: "text-[#B32500]"},

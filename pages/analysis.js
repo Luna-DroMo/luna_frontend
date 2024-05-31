@@ -2,24 +2,24 @@ import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import {Button} from "@/components/Buttons"
+import { Button } from "@/components/Buttons"
 import Overview from "@/components/SetupDataModelOverview"
-import {useState, useEffect, React} from "react"
-import {useAuth} from "../components/AuthProvider"
+import { useState, useEffect, React } from "react"
+import { useAuth } from "../components/AuthProvider"
 import axios from "axios"
 
 import Dropdown from "@/components/Dropdown"
-import {LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot} from "@/components/CustomCharts"
-import {url} from "@/utils/data"
+import { LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot, MultiLineChart } from "@/components/CustomCharts"
+import { url } from "@/utils/data"
 
 const processModuleResults = (moduleResults) => {
     const mean = moduleResults.map((result) => result.mean)
     const stdev = moduleResults.map((result) => result.stdev)
-    return {mean, stdev}
+    return { mean, stdev }
 }
 
 export default function Main() {
-    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
     const [userRole, setUserRole] = useState(null)
     const [isLoading, setIsLoading] = useState([true, true]) // extend for number of API calls
     const [modules, setModules] = useState([])
@@ -37,12 +37,14 @@ export default function Main() {
         })
     }
 
+
     useEffect(() => {
         const getUserRole = async () => {
             try {
                 const response = await axios.get(`${url}/api/getUserType/${user.id}`)
                 console.log("Fetched User Role:", response.data)
                 setUserRole(response.data) // Assuming the API returns an object with `user_type`
+
                 updateLoadingState(0, false)
             } catch (error) {
                 console.log("Error fetching user role:", error)
@@ -58,7 +60,9 @@ export default function Main() {
             try {
                 const response = await axios.get(`${url}/api/${user.id}/modules`)
                 setModules(response.data)
+
                 console.log("Student Modules:", response.data)
+
                 updateLoadingState(1, false)
                 if (response.data.length > 0) {
                     setSelectedModule(response.data[0]) // Use response.data instead of modules
@@ -120,7 +124,7 @@ export default function Main() {
                         sethighRiskStudent(setModuleResult.high_risk_students)
                     }
 
-                    const {mean, stdev} = processModuleResults(moduleResult.weekly_results)
+                    const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
                     setMeanLine(mean)
                     setStDev(stdev)
                     updateLoadingState(2, false)
@@ -140,7 +144,9 @@ export default function Main() {
         setSelectedModule(selected)
     }
 
+
     if (isLoading.some((element) => element === true)) {
+
         return <RootLayout />
     }
 
@@ -194,29 +200,23 @@ export default function Main() {
                         </a>
                             </div>*/}
 
-                    <div id='dropoutChartContainer' className='h-[850px] mt-8'>
-                        <h1 className='font-bold'>Übungen</h1>
+                    <div id='dropoutChartContainer' className='mt-8'>
+                        <h1 className='font-bold'>Befragungen</h1>
                         <p className='text-text-grey'>
-                            Hier werden deine Noten aus den Übungen dargestellt (in blau). Die graue
-                            Linie zeigt den Durchschnitt und die Standardabweichung wird durch das
-                            graue Band dargestellt.
+                            Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
                         </p>
-                        <div className='flex flex-row justify-between mt-4'>
-                            <div className='relativ h-[250px] px-12 mt-8 flex-auto'>
-                                <LineChartWithDeviation
-                                    title='Übungsnoten'
-                                    line={meanLine}
-                                    deviation={stDev}
-                                    // extra_lines={students_at_risk}
-                                />
+                        <div className='flex flex-row justify-between mt-4 h-72'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
+                            <div className='relativ w-2/3'>
+                                <MultiLineChart title={"Dein Feedback"} lines={[[1, 2, 3, 4], [3, 2, 3, 4], [4, 5, 5, 1]]} labels={["Inhalt", "Stress", "Verständis"]} />
                             </div>
-                            <div className='relativ h-[220px] px-12 mt-8 flex-auto'>
-                                <PieChart data={pie_data} />
-                                <p className='text-center text-lunapurple mt-3'>
-                                    {Math.round(turn_in_percent * 100)}%
-                                </p>
+                            <div className="w-1/3">
+                                <div className="relative w-full h-2/3">
+                                    <PieChart data={pie_data} />
+                                </div>
+                                <p className="text-lunapurple text-center text-xl pt-4">{turn_in_percent * 100}%</p>
                             </div>
                         </div>
+                        <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
                     </div>
                 </main>
             </RootLayout>
@@ -271,10 +271,13 @@ export default function Main() {
                                 title='Durschnittsrisiko das Modul abzubrechen'
                                 line={meanLine}
                                 deviation={stDev}
+
                                 students_at_risk={highRiskStudent}
+
                             />
                         </div>
                     </div>
+                    <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
                 </main>
             </RootLayout>
         )

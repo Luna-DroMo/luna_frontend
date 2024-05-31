@@ -1,17 +1,17 @@
 import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
-import {FormButton} from "@/components/Buttons"
-import {FormInput, InputRow} from "@/components/FormElements"
+import { FormButton } from "@/components/Buttons"
+import { FormInput, InputRow } from "@/components/FormElements"
 import React from "react"
-import {useState} from "react"
-import {hasNullValue} from "@/utils/utils"
+import { useState } from "react"
+import { hasNullValue } from "@/utils/utils"
 import axios from "axios"
-import {useRouter} from "next/router"
-import {Button} from "@/components/Buttons"
-import {useEffect} from "react"
-import {useAuth} from "../components/AuthProvider"
-import {faC} from "@fortawesome/free-solid-svg-icons"
-import {url} from "@/utils/data"
+import { useRouter } from "next/router"
+import { Button } from "@/components/Buttons"
+import { useEffect } from "react"
+import { useAuth } from "../components/AuthProvider"
+import { faC } from "@fortawesome/free-solid-svg-icons"
+import { url } from "@/utils/data"
 
 export default function Main() {
     const [code, setCode] = useState("")
@@ -26,7 +26,7 @@ export default function Main() {
     const [userRole, setUserRole] = useState(null)
 
     const router = useRouter()
-    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
     useEffect(() => {
         const getUserRole = async (e) => {
             //e.preventDefault()
@@ -43,7 +43,7 @@ export default function Main() {
         getUserRole()
     })
 
-    const FAKE_FACULTIES_FROM_ENDPOINT = {"----": 0, Stats: 1, "Non-Existent": 2}
+    const FAKE_FACULTIES_FROM_ENDPOINT = { "----": 0, Stats: 1, "Non-Existent": 2 }
     // Funky logic to only allow non-students to create modules, and to hide pre-rendering
 
     if (userRole === null) {
@@ -73,7 +73,7 @@ export default function Main() {
                 if (modulePassword === modulePassword_val) {
                     try {
                         const response = await axios.post(
-                            `${api}/api/${user.id}/module/create`,
+                            `${url}/api/${user.id}/module/create`,
                             data
                         )
                         console.log("Created Module?")
@@ -192,7 +192,10 @@ export default function Main() {
                                 <InputRow
                                     type='password'
                                     maintext='Passwort wiederholen'
-                                    subtitle=''
+                                    subtitle={modulePassword !== modulePassword_val && modulePassword_val.length >= 4 ?
+                                        <div className="text-lunared">Passwörter stimmen nicht überein!</div>
+                                        : <div> &nbsp; </div>
+                                    }
                                     onChange={(e) => {
                                         setModulePassword_val(e.target.value)
                                     }}
@@ -218,7 +221,7 @@ export default function Main() {
                                 />
                             </div>
 
-                            <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                            <div className='rounded-xl bg-white px-5 py-5 mb-4 hidden'>
                                 <InputRow
                                     type='dropdown'
                                     options={["Vollständig", "Reduziert"]}
@@ -226,6 +229,7 @@ export default function Main() {
                                     subtitle='Die Befragungsart kann nach der Erstellung nicht mehr geändert werden!'
                                 />
                                 <div className='w-100 h-15 py-2 px-5 bg-[#FFF0CB] rounded'>
+
                                     <p className='text-text-grey'>
                                         [NEEDS TO BE DYNAMIC] Achtung! Analysen und Prognosen
                                         eingeschränkt. Für vollständige Analysen, bitte “Standard”
@@ -247,7 +251,7 @@ export default function Main() {
                                 </div> */}
                             </div>
 
-                            <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                            <div className='rounded-xl bg-white px-5 py-5 mb-4 hidden'>
                                 <InputRow
                                     type='checkbox'
                                     options={["MO", "DI", "MI", "DO", "FR", "SA", "SO"]}
@@ -260,7 +264,7 @@ export default function Main() {
                                     subtitle='Falls die Befragung an manchen Tagen nicht stattfinden soll, können diese hier festgelegt werden.'
                                 />
                             </div>
-                            <div className='rounded-xl bg-white px-5 py-5 mb-4'>
+                            <div className='rounded-xl bg-white px-5 py-5 mb-4 hidden'>
                                 <InputRow
                                     type='checkbox'
                                     options={["Privat"]}
@@ -269,7 +273,7 @@ export default function Main() {
                                 />
                             </div>
                             <div className='flex justify-evenly w-3/5 mt-24'>
-                                <FormButton text='Abbrechen' />
+                                <FormButton text='Abbrechen' onClick={(e) => router.push('./cockpit')}/>
                                 <FormButton
                                     text='Modul Erstellen'
                                     highlighted='true'

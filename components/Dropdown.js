@@ -16,7 +16,7 @@ export default function Dropdown({header, dropdown_options, onSelect}) {
                     {dropdown_options.map((dropdown_option, key) => (
                         <a
                             key={key}
-                            className='inline-block py-3 px-5 hover:text-black hover:bg-pagebg w-full'
+                            className='inline-block py-3 px-5 hover:text-lunapurple w-full'
                             onClick={() => onSelect(dropdown_option)}
                         >
                             <p>{dropdown_option}</p>
