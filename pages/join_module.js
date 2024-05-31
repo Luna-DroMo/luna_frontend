@@ -123,7 +123,7 @@ export default function Main() {
                     <div className='rounded-xl bg-white px-5 py-5'>
                         <div className='flex mb-3'>
                             <input type='checkbox' className='mr-4' />
-                            <p>Ich bin einverstanden dass ... </p>
+                            <p>Ich bin einverstanden dass ... [Platzhalter] </p>
                         </div>
 
                         <div className='flex'>
