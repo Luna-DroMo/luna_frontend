@@ -52,5 +52,5 @@ export const data_models_to_use = [
     //     type: "MATH"
     // },
 ]
-// export const url = "http://127.0.0.1:8000"
-export const url = "https://mz-bdev.de"
+export const url = "http://127.0.0.1:8000"
+// export const url = "https://mz-bdev.de"
