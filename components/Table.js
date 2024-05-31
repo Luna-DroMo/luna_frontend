@@ -44,7 +44,7 @@ export function StudentModuleTable({ modules = [] }) {
                 <img src='satellite.png' className='w-24 m-auto mt-8' />
                 <p className='mt-8 text-lg'>
                     Maybe you can find some{" "}
-                    <Link href='module_search' className='underline text-lunapurple'>
+                    <Link href='search' className='underline text-lunapurple'>
                         here
                     </Link>
                 </p>
@@ -144,9 +144,9 @@ function TableRowLec({ module }) {
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
                 <img src='moon.png' className='w-8 m-0 p-0 inline-block' />
             </td>
-            <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.module_code}</td>
+            <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.code}</td>
             <td className='text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap'>
-                {module.module_name}
+                {module.name}
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
 
