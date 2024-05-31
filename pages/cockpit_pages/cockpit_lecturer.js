@@ -41,6 +41,9 @@ export default function cockpit_lecturer() {
         
     }, [])
 
+
+
+
     const avg_response_rate = 0.8522
 
     
@@ -100,7 +103,7 @@ export default function cockpit_lecturer() {
                 </div>
                 <div className='flex w-full items-end'>
                     <h5 className='tracking-wider items-center flex-grow'>Meine Module</h5>
-                    <a href='#' className='flex-none text-lunapurple text-base pb-0.5'>
+                    <a href='admin_modules' className='flex-none text-lunapurple text-base pb-0.5'>
                         Module verwalten
                         <FontAwesomeIcon
                             icon={faChevronRight}
