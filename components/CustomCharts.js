@@ -11,11 +11,14 @@ Chart.register(annotationPlugin);
 
 export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk = [] }) {
     const chartContainer = useRef(null);
-
+    line.unshift(0)
+    deviation.unshift(0)
     const label = [];
-    for (let i = 1; i <= line.length; i++) {
+    for (let i = 0; i <= line.length; i++) {
         label.push(`T${i}`);
     }
+    
+    console.log(line)
     let data = {
         labels: label,
         datasets: [
@@ -120,7 +123,7 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                             label: {
                                 display: true,
                                 content: 'Danger Zone',
-                                position: 'start',
+                                //position: 'start',
                                 backgroundColor: "#FFFFFF",
                                 color: '#DC107E',
                                 borderColor: '#DC107E',
@@ -176,6 +179,7 @@ export function LineChartWithDeviation({ title, line, deviation, extra_lines = [
     for (let i = 1; i <= line.length; i++) {
         label.push(`T${i}`);
     }
+    
     let data = {
         labels: label,
         datasets: [

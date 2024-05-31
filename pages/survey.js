@@ -222,7 +222,7 @@ export default function Main() {
                 //router.push("./cockpit")
             }
         } else {
-            alert("Please fill all the questions before submitting.")
+            alert("Bitte alle Fragen antworten!")
         }
     }
 

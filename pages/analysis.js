@@ -47,17 +47,17 @@ export default function Main() {
             }
         }
         getUserRole()
-        console.log("UR", user)
+        
 
 
         const getModules = async () => {
-            console.log(user.user_type)
+            
             if (user.user_type === 1) {
-                console.log("user",user)
+                
                 try {
                     const response = await axios.get(`${url}/api/student/${user.id}/modules`)
                     setModules(response.data)
-                    console.log("Modules->", response.data)
+                    
                     updateLoadingState(1, false)
                     if (response.data.length > 0) {
                         setSelectedModule(response.data[0]) // Use response.data instead of modules
@@ -70,7 +70,7 @@ export default function Main() {
                     const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
 
                     setModules(response.data)
-                    console.log("Modules (lec)->", response.data)
+                    
                     updateLoadingState(1, false)
                     if (response.data.length > 0) {
                         setSelectedModule(response.data[0]) // Use response.data instead of modules
@@ -82,34 +82,34 @@ export default function Main() {
             getModules()
         }, [user.id]) // Run this effect when user.id changes
 
-
-    useEffect(() => {
-        const getModulesAndResults = async () => {
-            if (selectedModule) {
-                try {
-                    const moduleResponse = await axios.get(
-                        `${url}/modelling/${user.id}/module/${selectedModule.id}`
-                    )
-                    const moduleResult = moduleResponse.data
-
-                    const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
-                    setMeanLine(mean)
-                    setStDev(stdev)
-                    updateLoadingState(2, false)
-                } catch (error) {
-                    console.log("Error->", error)
+        useEffect(() => {
+            const getModulesAndResults = async () => {
+                if (selectedModule) {
+                    try {
+                        const moduleResponse = await axios.get(
+                            `${url}/modelling/module/${selectedModule.id}`
+                        )
+                        const moduleResult = moduleResponse.data
+    
+                        const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
+                        setMeanLine(mean)
+                        setStDev(stdev)
+                        updateLoadingState(2, false)
+                    } catch (error) {
+                        console.log("Error->", error)
+                    }
                 }
             }
-        }
+    
+            getModulesAndResults()
+        }, [user.id, selectedModule])
 
-        getModulesAndResults()
-    }, [user.id, selectedModule])
 
     function handleSelectModule(moduleName) {
         const selected = modules.find((module) => module.name === moduleName)
         setSelectedModule(selected)
+        updateLoadingState(2, true)
     }
-
 
 
     if (isLoading.some(element => element === true)) {
@@ -142,7 +142,7 @@ export default function Main() {
             ]
         }
 
-        console.log(modules)
+        
         return (
             <RootLayout>
                 <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
@@ -203,13 +203,12 @@ export default function Main() {
         //         data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
         //     }
         // ]
-        console.log(meanLine)
+        
         return (
             <RootLayout>
                 <main className='flex-row justify-between px-10 pt-10'>
                     <div className='flex flex-row justify-between'>
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
-                        <h3>{selectedModule.name}</h3>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
                                 header={
@@ -239,12 +238,14 @@ export default function Main() {
                             die ein erhöhtes Risiko zeigen.
                         </p>
                         <div className='relativ h-[250px] px-12 mt-8'>
+                            {meanLine.length === 0 ? <h1 className="text-center">Leider noch keine Ergebnisse für {selectedModule.name}. Sobald es Ergebnisse gibt, werden die hier angezeigt. </h1>:
                             <ModuleDropoutRiskPlot
                                 title='Durschnittsrisiko das Modul abzubrechen'
                                 line={meanLine}
                                 deviation={stDev}
                             // students_at_risk={students_at_risk}
                             />
+                            }
                         </div>
                     </div>
                     <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
