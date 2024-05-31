@@ -24,7 +24,7 @@ export default function cockpit_lecturer() {
 
     useEffect(() => {
         const makeAPICalls = async (e) => {
-            //e.preventDefault()
+            //e.pgit reventDefault()
 
             try {
                 const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)

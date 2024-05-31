@@ -5,6 +5,7 @@ import {Menu, Transition} from "@headlessui/react"
 import Chart from "chart.js/auto"
 
 export default function Dropdown({header, dropdown_options, onSelect}) {
+    
     return (
         <div className='group relative cursor-pointer min-w-96 border border-lunapurple shadow-sm rounded-md gap-x-1.5 bg-white text-sm font-semibold hover:bg-gray-50'>
             <div className='flex items-center justify-between space-x-5 px-4'>
