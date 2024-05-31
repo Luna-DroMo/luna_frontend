@@ -44,7 +44,7 @@ export default function cockpit_lecturer() {
 
 
 
-    const avg_response_rate = 0.8522
+    const avg_response_rate = 0.0
 
     
     // Ensure data is called first
