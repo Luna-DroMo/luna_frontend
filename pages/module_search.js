@@ -89,11 +89,10 @@ export default function Main() {
             <main className='flex-row justify-between px-10 pt-10'>
                 <h3>Modul Beitreten</h3>
                 <p className='text-lightgrey'>
-                    Available modules are determined by your enrolled course / degree. To join a
-                    module outside of your standard faculty,{" "}
+                Die verfügbaren Module richten sich nach deinem eingeschriebenen Kurs/Studiengang. Um ein Modul außerhalb deiner Standardfakultät zu belegen{" "}
                     <Link href='join_hidden_module' className='text-lunapurple'>
-                        click here
-                    </Link>
+                        klicke hier
+                    </Link>.
                 </p>
                 <h5 className='text-md mt-8'>Modul Finden</h5>
                 <input
