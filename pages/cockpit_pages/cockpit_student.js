@@ -88,7 +88,7 @@ export default function Cockpit_student() {
                     <div className='flex-1 items-center rounded-xl p-2 bg-lightgreen pl-6'>
                         <div className='flex items-center'>
                             <div className='metric my-1 bg-green w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
-                                15%
+                                0%
                             </div>
                             <div className='metric-text tracking-wider '>
                                 <p>Rückmeldequote</p>
