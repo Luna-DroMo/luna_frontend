@@ -19,7 +19,7 @@ export const data_models_to_use = [
         img: "mood.png",
         id: 6,
         type: "PANAS"
-    },
+    }
 
     //{
     //    modelname: "Persönlichkeits-skala",
