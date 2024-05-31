@@ -27,102 +27,53 @@ export default function Main() {
     const [moduleResult, setModuleResult] = useState({})
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
-    const [highRiskStudent, sethighRiskStudent] = useState([])
 
     const updateLoadingState = (index, newValue) => {
-        setIsLoading((prevState) => {
-            const newState = [...prevState] // Create a copy of the state array
-            newState[index] = newValue // Update the specific index
-            return newState // Return the new array
-        })
-    }
-
+        setIsLoading(prevState => {
+            const newState = [...prevState]; // Create a copy of the state array
+            newState[index] = newValue; // Update the specific index
+            return newState; // Return the new array
+        });
+    };
 
     useEffect(() => {
         const getUserRole = async () => {
             try {
                 const response = await axios.get(`${url}/api/getUserType/${user.id}`)
-                console.log("Fetched User Role:", response.data)
-                setUserRole(response.data) // Assuming the API returns an object with `user_type`
-
+                setUserRole(response.data)
                 updateLoadingState(0, false)
             } catch (error) {
-                console.log("Error fetching user role:", error)
-                updateLoadingState(0, false)
+                console.log("error during login", error)
+            }
+        }
+
+        const getModules = async () => {
+            try {
+                const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
+                setModules(response.data)
+                console.log("Modules->", response.data)
+                updateLoadingState(1, false)
+                if (response.data.length > 0) {
+                    setSelectedModule(response.data[0]) // Use response.data instead of modules
+                }
+            } catch (error) {
+                console.log("Error->", error)
             }
         }
 
         getUserRole()
-    }, [user.id])
+        getModules()
+    }, [user.id]) // Run this effect when user.id changes
 
-    useEffect(() => {
-        const getStudentModules = async () => {
-            try {
-                const response = await axios.get(`${url}/api/${user.id}/modules`)
-                setModules(response.data)
-
-                console.log("Student Modules:", response.data)
-
-                updateLoadingState(1, false)
-                if (response.data.length > 0) {
-                    setSelectedModule(response.data[0]) // Use response.data instead of modules
-                }
-            } catch (error) {
-                console.log("Error fetching student modules:", error)
-                updateLoadingState(1, false)
-            }
-        }
-
-        const getLecturerModules = async () => {
-            try {
-                const response = await axios.get(`${url}/api/lecturer/${user.id}/modules`)
-                setModules(response.data)
-                console.log("Lecturer Modules:", response.data)
-                updateLoadingState(1, false)
-                if (response.data.length > 0) {
-                    console.log("We are inside this loop")
-                    setSelectedModule(response.data[0]) // Use response.data instead of modules
-                }
-            } catch (error) {
-                console.log("Error fetching lecturer modules:", error)
-                updateLoadingState(1, false)
-            }
-        }
-
-        const fetchModules = async () => {
-            console.log("Fetching modules for user role:", userRole)
-            if (userRole == 1) {
-                await getStudentModules()
-            } else if (userRole == 2) {
-                await getLecturerModules()
-            }
-        }
-
-        if (userRole !== null) {
-            fetchModules()
-        }
-    }, [userRole, user.id])
-
-    console.log("Selected Module", selectedModule)
 
     useEffect(() => {
         const getModulesAndResults = async () => {
             if (selectedModule) {
                 try {
-                    if (userRole === 1) {
-                        // Lecturer role, use the specific endpoint
-                        const moduleResponse = await axios.get(
-                            `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
-                        )
-                        setModuleResult(moduleResponse.data)
-                    } else {
-                        // Default endpoint for other roles
-                        const moduleResponse = await axios.get(
-                            `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
-                        )
-                        setModuleResult(moduleResponse.data)
-                        sethighRiskStudent(setModuleResult.high_risk_students)
-                    }
+                    const moduleResponse = await axios.get(
+                        `${url}/modelling/${user.id}/module/${selectedModule.module_id}`
+                    )
+                    const moduleResult = moduleResponse.data
 
                     const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
                     setMeanLine(mean)
@@ -134,24 +85,23 @@ export default function Main() {
             }
         }
 
-        if (userRole !== null) {
-            getModulesAndResults()
-        }
-    }, [user.id, selectedModule, userRole])
+        getModulesAndResults()
+    }, [user.id, selectedModule])
 
-    const handleSelectModule = (moduleName) => {
+    function handleSelectModule(moduleName){
         const selected = modules.find((module) => module.module_name === moduleName)
         setSelectedModule(selected)
     }
 
 
-    if (isLoading.some((element) => element === true)) {
 
+    if (isLoading.some(element => element === true)) {
         return <RootLayout />
     }
 
     if (userRole === null) {
     }
+    // STUDENT
     if (userRole === 1) {
         const turn_in_percent = 0.93
         const class_turn_in_percent = 0.85
@@ -175,18 +125,21 @@ export default function Main() {
             ]
         }
 
+        console.log(modules)
         return (
             <RootLayout>
                 <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
                     <div className='flex flex-row justify-between'>
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
+                        <h3>{selectedModule}</h3>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
+                                onSelect={handleSelectModule}
                                 header={
-                                    modules.length > 0 ? modules[0].module_name : "Select a Module"
+                                   modules.length > 0 ? modules[0].module_name : "Select a Module"
                                 }
                                 dropdown_options={modules.map((module) => module.module_name)}
-                                onSelect={handleSelectModule}
+                                
                             />
                         </div>
                     </div>
@@ -234,17 +187,20 @@ export default function Main() {
         //         data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
         //     }
         // ]
+        console.log(meanLine)
         return (
             <RootLayout>
                 <main className='flex-row justify-between px-10 pt-10'>
                     <div className='flex flex-row justify-between'>
                         <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
+                        <h3>{selectedModule.module_name}</h3>
                         <div id='Dropdown-container' className=''>
                             <Dropdown
                                 header={
-                                    modules.length > 0 ? modules[0].module_name : "Select a Module"
+                                    selectedModule.module_name
                                 }
                                 dropdown_options={modules.map((module) => module.module_name)}
+                                onSelect={handleSelectModule}
                             />
                         </div>
                     </div>
@@ -271,9 +227,7 @@ export default function Main() {
                                 title='Durschnittsrisiko das Modul abzubrechen'
                                 line={meanLine}
                                 deviation={stDev}
-
-                                students_at_risk={highRiskStudent}
-
+                            // students_at_risk={students_at_risk}
                             />
                         </div>
                     </div>
