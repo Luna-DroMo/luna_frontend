@@ -27,6 +27,7 @@ export default function Analysis_Student() {
     const [moduleResult, setModuleResult] = useState({})
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
+    const [reloadFlag, setReloadFlag] = useState(false)
 
     const updateLoadingState = (index, newValue) => {
         setIsLoading(prevState => {
@@ -75,13 +76,18 @@ export default function Analysis_Student() {
         }
 
         getModulesAndResults()
-    }, [user.id, selectedModule])
+    }, [user.id, selectedModule, reloadFlag])
 
 
     function handleSelectModule(moduleName) {
         const selected = modules.find((module) => module.name === moduleName)
-        setSelectedModule(selected)
         updateLoadingState(1, true)
+        if (selectedModule !== selected) {
+            setSelectedModule(selected)
+        } else {
+            // Just toggles in order to rerun getModulesAndResults useEffect
+            setReloadFlag(!reloadFlag)
+        }
     }
 
 
@@ -112,10 +118,6 @@ export default function Analysis_Student() {
             }
         ]
     }
-
-    console.log("Modelling values: ", moduleResult['stress'])
-    console.log("test", !moduleResult.error)
-    console.log("sent to chart: ", moduleResult.content, moduleResult.stress, moduleResult.understanding)
     return (
         <RootLayout>
             <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
