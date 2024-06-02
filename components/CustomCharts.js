@@ -371,7 +371,7 @@ export function PieChart({data}) {
 }
 
 
-export function MultiLineChart({title, lines, labels}) {
+export function Student_Feature_Chart({title, lines, labels}) {
     const chartContainer = useRef(null);
     const label = [];
     const T = lines[1].length // Num time points
@@ -380,21 +380,22 @@ export function MultiLineChart({title, lines, labels}) {
     console.log(K)
     
     const COLORS = ["#976EEC","#5210DC","#2F0D77"]
-    for (let t = 1; t <= T; t++) {
+    for (let t = 0; t <= T + 3; t++) {
         label.push(`T${t}`);
     }
 
-    
     let data = {
         labels: label,
         datasets: [
 
         ]
     };
+
+
     for (let i = 0; i < K; i++){
         data.datasets.push({
             label: labels[i],
-            data: lines[i],
+            data: [0].concat(lines[i]),
             borderColor: COLORS[i],
             backgroundColor: COLORS[i],
             borderWidth: 4,
@@ -403,6 +404,7 @@ export function MultiLineChart({title, lines, labels}) {
         })
     }
 
+    console.log(data)
 
 
     const config = {
@@ -414,27 +416,27 @@ export function MultiLineChart({title, lines, labels}) {
                     tension: 0.4,
                 },
                 point: {
-                    radius:0,
+                    radius:2,
                 }
             },
             scales: {
                 y: {
                     stacked: false,
                     title: {
-                        text: "Score",
+                        text: "Bewertung",
                         display: true,
                     },
                     ticks: {
-                        display: false,
+                        display: true,
                     },
                     grid: {
                         display: false
                     },
                     suggestedMax: 5,
-                    min: 0,
+                    min: -5,
                 },
                 x: {
-
+                    beginAtZero: false,
                 }
             },
             smooth: true,
