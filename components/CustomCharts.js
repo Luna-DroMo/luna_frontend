@@ -93,8 +93,8 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                     grid: {
                         display: false
                     },
-                    suggestedMax: 20,
-                    min: 0,
+                    suggestedMax: 10,
+                    min: -10,
                 },
                 x: {
 
@@ -135,14 +135,35 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                                     size: 8,
                                 }
                             },
-                            yMin: 18,
-                            yMax: 18,
+                            yMin: 8,
+                            yMax: 8,
                             borderColor: '#DC107E',
                             borderWidth: 2,
                             borderDash: [8],
                         },
+                        globalAverage: {
+                            type: 'line',
+                            label: {
+                                display: true,
+                                content: 'Globaler Durchschnitt',
+                                //position: 'start',
+                                backgroundColor: "#FFFFFF",
+                                color: '#949494',
+                                borderColor: '#949494',
+                                borderWidth: 1,
+                                font: {
+                                    size: 8,
+                                }
+                            },
+                            yMin: 0,
+                            yMax: 0,
+                            borderColor: '#D9D9D9',
+                            borderWidth: 2,
+                            borderDash: [8],
+                        },
 
-                    }
+                    },
+                    
                 },
             },
             interaction: {
@@ -254,8 +275,8 @@ export function LineChartWithDeviation({ title, line, deviation, extra_lines = [
                     grid: {
                         display: false
                     },
-                    suggestedMax: 100,
-                    min: 0,
+                    suggestedMax: 10,
+                    min: -10,
                 },
                 x: {
 

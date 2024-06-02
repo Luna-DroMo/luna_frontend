@@ -28,6 +28,8 @@ export default function Analysis_Lecturer() {
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
     const [reloadFlag, setReloadFlag] = useState(false)
+    const [totalStats, setTotalStats] = useState()
+
 
     const updateLoadingState = (index, newValue) => {
         setIsLoading(prevState => {
@@ -62,18 +64,39 @@ export default function Analysis_Lecturer() {
                     const moduleResponse = await axios.get(
                         `${url}/modelling/module/${selectedModule.id}`
                     )
+                    const totalResponse = await axios.get(
+                        `${url}/modelling/overview`
+                    )
                     const moduleResult = moduleResponse.data
                     const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
                     console.log(moduleResult)
                     setMeanLine(mean)
                     setStDev(stdev)
 
+
+                    const totalMean = totalResponse.data.mean_smoothed_output
+                    const totalStd = totalResponse.data.std_smoothed_output
+                    console.log("tots: ", totalMean, totalStd)
+                    console.log("meanline: ", mean)
+                    console.log("Adjusted: ", mean.map(value => (value - (totalMean)) / (totalStd) ))
+
+                    console.log(totalResponse.data)
+                    
+                    if (totalStd !== 0 ){
+                        setMeanLine(mean.map(value => (value - (totalMean)) / (totalStd ) ))
+                        setStDev(stdev.map(val => val / totalStd))
+                    }
                 } catch (error) {
                     console.log("Error->", error)
                 }
+
+                
             }
             updateLoadingState(1, false)
+
+
         }
+
 
         getModulesAndResults()
     }, [user.id, selectedModule, reloadFlag])
@@ -95,7 +118,7 @@ export default function Analysis_Lecturer() {
     }
 
     if (modules.length === 0) {
-        console.log("here")
+
         return <RootLayout>
             <main className='flex-row justify-between px-10 pt-10'>
                 <p>Keine Module</p>
@@ -104,16 +127,6 @@ export default function Analysis_Lecturer() {
     }
 
 
-    const mean_line = [
-        54, 45, 42, 48, 58, 68, 65, 62, 41, 43, 78, 54, 32, 11, 33, 55, 77, 44, 33
-    ]
-    const st_dev = [10, 11, 8, 6, 14, 2, 13, 15, 6, 7, 4, 8, 10, 2, 11, 14, 32, 35, 25]
-    // const students_at_risk = [
-    //     {
-    //         id: "12345",
-    //         data: [54, 45, 66, 77, 82, 85, 90, 84, 73, 63, 78, 88, 85, 82, 80, 87, 88, 92, 95]
-    //     }
-    // ]
 
     return (
         <RootLayout>
