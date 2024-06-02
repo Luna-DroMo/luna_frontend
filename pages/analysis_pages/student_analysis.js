@@ -11,7 +11,7 @@ import axios from "axios"
 import Dropdown from "@/components/Dropdown"
 import { PieChart, Student_Feature_Chart } from "@/components/CustomCharts"
 import { url } from "@/utils/data"
-
+import { isEmpty } from "@/utils/utils"
 const processModuleResults = (moduleResults) => {
     const mean = moduleResults.map((result) => result.mean)
     const stdev = moduleResults.map((result) => result.stdev)
@@ -64,10 +64,10 @@ export default function Analysis_Student() {
                     const moduleResponse = await axios.get(
                         `${url}/modelling/${user.id}/module/${selectedModule.id}`
                     )
-                    console.log("Model Results: ", moduleResponse.data)
+                    console.log("Model Result2s: ", moduleResponse)
                     setModuleResult(moduleResponse.data)
                 } catch (error) {
-                    console.log("Error->", error)
+                    console.log("Error2->", error)
                 }
             }
             updateLoadingState(1, false)
@@ -87,9 +87,6 @@ export default function Analysis_Student() {
             setReloadFlag(!reloadFlag)
         }
     }
-
-
-    console.log(isLoading)
 
     if (isLoading.some(element => element === true)) {
         return <RootLayout />
@@ -158,7 +155,7 @@ export default function Analysis_Student() {
                     </p>
                     <div className='flex flex-row justify-between mt-4 h-72'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
                         <div className='relativ w-2/3'>
-                            {!moduleResult.error ?
+                            {typeof moduleResult.content !== "undefined" ?
                                 <Student_Feature_Chart title={"Deine Eigenschaften"} lines={[moduleResult.content, moduleResult.stress, moduleResult.understanding]} labels={["Inhalt", "Stress", "Verständis"]} />
                                 : <div className="border text-center items-middle  h-full">
                                     <p>Keine Daten. Bitte erst eine Befragung ausfüllen</p>

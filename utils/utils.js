@@ -31,3 +31,14 @@ export function hasNullValue(obj) {
 export function basicDateFormat(dateTimeString) {
     return dateTimeString.split("T")[0]
 }
+
+
+export function isEmpty(obj) {
+    for (const prop in obj) {
+      if (Object.hasOwn(obj, prop)) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
