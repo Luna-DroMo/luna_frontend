@@ -375,6 +375,7 @@ export function PieChart({data}) {
 
 
 export function Student_Feature_Chart({title, lines, labels}) {
+    console.log(lines)
     const chartContainer = useRef(null);
     const label = [];
     const T = lines[1].length // Num time points
@@ -386,14 +387,12 @@ export function Student_Feature_Chart({title, lines, labels}) {
     for (let t = 0; t <= T + 3; t++) {
         label.push(`T${t}`);
     }
-
     let data = {
         labels: label,
         datasets: [
 
         ]
     };
-
 
     for (let i = 0; i < K; i++){
         data.datasets.push({
