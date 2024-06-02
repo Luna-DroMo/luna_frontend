@@ -375,17 +375,16 @@ export function PieChart({data}) {
 
 
 export function Student_Feature_Chart({title, lines, labels}) {
-    console.log(lines)
     const chartContainer = useRef(null);
     const label = [];
     const T = lines[1].length // Num time points
     const K = lines.length // Num lines
-
-    console.log(K)
     
     const COLORS = ["#976EEC","#5210DC","#2F0D77"]
-    for (let t = 0; t <= T + 3; t++) {
-        label.push(`T${t}`);
+
+    label.push('')
+    for (let t = 1; t <= T + 3; t++) {
+        label.push(`Umfrage ${t}`);
     }
     let data = {
         labels: label,
@@ -401,13 +400,8 @@ export function Student_Feature_Chart({title, lines, labels}) {
             borderColor: COLORS[i],
             backgroundColor: COLORS[i],
             borderWidth: 4,
-            
-
         })
     }
-
-    console.log(data)
-
 
     const config = {
         type: 'line',
@@ -456,8 +450,6 @@ export function Student_Feature_Chart({title, lines, labels}) {
                 },
                 annotation: {
                     annotations: {
-
-
                     }
                 },
             },

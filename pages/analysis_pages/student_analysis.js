@@ -156,7 +156,7 @@ export default function Analysis_Student() {
                     <div className='flex flex-row justify-between mt-4 h-72'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
                         <div className='relativ w-2/3'>
                             {typeof moduleResult.content !== "undefined" ?
-                                <Student_Feature_Chart title={"Deine Eigenschaften"} lines={[moduleResult.content, moduleResult.stress, moduleResult.understanding]} labels={["Inhalt", "Stress", "Verständis"]} />
+                                <Student_Feature_Chart title={"Deine Eigenschaften"} lines={[moduleResult.content, moduleResult.stress, moduleResult.understanding]} labels={["Wert der Inhalte", "Stress", "Verständis der Inhalte"]} />
                                 : <div className="border text-center items-middle  h-full">
                                     <p>Keine Daten. Bitte erst eine Befragung ausfüllen</p>
                                 </div>}
