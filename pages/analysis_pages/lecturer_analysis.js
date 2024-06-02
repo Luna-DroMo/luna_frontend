@@ -148,15 +148,18 @@ export default function Analysis_Lecturer() {
                         <span className='text-lunared'>rot</span> werden Studierende angezeigt,
                         die ein erhöhtes Risiko zeigen.
                     </p>
-                    <div className='relativ h-[250px] px-12 mt-8'>
-                        {meanLine.length === 0 ? <h1 className="text-center">Leider noch keine Ergebnisse für {selectedModule.name}. Sobald es Ergebnisse gibt, werden die hier angezeigt. </h1> :
-                            <ModuleDropoutRiskPlot
-                                title='Durschnittsrisiko das Modul abzubrechen'
-                                line={meanLine}
-                                deviation={stDev}
-                            // students_at_risk={students_at_risk}
-                            />
-                        }
+                    <div className='flex flex-row justify-between mt-4 h-96'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
+                        {/*<div className='relativ w-2/3'>*/}
+                        <div className='relativ w-full'>
+                            {meanLine.length === 0 ? <h1 className="text-center">Leider noch keine Ergebnisse für {selectedModule.name}. Sobald es Ergebnisse gibt, werden die hier angezeigt. </h1> :
+                                <ModuleDropoutRiskPlot
+                                    title='Durschnittsrisiko das Modul abzubrechen'
+                                    line={meanLine}
+                                    deviation={stDev}
+                                // students_at_risk={students_at_risk}
+                                />
+                            }
+                        </div>
                     </div>
                 </div>
                 <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>

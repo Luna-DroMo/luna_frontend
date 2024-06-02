@@ -15,10 +15,10 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
     line.unshift(0)
     deviation.unshift(0)
     
-    const label = [];
+    const label = [''];
     
-    for (let i = 0; i <= line.length + 3; i++) {
-        label.push(`T${i}`);
+    for (let i = 1; i <= line.length + 3; i++) {
+        label.push(`Befragung ${i}`);
     }
     
     console.log(line)
