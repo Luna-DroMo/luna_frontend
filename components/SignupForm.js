@@ -9,12 +9,19 @@ function SignUpForm() {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [user_type, setUsertype] = useState("1")
-    const {saveUser, setError} = useAuth()
+    const {saveUser, setUser} = useAuth()
+    const [error, setError] = useState(null)
     const router = useRouter()
     console.log(user_type)
 
     const handleSignUp = async (e) => {
         e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
+        if (password !== confirmPassword){
+            setError("Passwörter nicht gleich.")
+            return;
+        }else{
+            setError(null)
+        }
         try {
             // Axios helps us send data. Its an HTTP client. Makes things easy for us. Helps us gets the right datatype.
             let data = {
@@ -159,6 +166,7 @@ function SignUpForm() {
                     Registrieren
                 </button>
             </div>
+            {error ? <p className="text-lunared">{error}</p> : null}
         </form>
     )
 }
