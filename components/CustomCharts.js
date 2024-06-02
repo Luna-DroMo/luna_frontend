@@ -84,7 +84,7 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                 y: {
                     stacked: false,
                     title: {
-                        text: "Abbruchgefahr",
+                        text: "Abbruchgefahr (Z-Score)",
                         display: true,
                     },
                     ticks: {
@@ -93,8 +93,8 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                     grid: {
                         display: false
                     },
-                    suggestedMax: 10,
-                    min: -10,
+                    suggestedMax: 5,
+                    min: -5,
                 },
                 x: {
 
@@ -135,8 +135,8 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                                     size: 8,
                                 }
                             },
-                            yMin: 8,
-                            yMax: 8,
+                            yMin: 3,
+                            yMax: 3,
                             borderColor: '#DC107E',
                             borderWidth: 2,
                             borderDash: [8],
