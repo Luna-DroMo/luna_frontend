@@ -63,28 +63,44 @@ export default function Analysis_Lecturer() {
                         `${url}/modelling/module/${selectedModule.id}`
                     )
                     const moduleResult = moduleResponse.data
-
                     const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
                     console.log(moduleResult)
                     setMeanLine(mean)
                     setStDev(stdev)
-                    console.log("MeanLine: ", meanLine)
-                    console.log("stDev: ", stDev)
-                    updateLoadingState(1, false)
+
                 } catch (error) {
                     console.log("Error->", error)
                 }
             }
+            updateLoadingState(1, false)
         }
 
         getModulesAndResults()
     }, [user.id, selectedModule, reloadFlag])
 
+    function handleSelectModule(moduleName) {
+        const selected = modules.find((module) => module.name === moduleName)
+        updateLoadingState(1, true)
+        if (selectedModule !== selected) {
+            setSelectedModule(selected)
+        } else {
+            // Just toggles in order to rerun getModulesAndResults useEffect
+            setReloadFlag(!reloadFlag)
+        }
+    }
 
-    gi
 
     if (isLoading.some(element => element === true)) {
         return <RootLayout />
+    }
+
+    if (modules.length === 0) {
+        console.log("here")
+        return <RootLayout>
+            <main className='flex-row justify-between px-10 pt-10'>
+                <p>Keine Module</p>
+            </main>
+        </RootLayout>
     }
 
 

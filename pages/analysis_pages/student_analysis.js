@@ -64,15 +64,13 @@ export default function Analysis_Student() {
                     const moduleResponse = await axios.get(
                         `${url}/modelling/${user.id}/module/${selectedModule.id}`
                     )
-                    //const moduleResult = moduleResponse.data
-                    //const { mean, stdev } = processModuleResults(moduleResult.weekly_results)
                     console.log("Model Results: ", moduleResponse.data)
                     setModuleResult(moduleResponse.data)
-                    updateLoadingState(1, false)
                 } catch (error) {
                     console.log("Error->", error)
                 }
             }
+            updateLoadingState(1, false)
         }
 
         getModulesAndResults()
@@ -92,8 +90,18 @@ export default function Analysis_Student() {
 
 
     console.log(isLoading)
+
     if (isLoading.some(element => element === true)) {
         return <RootLayout />
+    }
+
+    if (modules.length === 0) {
+        console.log("here")
+        return <RootLayout>
+            <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
+                <p>Keine Module</p>
+            </main>
+        </RootLayout>
     }
 
     // Placeholder data
