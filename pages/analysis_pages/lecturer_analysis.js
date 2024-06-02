@@ -87,7 +87,7 @@ export default function Analysis_Lecturer() {
             // Just toggles in order to rerun getModulesAndResults useEffect
             setReloadFlag(!reloadFlag)
         }
-    }g
+    }
 
 
     if (isLoading.some(element => element === true)) {
