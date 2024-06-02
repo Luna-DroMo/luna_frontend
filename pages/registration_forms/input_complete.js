@@ -47,9 +47,9 @@ export default function Main() {
             <RootLayout show_main_links={false}>
                 <main className='flex-row justify-between px-10 pt-10'>
                     <form onSubmit={handleSubmit}>
-                        <h1 className='tracking-wider text-xl'>Input Complete</h1>
-                        <p className='mb-10'>Well Done</p>
-                        <p>By Submitting here, the Inputs become unchangable.</p>
+                        <h1 className='tracking-wider text-xl'>Du hast es geschafft!</h1>
+                        <p className='mb-10'>Super!</p>
+                        <p></p>
 
                         <div className='flex justify-evenly w-3/5 mt-24'>
                             <FormButton
@@ -57,7 +57,7 @@ export default function Main() {
                                 onClick={(e) => router.push("../account_setup_overview")}
                                 type='reset'
                             />
-                            <FormButton text='Submit' highlighted='true' />
+                            <FormButton text='Zum Cockpit!' highlighted='true' />
                         </div>
                     </form>
                 </main>
