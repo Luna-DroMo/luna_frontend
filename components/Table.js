@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircle as faCircleSolid, faXmarkCircle } from "@fortawesome/free-solid-svg-icons"
-import { faCircle as faCircleReg } from "@fortawesome/free-regular-svg-icons"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faCircle as faCircleSolid, faXmarkCircle} from "@fortawesome/free-solid-svg-icons"
+import {faCircle as faCircleReg} from "@fortawesome/free-regular-svg-icons"
 import React from "react"
 import Link from "next/link"
 
-export function StudentModuleTable({ modules = [] }) {
+export function StudentModuleTable({modules = []}) {
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
@@ -52,9 +52,9 @@ export function StudentModuleTable({ modules = [] }) {
         )
     }
 }
-function TableRowStudent({ module }) {
+function TableRowStudent({module}) {
     const nextsurveypublished = new Date(module.nextsurveypublished)
-    
+
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
@@ -65,11 +65,10 @@ function TableRowStudent({ module }) {
                 {module.name}
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
-
                 <StatusElement nextsurveyduedate={module.survey_end_date} />
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                {formatDate(module.end_date)}
+                {formatDate(module.survey_end_date)}
             </td>
             {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
                 <a
@@ -83,9 +82,7 @@ function TableRowStudent({ module }) {
     )
 }
 
-
-export function LecturerModuleTable({ modules = [] }) {
-    
+export function LecturerModuleTable({modules = []}) {
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
@@ -135,8 +132,7 @@ export function LecturerModuleTable({ modules = [] }) {
     }
 }
 
-
-function TableRowLec({ module }) {
+function TableRowLec({module}) {
     const nextsurveypublished = new Date(module.nextsurveypublished)
     console.log(module)
     return (
@@ -149,8 +145,7 @@ function TableRowLec({ module }) {
                 {module.name}
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center w-48'>
-
-                <div className="flex items-center pl-5 py-0.5 uptodate rounded-lg">
+                <div className='flex items-center pl-5 py-0.5 uptodate rounded-lg'>
                     <p className='ml-3 inline text-left overflow-hidden overflow-ellipsis whitespace-nowrap'>
                         Aktuell
                     </p>
@@ -172,7 +167,7 @@ function TableRowLec({ module }) {
 }
 
 // Sets the text and the colour of the Survey Status
-function StatusElement({ nextsurveyduedate }) {
+function StatusElement({nextsurveyduedate}) {
     let bgColorClass
     let text
     let icon
