@@ -81,16 +81,7 @@ export default function Analysis_Lecturer() {
     }, [user.id, selectedModule, reloadFlag])
 
 
-    function handleSelectModule(moduleName) {
-        const selected = modules.find((module) => module.name === moduleName)
-        updateLoadingState(1, true)
-        if (selectedModule !== selected) {
-            setSelectedModule(selected)
-        }else{
-            // Just toggles in order to rerun getModulesAndResults useEffect
-            setReloadFlag(!reloadFlag)
-        }
-    }
+    gi
 
     if (isLoading.some(element => element === true)) {
         return <RootLayout />
