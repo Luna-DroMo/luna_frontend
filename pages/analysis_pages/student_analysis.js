@@ -153,15 +153,16 @@ export default function Analysis_Student() {
                     <p className='text-text-grey'>
                         Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
                     </p>
-                    <div className='flex flex-row justify-between mt-4 h-72'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
-                        <div className='relativ w-2/3'>
+                    <div className='flex flex-row justify-between mt-4 h-96'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
+                        {/*<div className='relativ w-2/3'>*/}
+                        <div className='relativ w-full'>
                             {typeof moduleResult.content !== "undefined" ?
                                 <Student_Feature_Chart title={"Deine Eigenschaften"} lines={[moduleResult.content, moduleResult.stress, moduleResult.understanding]} labels={["Wert der Inhalte", "Stress", "Verständis der Inhalte"]} />
                                 : <div className="border text-center items-middle  h-full">
                                     <p>Keine Daten. Bitte erst eine Befragung ausfüllen</p>
                                 </div>}
                         </div>
-                        <div className="w-1/3">
+                        <div className="w-1/3 hidden">
                             <div className="relative w-full h-2/3">
                                 <PieChart data={pie_data} />
                             </div>
