@@ -15,6 +15,7 @@ import {useRouter} from "next/navigation"
 export default function Home() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const router = useRouter()
+    
     return (
         <div className='w-screen min-h-screen bg-pagebg'>
             <div className='px-48 py-12'>

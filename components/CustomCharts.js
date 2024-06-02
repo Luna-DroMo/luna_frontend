@@ -12,8 +12,8 @@ Chart.register(annotationPlugin);
 export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk = [] }) {
     const chartContainer = useRef(null);
     
-    line.unshift(0)
-    deviation.unshift(0)
+    //line.unshift(0)
+    //deviation.unshift(0)
     
     const label = [''];
     
@@ -27,14 +27,14 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
         datasets: [
             {
                 label: 'Mean',
-                data: line,
+                data: [0].concat(line),
                 borderColor: "#5210DC",
                 backgroundColor: '#5210DC',
                 fill: false
             },
             {
                 label: 'Lower 75th Percentile',
-                data: Subtract(line, deviation),
+                data: [0].concat(Subtract(line, deviation)),
                 borderColor: "#969696",
                 borderWidth: 1,
                 backgroundColor: '#c9c9c9',
@@ -42,7 +42,7 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
             },
             {
                 label: 'Upper 75th Percentile',
-                data: Add(line, deviation),
+                data: [0].concat(Add(line, deviation)),
                 borderColor: "#969696",
                 borderWidth: 1,
                 backgroundColor: '#c9c9c9',
@@ -93,7 +93,7 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                     grid: {
                         display: false
                     },
-                    suggestedMax: 100,
+                    suggestedMax: 20,
                     min: 0,
                 },
                 x: {
@@ -135,8 +135,8 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                                     size: 8,
                                 }
                             },
-                            yMin: 80,
-                            yMax: 80,
+                            yMin: 18,
+                            yMax: 18,
                             borderColor: '#DC107E',
                             borderWidth: 2,
                             borderDash: [8],
