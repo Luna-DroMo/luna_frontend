@@ -88,7 +88,7 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                         display: true,
                     },
                     ticks: {
-                        display: false,
+                        display: true,
                     },
                     grid: {
                         display: false
@@ -435,8 +435,8 @@ export function Student_Feature_Chart({title, lines, labels}) {
                     grid: {
                         display: false
                     },
-                    suggestedMax: 5,
-                    min: -5,
+                    suggestedMax: 4,
+                    min: -4,
                 },
                 x: {
                     beginAtZero: false,
