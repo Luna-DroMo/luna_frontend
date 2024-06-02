@@ -1,25 +1,25 @@
-import {useState} from "react"
+import { useState } from "react"
 import axios from "axios"
-import {useRouter} from "next/router"
-import {useAuth} from "@/components/AuthProvider"
-import {url} from "@/utils/data"
+import { useRouter } from "next/router"
+import { useAuth } from "@/components/AuthProvider"
+import { url } from "@/utils/data"
 
 function SignUpForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [user_type, setUsertype] = useState("1")
-    const {saveUser, setUser} = useAuth()
+    const { saveUser, setUser } = useAuth()
     const [error, setError] = useState(null)
     const router = useRouter()
     console.log(user_type)
 
     const handleSignUp = async (e) => {
         e.preventDefault() // every time we submit, javascript wants to refresh. We stop this with this.
-        if (password !== confirmPassword){
+        if (password !== confirmPassword) {
             setError("Passwörter nicht gleich.")
             return;
-        }else{
+        } else {
             setError(null)
         }
         try {
@@ -37,7 +37,7 @@ function SignUpForm() {
 
             // Log user in
             try {
-                const response = await axios.post(`${url}/login`, {email, password})
+                const response = await axios.post(`${url}/login`, { email, password })
                 localStorage.setItem("token", response.data.token)
                 console.log(response.data.user)
                 saveUser(response.data.user)
@@ -85,7 +85,8 @@ function SignUpForm() {
                 />
                 <label
                     htmlFor='student'
-                    className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/3 rounded-l-xl p-3 peer-checked/student:bg-lunapurple peer-checked/student:text-white hover:bg-[#F7F3FE]'
+                    //className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/3 rounded-l-xl p-3 peer-checked/student:bg-lunapurple peer-checked/student:text-white hover:bg-[#F7F3FE]'
+                    className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/2 rounded-l-xl p-3 peer-checked/student:bg-lunapurple peer-checked/student:text-white hover:bg-[#F7F3FE]'
                 >
                     Student
                 </label>
@@ -100,11 +101,12 @@ function SignUpForm() {
                 />
                 <label
                     htmlFor='lecturer'
-                    className='text-center bg-[#FCFAFE] border-t border-b border-[#e5e7eb] w-1/3 p-3 peer-checked/lec:bg-lunapurple peer-checked/lec:text-white hover:bg-[#F7F3FE]'
+                    //className='text-center bg-[#FCFAFE] border-t border-b border-[#e5e7eb] w-1/3 p-3 peer-checked/lec:bg-lunapurple peer-checked/lec:text-white hover:bg-[#F7F3FE]'
+                    className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/2 rounded-r-xl p-3 peer-checked/admin:bg-lunapurple peer-checked/admin:text-white hover:bg-[#F7F3FE]'
                 >
                     Dozent
                 </label>
-
+                {/*
                 <input
                     onChange={(e) => setUsertype(e.target.value)}
                     id='admin'
@@ -118,7 +120,7 @@ function SignUpForm() {
                     className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/3 rounded-r-xl p-3 peer-checked/admin:bg-lunapurple peer-checked/admin:text-white hover:bg-[#F7F3FE]'
                 >
                     Verwaltung
-                </label>
+                </label>*/}
             </div>
 
             <legend className='mb-2'>Anmeldedaten:</legend>
