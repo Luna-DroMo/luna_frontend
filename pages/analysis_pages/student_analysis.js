@@ -123,7 +123,6 @@ export default function Analysis_Student() {
             <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
                 <div className='flex flex-row justify-between'>
                     <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
-                    <h3>{selectedModule.name}</h3>
                     <div id='Dropdown-container' className=''>
                         <Dropdown
                             header={
