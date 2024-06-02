@@ -1,5 +1,6 @@
 import RootLayout from "@/components/RootLayout.js"
 import Analysis_Student from "./analysis_pages/student_analysis"
+import Analysis_Lecturer from "./analysis_pages/lecturer_analysis"
 import { useState, useEffect, React } from "react"
 import { useAuth } from "../components/AuthProvider"
 import axios from "axios"

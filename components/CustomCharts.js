@@ -11,10 +11,13 @@ Chart.register(annotationPlugin);
 
 export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk = [] }) {
     const chartContainer = useRef(null);
+    
     line.unshift(0)
     deviation.unshift(0)
+    
     const label = [];
-    for (let i = 0; i <= line.length; i++) {
+    
+    for (let i = 0; i <= line.length + 3; i++) {
         label.push(`T${i}`);
     }
     
