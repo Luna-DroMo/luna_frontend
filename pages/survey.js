@@ -144,10 +144,10 @@ export default function Main() {
 
     useEffect(() => {
         const indicesToCheck = [
-            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-            [12, 13, 14, 15, 16, 17],
-            [18],
-            [19, 20, 21, 22, 23, 24, 25]
+            surveyQuestions[0].map(question => question.id),
+            surveyQuestions[1].map(question => question.id),
+            surveyQuestions[2].map(question => question.id),
+            surveyQuestions[3].map(question => question.id)
         ]
 
         const updatedBlockFilled = indicesToCheck.map((block) =>
@@ -309,6 +309,7 @@ export default function Main() {
                         </div>
                         {surveyQuestions[0].map((question, index) => (
                             <SurveyQuestion
+                                key={index}
                                 maintext={question.maintext}
                                 scale={4}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
@@ -352,6 +353,7 @@ export default function Main() {
 
                         {surveyQuestions[1].map((question, index) => (
                             <SurveyQuestion
+                                key={index}
                                 maintext={question.maintext}
                                 scale={4}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
@@ -394,6 +396,7 @@ export default function Main() {
 
                         {surveyQuestions[2].map((question, index) => (
                             <SurveyQuestion
+                                key={index}
                                 scale={4}
                                 maintext={question.maintext}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
@@ -434,6 +437,7 @@ export default function Main() {
                         </div>
                         {surveyQuestions[3].map((question, index) => (
                             <SurveyQuestion
+                                key={index}
                                 maintext={question.maintext}
                                 scale={4}
                                 onChange={(isChecked) => handleOptionChange(question.id, isChecked)}
