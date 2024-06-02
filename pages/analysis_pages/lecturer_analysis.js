@@ -7,7 +7,7 @@ import Overview from "@/components/SetupDataModelOverview"
 import { useState, useEffect, React } from "react"
 import { useAuth } from "../../components/AuthProvider"
 import axios from "axios"
-
+import { useRouter } from "next/navigation"
 import Dropdown from "@/components/Dropdown"
 import { LineChartWithDeviation, PieChart, ModuleDropoutRiskPlot, MultiLineChart } from "@/components/CustomCharts"
 import { url } from "@/utils/data"
@@ -27,6 +27,7 @@ export default function Analysis_Lecturer() {
     const [moduleResult, setModuleResult] = useState({})
     const [meanLine, setMeanLine] = useState([])
     const [stDev, setStDev] = useState([])
+    const [reloadFlag, setReloadFlag] = useState(false)
 
     const updateLoadingState = (index, newValue) => {
         setIsLoading(prevState => {
@@ -67,8 +68,8 @@ export default function Analysis_Lecturer() {
                     console.log(moduleResult)
                     setMeanLine(mean)
                     setStDev(stdev)
-                    console.log("MeanLine: ",meanLine)
-                    console.log("stDev: ",stDev)
+                    console.log("MeanLine: ", meanLine)
+                    console.log("stDev: ", stDev)
                     updateLoadingState(1, false)
                 } catch (error) {
                     console.log("Error->", error)
@@ -77,13 +78,18 @@ export default function Analysis_Lecturer() {
         }
 
         getModulesAndResults()
-    }, [user.id, selectedModule])
+    }, [user.id, selectedModule, reloadFlag])
 
 
     function handleSelectModule(moduleName) {
         const selected = modules.find((module) => module.name === moduleName)
-        setSelectedModule(selected)
         updateLoadingState(1, true)
+        if (selectedModule !== selected) {
+            setSelectedModule(selected)
+        }else{
+            // Just toggles in order to rerun getModulesAndResults useEffect
+            setReloadFlag(!reloadFlag)
+        }
     }
 
     if (isLoading.some(element => element === true)) {
