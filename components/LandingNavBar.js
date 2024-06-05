@@ -25,7 +25,7 @@ export default function Navbar({ theme }) {
                 </li>*/}
                 <li className='pl-10'>
                     <a href='/' className='flex items-center'>
-                        <Image src={logo_source} width={128} height={40} className='h-10 mr-5 my-3 inline-block' alt='logo' />
+                        <Image src={logo_source} width={128} height={40} className='h-10 mr-5 my-3 inline-block' alt='logo' priority/>
                     </a>
                 </li>
             </ul>
