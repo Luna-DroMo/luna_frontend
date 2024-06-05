@@ -21,8 +21,7 @@ export const metadata = {
 export default function App({Component, pageProps}) {
 
 
-  const NonPrivateRoutes = ["/","/register_account"];
-
+  const NonPrivateRoutes = ["/","/register_account","/external/FAQ","/external/kontakt","/external/about_us","/external/datenschutz"];
 
   return (
     <>
