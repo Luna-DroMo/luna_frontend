@@ -54,7 +54,6 @@ export default function Main() {
                     )
 
                     setModules(response.data)
-                    updateLoadingState(1,false)
                 }
             } catch (error) {
                 console.log("error during fetching modules", error)
@@ -62,6 +61,7 @@ export default function Main() {
         }
 
         getModules()
+        updateLoadingState(1,false)
     }, [router.query.id])
 
     console.log("UserID: ", user.id)
@@ -80,9 +80,11 @@ export default function Main() {
     })
 
     console.log(modules)
+    console.log(isLoading)
     if (isLoading.some(element => element === true)){
         return <RootLayout/>
     }
+
 
     return (
         <RootLayout>

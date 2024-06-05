@@ -43,9 +43,9 @@ export function StudentModuleTable({modules = []}) {
                 </h3>
                 <img src='satellite.png' className='w-24 m-auto mt-8' />
                 <p className='mt-8 text-lg'>
-                    Maybe you can find some{" "}
-                    <Link href='search' className='underline text-lunapurple'>
-                        here
+                     Verfügbare Module findest du{" "}
+                    <Link href='module_search' className='underline text-lunapurple'>
+                        hier
                     </Link>
                 </p>
             </div>
