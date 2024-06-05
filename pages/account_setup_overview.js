@@ -110,7 +110,7 @@ export default function Main() {
                             href='./registration_forms/AIST_input/'
                         ></Button>
 
-                        <a href='/' className='text-xs text-lightgrey mt-5 block hover:underline'>
+                        <a href='/cockpit' className='text-xs text-lightgrey mt-5 block hover:underline'>
                             <p>Ich habe gerade keine Zeit</p>
                         </a>
                     </div>
