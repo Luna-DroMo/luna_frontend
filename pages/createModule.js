@@ -47,7 +47,7 @@ export default function Main() {
     // Funky logic to only allow non-students to create modules, and to hide pre-rendering
 
     if (userRole === null) {
-        return <p> </p>
+        return <></>
     } else if (userRole === 1) {
         router.push("/cockpit/")
     } else {
@@ -138,13 +138,8 @@ export default function Main() {
                         />
 
                         <div className='flex justify-evenly w-3/5 mt-24'>
-                            <button
-                                onClick={(e) => {
-                                    router.reload()
-                                }}
-                                className='border border-lunapurple rounded-full w-44 h-10 px-4 text-lunapurple text-base leading-4 hover:border-lunagreen hover:bg-lunagreen'
-                            >
-                                Noch ein Modul erstellen
+                            <button onClick={(e) => window.location.reload()}className='border border-lunapurple rounded-xl w-44 h-10 px-4 text-lunapurple text-base leading-4 hover:border-lunagreen hover:bg-lunagreen'>
+                                Noch ein Module erstellen
                             </button>
                             <Button text='zum Cockpit' highlighted='True' href='/cockpit'></Button>
                         </div>
@@ -221,6 +216,7 @@ export default function Main() {
                                 />
                             </div>
 
+                            {/*
                             <div className='rounded-xl bg-white px-5 py-5 mb-4 hidden'>
                                 <InputRow
                                     type='dropdown'
@@ -246,11 +242,9 @@ export default function Main() {
                                     </p>
                                 </div>
                                 <hr className='mt-5 border-lightgrey' />
-                                {/* <div>
-                                    <p>NEEDS TO BE IMPLEMENTED</p>
-                                </div> */}
+                                
                             </div>
-
+                                */}
                             <div className='rounded-xl bg-white px-5 py-5 mb-4 hidden'>
                                 <InputRow
                                     type='checkbox'
@@ -273,7 +267,7 @@ export default function Main() {
                                 />
                             </div>
                             <div className='flex justify-evenly w-3/5 mt-24'>
-                                <FormButton text='Abbrechen' onClick={(e) => router.push('./cockpit')}/>
+                                <FormButton text='Abbrechen' onClick={(e) => router.push('./cockpit')} />
                                 <FormButton
                                     text='Modul Erstellen'
                                     highlighted='true'
