@@ -15,7 +15,7 @@ import { hasNullValue } from "@/utils/utils"
 import { useEffect } from "react"
 import { url } from "@/utils/data"
 
-const AIST_questions = [
+const questions = [
     { id: 1, question: "Mit Maschinen oder technischen Geräten arbeiten", subtitle: "" },
     { id: 2, question: "In einem Versuchslabor Experimente durchführen", subtitle: "" },
     {
@@ -119,6 +119,15 @@ export default function Main({ model }) {
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
+        const unansweredQuestions = questions.filter(
+            (question) => !request.some((response) => response.question_id === question.id)
+        )
+
+        if (unansweredQuestions.length > 0) {
+            setErrorMessage("Bitte alle Fragen beantworten.")
+            return
+        }
+
         try {
             const response = await axios.post(`${url}/api/${user.id}/forms/3`, request)
 
@@ -171,7 +180,7 @@ export default function Main({ model }) {
                                 </p>
                             </div>
                         </div>
-                        {AIST_questions.map((question, index) => {
+                        {questions.map((question, index) => {
                             return (
                                 <>
                                     <InputRow
