@@ -21,6 +21,9 @@ export default function Main() {
     const [backgroundStatus, setBackgroundStatus] = useState({})
     const [enrichedDataModels, setEnrichedDataModels] = useState([])
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const [userInfo, setUserInfo] = useState()
+    const [isLoading, setIsLoading] = useState(true)
+    
 
     // Packages defined below
     const router = useRouter()
@@ -40,6 +43,10 @@ export default function Main() {
                 const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
                 const {completed_forms, not_completed_forms} = backgroundStatusResponse.data
 
+                const userInfoResponse = await axios.get(`${url}/api/${user.id}/info`)
+                console.log("rawInfo: ",userInfoResponse.data)
+                setUserInfo(userInfoResponse.data)
+                setIsLoading(false)
                 // Enrich data_models_to_use with resolution status
                 const enrichedModels = data_models_to_use.map((model) => {
                     let status = "" // DefAult status
@@ -62,7 +69,6 @@ export default function Main() {
         fetchData()
     }, [user.id])
 
-    console.log(typeof backgroundStatus.personal_onboarding)
 
     useEffect(() => {
         if (backgroundStatus.personal_info === "not_completed") {
@@ -82,8 +88,8 @@ export default function Main() {
         }
     }, [backgroundStatus, enrichedDataModels, router])
 
-    if (userRole === null) {
-        return <p> </p>
+    if (isLoading) {
+        return <RootLayout />
     } else if (userRole !== 1) {
         router.push("/cockpit/")
     } else {
@@ -95,7 +101,7 @@ export default function Main() {
                 percentage={backgroundStatus.percentage}
             >
                 <main className='flex-row justify-between px-10 pt-10'>
-                    <Greeting user={user} account_setup_progress={account_setup_progress} />
+                    <Greeting userData={userInfo} account_setup_progress={account_setup_progress} />
                     <div className=' my-10  w-full text-center'>
                         <h1 className='mb-5 text-2xl'>Prozess jetzt starten!</h1>
                         <Button
@@ -116,14 +122,15 @@ export default function Main() {
     }
 }
 
-function Greeting({user, account_setup_progress}) {
+function Greeting({userData, account_setup_progress}) {
+    
     if (account_setup_progress == 0) {
         return (
             <>
                 <div className='flex items-center'>
                     <img src='alien.png' className='ml-2 w-10 mr-4' />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {user.first_name}, willkommen bei Luna!
+                        Hey {userData.nickname.length > 0 ? userData.nickname : useData.first_name}, willkommen bei Luna!
                     </h1>
                 </div>
                 <div className='text-text-grey text-sm mt-5'>
