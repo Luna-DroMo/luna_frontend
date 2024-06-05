@@ -21,23 +21,34 @@ export default function Cockpit_student() {
     const [backgroundStatus, setBackgroundStatus] = useState()
     const [isLoading, setIsLoading] = useState(true)
     const [userInfo, setUserInfo] = useState()
+    const [setupComplete, setSetupComplete] = useState()
 
     useEffect(() => {
-        const makeAPICalls = async (e) => {
+        const makeAPICalls = async () => {
             try {
-                const response = await axios.get(`${url}/api/student/${user.id}/modules`)
-                const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
-                const userInfo = await axios.get(`${url}/api/${user.id}/info`)
-                setModules(response.data)
-                setBackgroundStatus(backgroundStatusResponse.data)
-                setUserInfo(userInfo.data)
-                setIsLoading(false)
+                const response = await axios.get(`${url}/api/student/${user.id}/modules`);
+                const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`);
+                const userInfo = await axios.get(`${url}/api/${user.id}/info`);
+    
+                setModules(response.data);
+                setBackgroundStatus(backgroundStatusResponse.data);
+                setUserInfo(userInfo.data);
+                setIsLoading(false);
+    
+                const requiredForms = ['AIST', 'Motivation', 'Panas'];
+                const completedForms = backgroundStatusResponse.data.completed_forms || []; // Ensure completed_forms is an array
+                const hasAllRequiredForms = requiredForms.every(form => completedForms.includes(form));
+    
+                setSetupComplete(hasAllRequiredForms);
+                
             } catch (error) {
-                console.log("error during login", error)
+                console.log("Error during API calls:", error);
             }
-        }
-        makeAPICalls()
-    }, [])
+        };
+    
+        makeAPICalls();
+    }, []);
+    
 
 
     const filterByEndDate = (array) => {
@@ -51,17 +62,23 @@ export default function Cockpit_student() {
 
    
    let activeModules = filterByEndDate(modules)
+
+    
+
+    
+
    //
-    console.log(backgroundStatus)
+    
     // Ensure data is called first
     if (isLoading) {
         return <RootLayout show_billboard={true} />
     }
 
+    console.log("setup: ", setupComplete)
     return (
         <RootLayout show_billboard={true}>
             <main className='flex-row justify-between px-10 pt-10'>
-                {backgroundStatus?.form_status === "completed" ? null : <SignupReminderBanner />}
+                {setupComplete ? null : <SignupReminderBanner />}
 
                 <div className='flex items-center'>
                     <img
