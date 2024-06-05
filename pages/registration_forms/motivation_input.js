@@ -150,7 +150,7 @@ export default function motivation_input({model}) {
         )
 
         if (unansweredQuestions.length > 0) {
-            setErrorMessage("Please answer all the questions before submitting.")
+            setErrorMessage("Bitte alle Fragen beantworten.")
             return
         }
 

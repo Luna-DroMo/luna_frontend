@@ -105,6 +105,16 @@ export default function Main({ model }) {
 
     const handleFormSubmission = async (e) => {
         e.preventDefault()
+
+        const unansweredQuestions = questions.filter(
+            (question) => !request.some((response) => response.question_id === question.id)
+        )
+
+        if (unansweredQuestions.length > 0) {
+            setErrorMessage("Bitte alle Fragen beantworten.")
+            return
+        }
+
         try {
             const response = await axios.post(`${url}/api/${user.id}/forms/9`, request)
 
