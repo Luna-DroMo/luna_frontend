@@ -203,6 +203,7 @@ function TableRow({
                                 {`Ich möchte ${name} `}<span className="underline">endgültig</span> löschen
                             </button>
                         </div>
+                        <p className='mt-4'>Diese seite wird noch ausgebaut. Künftig werden sich alle Verwaltungseigenschaften hier befinden</p>
                     </td>
                 </tr>
             ) : null}

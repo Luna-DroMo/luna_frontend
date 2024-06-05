@@ -51,8 +51,8 @@ export default function Cockpit_student() {
 
    
    let activeModules = filterByEndDate(modules)
-   console.log(userInfo)
-
+   //
+    console.log(backgroundStatus)
     // Ensure data is called first
     if (isLoading) {
         return <RootLayout show_billboard={true} />
@@ -61,7 +61,7 @@ export default function Cockpit_student() {
     return (
         <RootLayout show_billboard={true}>
             <main className='flex-row justify-between px-10 pt-10'>
-                {backgroundStatus?.personal_info === "completed" ? null : <SignupReminderBanner />}
+                {backgroundStatus?.form_status === "completed" ? null : <SignupReminderBanner />}
 
                 <div className='flex items-center'>
                     <img
