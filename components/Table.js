@@ -134,7 +134,7 @@ export function LecturerModuleTable({modules = []}) {
 
 function TableRowLec({module}) {
     const nextsurveypublished = new Date(module.nextsurveypublished)
-    console.log(module)
+    
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
@@ -195,7 +195,7 @@ function StatusElement({nextsurveyduedate}) {
         icon = faCircleReg
     } else if (daysDifference >= 0) {
         bgColorClass = "urgent"
-        text = `Fällig in ${daysDifference} Tagen`
+        text = `Fällig in ${daysDifference} Tag${daysDifference === 1 ? '' : 'en'}`
         icon = faCircleReg
     } else {
         bgColorClass = "urgent"
