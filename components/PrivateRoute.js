@@ -7,11 +7,11 @@ export default function PrivateRoute({ publicroutes, children }) {
   const router = useRouter();
   const { isAuthenticated, isLoading, clearUser } = useAuth();
 
-  console.log("Logged in? ", isAuthenticated)
+  //console.log("Logged in? ", isAuthenticated)
   // if url is not in public routes, then it is protected
   const pathIsProtected = !publicroutes.includes(router.pathname);
  
-  console.log("Protected Path: ", pathIsProtected)
+  //console.log("Protected Path: ", pathIsProtected)
   useEffect(() => {
     if (!isLoading && !isAuthenticated && pathIsProtected) {
       // Redirect route, you can point this to /login
