@@ -22,11 +22,9 @@ export default function Navbar({theme}) {
                     <a href='#'>Datenschutz</a>
                 </li>
                 <li className='pl-10'>
-                    <a href='#' className="flex items-center">
+                    <a href='/cockpit' className='flex items-center'>
                         <img src={logo_source} className='h-10 inline-block' alt='logo' />
-                                               
                     </a>
-                    
                 </li>
             </ul>
         </div>

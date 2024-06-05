@@ -15,7 +15,7 @@ import Link from "next/link"
 import {useAuth} from "@/components/AuthProvider"
 
 const main_links = [
-   // {href: "/account_setup_overview/", icon: faUserAstronaut, text: "Hintergrund"},
+    // {href: "/account_setup_overview/", icon: faUserAstronaut, text: "Hintergrund"},
     {href: "/cockpit/", icon: faSatellite, text: "Übersicht"},
     {href: "/analysis/", icon: faMeteor, text: "Analysen"}
 ]
@@ -36,8 +36,9 @@ export default function Sidebar({show_main_links, show_billboard, show_progress_
             >
                 <div className='flex flex-col justify-between h-full p-6'>
                     <div className='flex items-center p-5 mb-2 mt-5'>
-                        <img src='/Logo.png' className='inline-block w-32' />
-                        
+                        <a href='/cockpit'>
+                            <img src='/Logo.png' className='inline-block w-32' />
+                        </a>
                     </div>
                     <SidebarContent
                         show_billboard={show_billboard}
