@@ -179,7 +179,7 @@ function StatusElement({nextsurveyduedate}) {
     const timeDifference = dueDate - currentDate
 
     // Calculate the number of days between the two dates
-    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) - 1 
 
     if (nextsurveyduedate === null) {
         bgColorClass = "uptodate"
