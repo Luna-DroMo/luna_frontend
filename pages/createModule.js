@@ -188,8 +188,8 @@ export default function Main() {
                                     type='password'
                                     maintext='Passwort wiederholen'
                                     subtitle={modulePassword !== modulePassword_val && modulePassword_val.length >= 4 ?
-                                        <div className="text-lunared">Passwörter stimmen nicht überein!</div>
-                                        : <div> &nbsp; </div>
+                                        <span className="text-lunared">Passwörter stimmen nicht überein!</span>
+                                        : <span> &nbsp; </span>
                                     }
                                     onChange={(e) => {
                                         setModulePassword_val(e.target.value)

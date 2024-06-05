@@ -72,6 +72,7 @@ export default function Main() {
     if (isLoading){
         return <RootLayout />
     }
+    console.log(modules)
     return (
         <RootLayout>
             <main className='flex-row justify-between px-10 pt-10'>
@@ -156,6 +157,7 @@ function TableRow({
             console.log("Error", e)
         }
     }
+    console.log(startDate)
     return (
         <>
             <tr
