@@ -24,12 +24,12 @@ export default function Home() {
                     <div className='flex-1 items-center space-x-12'>
                         <div id='left-container' className='mx-auto pt-32'>
                             <h1 className=' text-4xl text-lightgrey tracking-wider'>
-                                Get real time <span className='text-lunapurple'>feedback</span>,{" "}
+                            Erhalte Echtzeit-<span className='text-lunapurple'>Feedback</span>,{" "}
                             </h1>
                             <h1 className=' text-4xl text-lightgrey tracking-wider'>
-                                <span className='text-lunapurple'>prevent</span> and{" "}
-                                <span className='text-lunapurple'>predict</span> student dropout and
-                                reach new heights with{" "}
+                                <span className='text-lunapurple'>verhindere</span> und sage den Studienabbruch {" "}
+                                <span className='text-lunapurple'>voraus</span> {" "}
+                                und erreiche neue Höhen mit{" "}
                                 <span className='text-lunapurple'>Luna!</span>{" "}
                             </h1>
 
