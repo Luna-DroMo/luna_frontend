@@ -13,6 +13,7 @@ import axios from "axios"
 import {useRouter} from "next/router"
 import {useAuth} from "@/components/AuthProvider"
 import {url} from "@/utils/data"
+import { getNextWeekdayDate } from "@/utils/utils"
 
 export default function Main() {
     const [userId, setUserId] = useState(null)
@@ -151,11 +152,12 @@ function TableRow({
 }) {
 
     const [module, setModule] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const makeAPICalls = async (e) => {
             //e.preventDefault()
-
+            
             try {
                 const response = await axios.get(`${url}/api/module/${id}`)
                 //const userInfo = await axios.get(`${url}/api/${user.id}/info`)
@@ -164,6 +166,7 @@ function TableRow({
             } catch (error) {
                 console.log("error during API call", error)
             }
+            setIsLoading(false)
         }
 
         makeAPICalls()
@@ -172,14 +175,27 @@ function TableRow({
 
     console.log(module)
     const handleModuleDeletion = async () => {
+        
         try {
             const response = await axios.post(`${url}/api/${user.id}/module/${id}/delete`)
             window.location.reload();
         } catch (e) {
             console.log("Error", e)
         }
+        
     }
-    console.log(startDate)
+    let next_sy = null;
+
+    if (isLoading){
+        return (<></>)
+    }
+
+    if (module){
+        
+        next_sy = getNextWeekdayDate(module.survey_days,module.end_date)
+        console.log(next_sy.toString())
+    }
+    
     return (
         <>
             <tr
@@ -216,12 +232,16 @@ function TableRow({
                             <p>Start: {module.start_date}</p>
                             <p>Ende: {module.end_date}</p>
                         </div>
-                        <div className="mt-2">
-                            <p>Anzahl Studierende: {module.count_students}</p>
+                        <div className="mt-2 flex">
+                            <p className="mr-5">Anzahl Studierende: </p><p>{module.count_students}</p>
                         </div>
-                        <div className="mt-2">
-                            <p>Module Passwort: {module.password}</p>
+                        <div className="mt-2 flex">
+                            <p className="mr-5">Module Passwort:</p><p>{module.password}</p>
                         </div>
+                        <div className="mt-2 flex">
+                            <p className="mr-5">Nächste Befragung am:</p><p> {next_sy}</p>
+                        </div>
+                        
                         <p className='mt-4'>Modul Löschen</p>
                         <div>
                             <button
