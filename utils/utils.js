@@ -42,3 +42,24 @@ export function isEmpty(obj) {
   
     return true;
   }
+
+export function getNextWeekdayDate(targetWeekday, maxDateStr){
+    const currentDate = new Date();
+    const maxDate = new Date(maxDateStr)
+
+    const dayInMilliseconds = 24 * 60 * 60 * 1000;
+    let nextDate = new Date(currentDate);
+  
+    // Calculate days until the next target weekday
+    const daysUntilNextTarget = (+targetWeekday + 7 - currentDate.getDay()) % 7;
+    
+    // If the target weekday is today, set it to the next occurrence
+    nextDate.setDate(currentDate.getDate() + (daysUntilNextTarget || 7));
+  
+    // Check if the calculated date is beyond the specified maximum date
+    if (maxDate && nextDate > maxDate) {
+      return maxDate.toString(); // or handle this case as needed
+    }
+  
+    return nextDate.toString();
+  };
