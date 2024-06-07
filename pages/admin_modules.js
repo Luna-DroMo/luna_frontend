@@ -69,6 +69,8 @@ export default function Main() {
         router.push("./cockpit")
     }
 
+    console.log(modules)
+
     if (isLoading){
         return <RootLayout />
     }
@@ -147,8 +149,28 @@ function TableRow({
     startDate,
     endDate
 }) {
-    
 
+    const [module, setModule] = useState()
+
+    useEffect(() => {
+        const makeAPICalls = async (e) => {
+            //e.preventDefault()
+
+            try {
+                const response = await axios.get(`${url}/api/module/${id}`)
+                //const userInfo = await axios.get(`${url}/api/${user.id}/info`)
+                setModule(response.data)
+                //setUserInfo(userInfo.data)
+            } catch (error) {
+                console.log("error during API call", error)
+            }
+        }
+
+        makeAPICalls()
+        
+    }, [])
+
+    console.log(module)
     const handleModuleDeletion = async () => {
         try {
             const response = await axios.post(`${url}/api/${user.id}/module/${id}/delete`)
@@ -191,8 +213,14 @@ function TableRow({
                 <tr>
                     <td colSpan='6' className='px-10 py-4 bg-[#EEEDF1]'>
                         <div>
-                            <p>Start: {startDate}</p>
-                            <p>Ende: {endDate}</p>
+                            <p>Start: {module.start_date}</p>
+                            <p>Ende: {module.end_date}</p>
+                        </div>
+                        <div className="mt-2">
+                            <p>Anzahl Studierende: {module.count_students}</p>
+                        </div>
+                        <div className="mt-2">
+                            <p>Module Passwort: {module.password}</p>
                         </div>
                         <p className='mt-4'>Modul Löschen</p>
                         <div>
