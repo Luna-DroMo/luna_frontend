@@ -13,7 +13,7 @@ import axios from "axios"
 import {useRouter} from "next/router"
 import {useAuth} from "@/components/AuthProvider"
 import {url} from "@/utils/data"
-import { getNextWeekdayDate } from "@/utils/utils"
+import { getNextWeekdayDate, basicDateFormat } from "@/utils/utils"
 
 export default function Main() {
     const [userId, setUserId] = useState(null)
@@ -193,7 +193,7 @@ function TableRow({
     if (module){
         
         next_sy = getNextWeekdayDate(module.survey_days,module.end_date)
-        console.log(next_sy.toString())
+        
     }
     
     return (
@@ -239,7 +239,7 @@ function TableRow({
                             <p className="mr-5">Module Passwort:</p><p>{module.password}</p>
                         </div>
                         <div className="mt-2 flex">
-                            <p className="mr-5">Nächste Befragung am:</p><p> {next_sy}</p>
+                            <p className="mr-5">Nächste Befragung am:</p><p> {basicDateFormat(next_sy)}</p>
                         </div>
                         
                         <p className='mt-4'>Modul Löschen</p>
