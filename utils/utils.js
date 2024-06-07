@@ -58,8 +58,16 @@ export function getNextWeekdayDate(targetWeekday, maxDateStr){
   
     // Check if the calculated date is beyond the specified maximum date
     if (maxDate && nextDate > maxDate) {
-      return maxDate.toString(); // or handle this case as needed
+      const next_survey_date = maxDate; // or handle this case as needed
     }
   
-    return nextDate.toString();
+    const next_survey_date =  nextDate;
+
+    const day = String(next_survey_date.getDate());
+    const month = String(next_survey_date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = next_survey_date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
+
+
+  
