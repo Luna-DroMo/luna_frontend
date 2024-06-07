@@ -247,7 +247,7 @@ export default function Main() {
                                 */}
                             <div className='rounded-xl bg-white px-5 py-5 mb-4 hidden'>
                                 <InputRow
-                                    type='checkbox'
+                                    type='radio'
                                     options={["MO", "DI", "MI", "DO", "FR", "SA", "SO"]}
                                     maintext='Bitte die Tage wählen, an denen die Befragungen stattfinden sollen. '
                                     subtitle='Jede einzelne Befragung ist für 3 Tagen aktiv.'
