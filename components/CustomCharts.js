@@ -449,8 +449,8 @@ export function Student_Feature_Chart({title, lines, labels}) {
                     grid: {
                         display: false
                     },
-                    suggestedMax: 4,
-                    min: -4,
+                    suggestedMax: 3,
+                    min: -3,
                 },
                 x: {
                     beginAtZero: false,
