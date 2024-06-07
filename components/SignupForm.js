@@ -102,7 +102,7 @@ function SignUpForm() {
                 <label
                     htmlFor='lecturer'
                     //className='text-center bg-[#FCFAFE] border-t border-b border-[#e5e7eb] w-1/3 p-3 peer-checked/lec:bg-lunapurple peer-checked/lec:text-white hover:bg-[#F7F3FE]'
-                    className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/2 rounded-r-xl p-3 peer-checked/admin:bg-lunapurple peer-checked/admin:text-white hover:bg-[#F7F3FE]'
+                    className='text-center bg-[#FCFAFE] border border-[#e5e7eb] w-1/2 rounded-r-xl p-3 peer-checked/lec:bg-lunapurple peer-checked/lec:text-white hover:bg-[#F7F3FE]'
                 >
                     Dozent
                 </label>
