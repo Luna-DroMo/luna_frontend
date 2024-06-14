@@ -1,10 +1,11 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faCircle as faCircleSolid, faXmarkCircle} from "@fortawesome/free-solid-svg-icons"
-import {faCircle as faCircleReg} from "@fortawesome/free-regular-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCircle as faCircleSolid, faXmarkCircle } from "@fortawesome/free-solid-svg-icons"
+import { faCircle as faCircleReg } from "@fortawesome/free-regular-svg-icons"
+import { ClassLogo } from "./small_components"
 import React from "react"
 import Link from "next/link"
 
-export function StudentModuleTable({modules = []}) {
+export function StudentModuleTable({ modules = [] }) {
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
@@ -43,7 +44,7 @@ export function StudentModuleTable({modules = []}) {
                 </h3>
                 <img src='satellite.png' className='w-24 m-auto mt-8' />
                 <p className='mt-8 text-lg'>
-                     Verfügbare Module findest du{" "}
+                    Verfügbare Module findest du{" "}
                     <Link href='module_search' className='underline text-lunapurple'>
                         hier
                     </Link>
@@ -52,14 +53,16 @@ export function StudentModuleTable({modules = []}) {
         )
     }
 }
-function TableRowStudent({module}) {
+function TableRowStudent({ module }) {
     const nextsurveypublished = new Date(module.next_survey_date)
     console.log(nextsurveypublished)
 
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
-            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                <img src='moon.png' className='w-8 m-0 p-0 inline-block' />
+            <td className='text-[#4a4a4a] text-base tracking-wide flex justify-center'>
+                
+                <ClassLogo text={module.name} />
+            
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.code}</td>
             <td className='text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap'>
@@ -83,7 +86,7 @@ function TableRowStudent({module}) {
     )
 }
 
-export function LecturerModuleTable({modules = []}) {
+export function LecturerModuleTable({ modules = [] }) {
     if (modules.length > 0) {
         return (
             <div className='rounded-xl overflow-hidden  mt-4'>
@@ -98,7 +101,7 @@ export function LecturerModuleTable({modules = []}) {
                 <table className='table-auto w-full rounded-xl text-left'>
                     <thead className='bg-[#f7f7f7] text-lunapurple h-8 text-base'>
                         <tr className='text-left border-none'>
-                            <th className=''> </th>
+                            <th className='w-24'> </th>
                             <th className=''>Modul ID</th>
                             <th className=''>Modul</th>
                             <th className=''>Umfragestatus</th>
@@ -133,13 +136,15 @@ export function LecturerModuleTable({modules = []}) {
     }
 }
 
-function TableRowLec({module}) {
+function TableRowLec({ module }) {
     const nextsurveypublished = new Date(module.nextsurveypublished)
-    
+
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
-            <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                <img src='moon.png' className='w-8 m-0 p-0 inline-block' />
+            <td className='text-[#4a4a4a] text-base tracking-wide flex justify-center'>
+                
+                    <ClassLogo text={module.name} />
+                
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide w-24'>{module.code}</td>
             <td className='text-[#4a4a4a] text-base tracking-wide max-w-72 overflow-hidden overflow-ellipsis whitespace-nowrap'>
@@ -153,7 +158,7 @@ function TableRowLec({module}) {
                 </div>
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                {formatDate("2025-01-01")}
+                {formatDate(module.next_survey_date)}
             </td>
             {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
                 <a
@@ -168,7 +173,7 @@ function TableRowLec({module}) {
 }
 
 // Sets the text and the colour of the Survey Status
-function StatusElement({nextsurveyduedate}) {
+function StatusElement({ nextsurveyduedate }) {
     let bgColorClass
     let text
     let icon
@@ -180,7 +185,7 @@ function StatusElement({nextsurveyduedate}) {
     const timeDifference = dueDate - currentDate
 
     // Calculate the number of days between the two dates
-    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) - 1 
+    const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) - 1
 
     if (nextsurveyduedate === null) {
         bgColorClass = "uptodate"
