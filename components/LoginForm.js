@@ -15,14 +15,7 @@ function LoginForm({isLoading, setIsLoading}) {
         setIsLoading(true)
         try {
             const response = await axios.post(`${url}/login`, {email, password})
-            console.log("logged in")
-            console.log(response.data)
             saveUser(response.data.user, response.data.token)
-            
-            // Assuming the token is set in a secure, HttpOnly cookie by the server.
-
-            // Redirect using Next.js Router
-            console.log("redirecting")
             router.push("/cockpit")
         } catch (error) {
             console.log("error during login")
@@ -42,6 +35,7 @@ function LoginForm({isLoading, setIsLoading}) {
                     onChange={(e) => setEmail(e.target.value)}
                     className='p-6 text-base border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
                     required
+                    
                 />
 
                 <input
@@ -53,12 +47,14 @@ function LoginForm({isLoading, setIsLoading}) {
                     onChange={(e) => setPassword(e.target.value)}
                     className='flex-auto text-base p-6 border border-lightgrey placeholder-text-grey rounded-lg h-4 tracking-wider'
                     required
+                  
                 />
                 <button
                     type='submit'
                     className='flex-auto text-black text-base bg-lunapurple px-12 py-2 rounded-lg text-white hover:bg-lunagreen'
                 >
-                    Anmelden
+                    { !isLoading ? 
+                     "Anmelden"  : "Take off!"} 
                 </button>
             </div>
             <div className='mt-4'>

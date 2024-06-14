@@ -1,10 +1,10 @@
 import Image from "next/image"
 import LoginForm from "@/components/LoginForm"
 import Navbar from "@/components/LandingNavBar"
-import {useAuth} from "@/components/AuthProvider"
-import {useState} from "react"
-import {useEffect} from "react"
-import {useRouter} from "next/navigation"
+import { useAuth } from "@/components/AuthProvider"
+import { useState } from "react"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import LoadingAnimation from "@/components/LoadingAnimation"
 
 /*
@@ -14,10 +14,10 @@ import LoadingAnimation from "@/components/LoadingAnimation"
 */
 
 export default function Home() {
-    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
+    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
-    
+
     //if (isLoading){
     //    return (<LoadingAnimation/>)
     //}
@@ -26,21 +26,20 @@ export default function Home() {
             <div className='px-48 py-12'>
                 <Navbar theme='dark' />
                 <div className='flex space-x-12 items-center'>
-                    <div className='flex-1 items-center space-x-12'>
+                    <div className='flex-1 items-center space-x-1'>
                         <div id='left-container' className='mx-auto pt-32'>
-                            <h1 className=' text-4xl text-lightgrey tracking-wider'>
-                            Erhalte Echtzeit-<span className='text-lunapurple'>Feedback</span>,{" "}
+                            <h1 className='text-4xl text-lightgrey tracking-wider'>
+                                Erreiche neue Höhen mit <span className='text-lunapurple'>Luna!</span>{" "}
                             </h1>
-                            <h1 className=' text-4xl text-lightgrey tracking-wider'>
-                                <span className='text-lunapurple'>verhindere</span> und sage den Studienabbruch {" "}
-                                <span className='text-lunapurple'>voraus</span> {" "}
-                                und erreiche neue Höhen mit{" "}
-                                <span className='text-lunapurple'>Luna!</span>{" "}
+                            <h1 className='text-2xl text-lightgrey tracking-wider'>
+                                Erhalte <span className='text-lunapurple'>Echtzeit-Feedback</span>,{" "}
+                                <span className='text-lunapurple'>sage</span> den Studienabbruch <span className='text-lunapurple'>voraus</span> und steigere die <span className='text-lunapurple'>Studierendenbindung</span> und <span className='text-lunapurple'>Zufriedenheit</span>.
                             </h1>
 
+
                             {/* Your content */}
-                            {(!isAuthenticated || isLoading) &&  <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />}
-                            
+                            {(!isAuthenticated || isLoading) && <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />}
+
                             {(isAuthenticated && !isLoading) &&
                                 <div className='mt-4 w-full rounded'>
                                     <div className='flex w-full space-x-4'>
