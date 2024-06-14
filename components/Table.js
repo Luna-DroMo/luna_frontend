@@ -53,7 +53,8 @@ export function StudentModuleTable({modules = []}) {
     }
 }
 function TableRowStudent({module}) {
-    const nextsurveypublished = new Date(module.nextsurveypublished)
+    const nextsurveypublished = new Date(module.next_survey_date)
+    console.log(nextsurveypublished)
 
     return (
         <tr className='items-center h-12 odd:bg-white even:bg-[#fafafa] hover:bg-[#f0f0f0]'>
@@ -68,7 +69,7 @@ function TableRowStudent({module}) {
                 <StatusElement nextsurveyduedate={module.survey_end_date} />
             </td>
             <td className='text-[#4a4a4a] text-base tracking-wide text-center'>
-                {formatDate(module.survey_end_date)}
+                {formatDate(module.next_survey_date)}
             </td>
             {/*<td className='text-[#4a4a4a] text-base tracking-wide'>
                 <a
