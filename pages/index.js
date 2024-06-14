@@ -5,6 +5,7 @@ import {useAuth} from "@/components/AuthProvider"
 import {useState} from "react"
 import {useEffect} from "react"
 import {useRouter} from "next/navigation"
+import LoadingAnimation from "@/components/LoadingAnimation"
 
 /*
 
@@ -15,7 +16,11 @@ import {useRouter} from "next/navigation"
 export default function Home() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
     
+    //if (isLoading){
+    //    return (<LoadingAnimation/>)
+    //}
     return (
         <div className='w-screen min-h-screen bg-pagebg'>
             <div className='px-48 py-12'>
@@ -34,8 +39,9 @@ export default function Home() {
                             </h1>
 
                             {/* Your content */}
-                            {!isAuthenticated && <LoginForm />}
-                            {isAuthenticated && (
+                            {(!isAuthenticated || isLoading) &&  <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />}
+                            
+                            {(isAuthenticated && !isLoading) &&
                                 <div className='mt-4 w-full rounded'>
                                     <div className='flex w-full space-x-4'>
                                         <a
@@ -46,7 +52,7 @@ export default function Home() {
                                         </a>
                                     </div>
                                 </div>
-                            )}
+                            }
                         </div>
                     </div>
                     <div className='flex-1 flex items-center h-full'>

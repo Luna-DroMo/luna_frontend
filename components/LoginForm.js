@@ -4,7 +4,7 @@ import {useRouter} from "next/router"
 import {useAuth} from "@/components/AuthProvider"
 import {url} from "@/utils/data"
 
-function LoginForm() {
+function LoginForm({isLoading, setIsLoading}) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const {saveUser, setError} = useAuth()
@@ -12,11 +12,13 @@ function LoginForm() {
 
     const handleLogin = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         try {
             const response = await axios.post(`${url}/login`, {email, password})
             console.log("logged in")
             console.log(response.data)
             saveUser(response.data.user, response.data.token)
+            
             // Assuming the token is set in a secure, HttpOnly cookie by the server.
 
             // Redirect using Next.js Router
@@ -25,6 +27,7 @@ function LoginForm() {
         } catch (error) {
             console.log("error during login")
         }
+        
     }
 
     return (
