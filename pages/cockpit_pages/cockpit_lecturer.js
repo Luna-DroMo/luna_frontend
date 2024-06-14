@@ -66,7 +66,7 @@ export default function cockpit_lecturer() {
                 <div className='mt-8 flex space-x-2 mb-12'>
                     <div className='flex-1 items-center rounded-xl p-2 bg-lightpurple pl-6'>
                         <div className='flex items-center'>
-                            <div className='metric my-1 bg-lunapurple w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
+                            <div className='metric my-1 bg-lunapurple w-12 h-12 flex items-center justify-center rounded-full text-white mr-4'>
                                 {modules.length}
                             </div>
                             <div className='metric-text tracking-wider '>
@@ -76,7 +76,7 @@ export default function cockpit_lecturer() {
                     </div>
                     <div className='flex-1 items-center rounded-xl p-2 bg-lightgreen pl-6'>
                         <div className='flex items-center'>
-                            <div className='metric my-1 bg-green w-12 h-12 flex items-center justify-center rounded-full bg-blue-500 text-white mr-4'>
+                            <div className='metric my-1 bg-green w-12 h-12 flex items-center justify-center rounded-full text-white mr-4'>
                                 {Math.round(avg_response_rate * 100)}%
                             </div>
                             <div className='metric-text tracking-wider '>
