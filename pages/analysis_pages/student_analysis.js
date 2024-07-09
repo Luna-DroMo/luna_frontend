@@ -2,24 +2,24 @@ import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import { Button } from "@/components/Buttons"
+import {Button} from "@/components/Buttons"
 import Overview from "@/components/SetupDataModelOverview"
-import { useState, useEffect, React } from "react"
-import { useAuth } from "../../components/AuthProvider"
+import {useState, useEffect, React} from "react"
+import {useAuth} from "../../components/AuthProvider"
 import axios from "axios"
 
 import Dropdown from "@/components/Dropdown"
-import { PieChart, Student_Feature_Chart } from "@/components/CustomCharts"
-import { url } from "@/utils/data"
-import { isEmpty } from "@/utils/utils"
+import {PieChart, Student_Feature_Chart} from "@/components/CustomCharts"
+import {url} from "@/utils/data"
+import {isEmpty} from "@/utils/utils"
 const processModuleResults = (moduleResults) => {
     const mean = moduleResults.map((result) => result.mean)
     const stdev = moduleResults.map((result) => result.stdev)
-    return { mean, stdev }
+    return {mean, stdev}
 }
 
 export default function Analysis_Student() {
-    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
+    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userRole, setUserRole] = useState(null)
     const [isLoading, setIsLoading] = useState([true, true]) // extend for number of API calls
     const [modules, setModules] = useState([])
@@ -30,12 +30,12 @@ export default function Analysis_Student() {
     const [reloadFlag, setReloadFlag] = useState(false)
 
     const updateLoadingState = (index, newValue) => {
-        setIsLoading(prevState => {
-            const newState = [...prevState]; // Create a copy of the state array
-            newState[index] = newValue; // Update the specific index
-            return newState; // Return the new array
-        });
-    };
+        setIsLoading((prevState) => {
+            const newState = [...prevState] // Create a copy of the state array
+            newState[index] = newValue // Update the specific index
+            return newState // Return the new array
+        })
+    }
 
     // Query available modules to select from
     useEffect(() => {
@@ -54,7 +54,6 @@ export default function Analysis_Student() {
         }
         getAvailableModules()
     }, [user.id]) // Run this effect when user.id changes
-
 
     // Get results for the selected Module
     useEffect(() => {
@@ -76,7 +75,6 @@ export default function Analysis_Student() {
         getModulesAndResults()
     }, [user.id, selectedModule, reloadFlag])
 
-
     function handleSelectModule(moduleName) {
         const selected = modules.find((module) => module.name === moduleName)
         updateLoadingState(1, true)
@@ -88,17 +86,19 @@ export default function Analysis_Student() {
         }
     }
 
-    if (isLoading.some(element => element === true)) {
+    if (isLoading.some((element) => element === true)) {
         return <RootLayout />
     }
 
     if (modules.length === 0) {
         console.log("here")
-        return <RootLayout>
-            <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
-                <p>Keine Module</p>
-            </main>
-        </RootLayout>
+        return (
+            <RootLayout>
+                <main className='flex-row justify-between px-10 pt-10 overflow-hidden'>
+                    <p>Keine Module</p>
+                </main>
+            </RootLayout>
+        )
     }
 
     // Placeholder data
@@ -130,9 +130,7 @@ export default function Analysis_Student() {
                     <h1 className='tracking-wider text-xl w-48'>Analysen</h1>
                     <div id='Dropdown-container' className=''>
                         <Dropdown
-                            header={
-                                selectedModule.name
-                            }
+                            header={selectedModule.name}
                             dropdown_options={modules.map((module) => module.name)}
                             onSelect={handleSelectModule}
                         />
@@ -151,25 +149,47 @@ export default function Analysis_Student() {
                 <div id='dropoutChartContainer' className='mt-8'>
                     <h1 className='font-bold'>Befragungen</h1>
                     <p className='text-text-grey'>
-                        Hier sind einige Ergebnisse aus deinen Befragungen. Wir nutzen psychometrische Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse bleiben anonym), also je mehr Umfragen du einreichst, desto mehr Feedback bekommt dein Dozent!
+                        Hier sind einige Ergebnisse aus deinen Umfragen. Wir nutzen psychometrische
+                        Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein
+                        Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse
+                        bleiben anonym). Also je mehr Umfragen du einreichst, desto mehr Feedback
+                        bekommt dein Dozent!
                     </p>
-                    <div className='flex flex-row justify-between mt-4 h-96'> {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
+                    <div className='flex flex-row justify-between mt-4 h-96'>
+                        {" "}
+                        {/* HEIGHT NEEDS TO BE SPECIFIED HERE */}
                         {/*<div className='relativ w-2/3'>*/}
                         <div className='relativ w-full'>
-                            {typeof moduleResult.content !== "undefined" ?
-                                <Student_Feature_Chart title={"Deine Eigenschaften"} lines={[moduleResult.content, moduleResult.stress, moduleResult.understanding]} labels={["Wert der Inhalte", "Stress", "Verständis der Inhalte"]} />
-                                : <div className="border text-center items-middle  h-full">
+                            {typeof moduleResult.content !== "undefined" ? (
+                                <Student_Feature_Chart
+                                    title={"Deine Eigenschaften"}
+                                    lines={[
+                                        moduleResult.content,
+                                        moduleResult.stress,
+                                        moduleResult.understanding
+                                    ]}
+                                    labels={[
+                                        "Wert der Inhalte",
+                                        "Stress",
+                                        "Verständis der Inhalte"
+                                    ]}
+                                />
+                            ) : (
+                                <div className='border text-center items-middle  h-full'>
                                     <p>Keine Daten. Bitte erst eine Befragung ausfüllen</p>
-                                </div>}
+                                </div>
+                            )}
                         </div>
-                        <div className="w-1/3 hidden">
-                            <div className="relative w-full h-2/3">
+                        <div className='w-1/3 hidden'>
+                            <div className='relative w-full h-2/3'>
                                 <PieChart data={pie_data} />
                             </div>
-                            <p className="text-lunapurple text-center text-xl pt-4">{turn_in_percent * 100}%</p>
+                            <p className='text-lunapurple text-center text-xl pt-4'>
+                                {turn_in_percent * 100}%
+                            </p>
                         </div>
                     </div>
-                    <h1 className="mt-44 text-center">Weitere Analysen kommen bald!</h1>
+                    <h1 className='mt-44 text-center'>Weitere Analysen kommen bald!</h1>
                 </div>
             </main>
         </RootLayout>

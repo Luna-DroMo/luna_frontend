@@ -7,20 +7,19 @@ export const data_models_to_use = [
         type: "AIST"
     },
     {
+        modelname: "PANAS",
+        href: "panas_input",
+        img: "mood.png",
+        id: 6,
+        type: "PANAS"
+    },
+    {
         modelname: "Motivation",
         href: "motivation_input",
         img: "motivation.png",
         type: "MOTIVATION",
         id: 2
-    },
-    {
-        modelname: "Panas",
-        href: "panas_input",
-        img: "mood.png",
-        id: 6,
-        type: "PANAS"
     }
-
     //{
     //    modelname: "Persönlichkeits-skala",
     //    href: "bfi_input",

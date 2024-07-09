@@ -23,7 +23,6 @@ export default function Main() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [userInfo, setUserInfo] = useState()
     const [isLoading, setIsLoading] = useState(true)
-    
 
     // Packages defined below
     const router = useRouter()
@@ -44,7 +43,7 @@ export default function Main() {
                 const {completed_forms, not_completed_forms} = backgroundStatusResponse.data
 
                 const userInfoResponse = await axios.get(`${url}/api/${user.id}/info`)
-                console.log("rawInfo: ",userInfoResponse.data)
+                console.log("rawInfo: ", userInfoResponse.data)
                 setUserInfo(userInfoResponse.data)
                 setIsLoading(false)
                 // Enrich data_models_to_use with resolution status
@@ -68,7 +67,6 @@ export default function Main() {
 
         fetchData()
     }, [user.id])
-
 
     useEffect(() => {
         if (backgroundStatus.personal_info === "not_completed") {
@@ -110,7 +108,10 @@ export default function Main() {
                             href='./registration_forms/AIST_input/'
                         ></Button>
 
-                        <a href='/cockpit' className='text-xs text-lightgrey mt-5 block hover:underline'>
+                        <a
+                            href='/cockpit'
+                            className='text-xs text-lightgrey mt-5 block hover:underline'
+                        >
                             <p>Ich habe gerade keine Zeit</p>
                         </a>
                     </div>
@@ -123,29 +124,28 @@ export default function Main() {
 }
 
 function Greeting({userData, account_setup_progress}) {
-    
     if (account_setup_progress == 0) {
         return (
             <>
                 <div className='flex items-center'>
                     <img src='alien.png' className='ml-2 w-10 mr-4' />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {userData.nickname.length > 0 ? userData.nickname : useData.first_name}, willkommen bei Luna!
+                        Hey {userData.nickname.length > 0 ? userData.nickname : useData.first_name},
+                        willkommen bei Luna!
                     </h1>
                 </div>
                 <div className='text-text-grey text-sm mt-5'>
                     <p className='mb-3'>
-                        Für unsere Analysen brauchen wir eine Menge Daten. Wir wissen, dass es viel
-                        ist, und wir haben versucht, den Prozess für dich so einfach wie möglich zu
-                        machen. Dein Fortschritt wird automatisch gespeichert, sodass du die Seite
-                        verlassen und später wiederkommen kannst, ohne deine bisherigen Daten zu
-                        verlieren!
+                        Für unsere Analysen brauchen wir aten. Wir wissen, dass es viel ist, und wir
+                        haben versucht, den Prozess für dich so einfach wie möglich zu machen. Dein
+                        Fortschritt wird automatisch gespeichert, sodass du die Seite verlassen und
+                        später wiederkommen kannst, ohne deine bisherigen Daten zu verlieren!
                     </p>
                     <p className='mb-3'>
-                        Es ist nicht zwingend erforderlich, alle Daten einzugeben, aber unsere
-                        Modelle benötigen bestimmte Daten, um ordnungsgemäß zu funktionieren. Wenn
-                        du dich entscheidest, die notwendigen Daten für ein bestimmtes Modell nicht
-                        zu teilen, wird dieses Modell leider nicht für dich funktionieren.
+                        Es ist nicht zwingend erforderlich, alles zu bearbeiten, aber unsere Modelle
+                        benötigen bestimmte Daten, um ordnungsgemäß zu funktionieren. Wenn du dich
+                        entscheidest, die notwendigen Daten für ein bestimmtes Modell nicht zu
+                        teilen, wird dieses Modell leider nicht für dich funktionieren.
                     </p>
                     <p className='mb-3'>
                         Als Anreiz für diesen Prozess werden wir dir wissenschaftliche Analysen
@@ -163,11 +163,10 @@ function Greeting({userData, account_setup_progress}) {
                 </div>
                 <div className='text-text-grey text-sm mt-5'>
                     <p className='mb-3'>
-                        Für unsere Analysen brauchen wir eine Menge Daten. Wir wissen, dass es viel
-                        ist, und wir haben versucht, den Prozess für dich so einfach wie möglich zu
-                        machen. Dein Fortschritt wird automatisch gespeichert, sodass du die Seite
-                        verlassen und später wiederkommen kannst, ohne deine bisherigen Daten zu
-                        verlieren!
+                        Für unsere Analysen brauchen wir Daten. Wir wissen, dass es viel ist, und
+                        wir haben versucht, den Prozess für dich so einfach wie möglich zu machen.
+                        Dein Fortschritt wird automatisch gespeichert, sodass du die Seite verlassen
+                        und später wiederkommen kannst, ohne deine bisherigen Daten zu verlieren!
                     </p>
                     <p className='mb-3'>
                         Es ist nicht zwingend erforderlich, alle Daten einzugeben, aber unsere

@@ -193,15 +193,15 @@ function StatusElement({ nextsurveyduedate }) {
         icon = faCircleSolid
     } else if (daysDifference >= 5) {
         bgColorClass = "uptodate"
-        text = `Fällig in ${daysDifference} Tagen`
+        text = `Fällig in: ${daysDifference} Tagen`
         icon = faCircleReg
     } else if (daysDifference >= 3) {
         bgColorClass = "pending"
-        text = `Fällig in ${daysDifference} Tagen`
+        text = `Fällig in: ${daysDifference} Tagen`
         icon = faCircleReg
     } else if (daysDifference >= 0) {
         bgColorClass = "urgent"
-        text = `Fällig in ${daysDifference} Tag${daysDifference === 1 ? '' : 'en'}`
+        text = `Fällig in: ${daysDifference} Tag${daysDifference === 1 ? "" : "en"}`
         icon = faCircleReg
     } else {
         bgColorClass = "urgent"
@@ -211,7 +211,10 @@ function StatusElement({ nextsurveyduedate }) {
 
     // Ensure you use backticks as the quotes
     return (
-        <a href='#' className={`flex items-center pl-5 py-0.5 ${bgColorClass} rounded-lg`}>
+        <a
+            href='#'
+            className={`flex items-center pl-5 py-0.5 ${bgColorClass} rounded-lg cursor-default	`}
+        >
             <FontAwesomeIcon icon={icon} className='inline-block w-3' />
             <p className='ml-3 inline text-left overflow-hidden overflow-ellipsis whitespace-nowrap'>
                 {text}
