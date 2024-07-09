@@ -32,7 +32,7 @@ export default function AlertSection() {
     if (surveys.length > 0) {
         return (
             <div className='my-5'>
-                <h5 className='tracking-wider flex-grow mb-3'>Meine laufenden Befragungen</h5>
+                <h5 className='tracking-wider flex-grow mb-3'>Meine laufenden Umfragen</h5>
                 <div>
                     {visibleSurveys.map((survey, index) => (
                         <Alert key={index} survey={survey} />

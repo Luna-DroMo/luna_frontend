@@ -190,7 +190,7 @@ export default function motivation_input({model}) {
                         </p>
                         <div className='flex items-center w-full my-2'>
                             <div className='flex-grow'>
-                                <p className='text-lunapurple'>Im Allgemeinen fühle icch mich:</p>
+                                <p className='text-lunapurple'>Im Allgemeinen fühle ich mich:</p>
                             </div>
                             <div className='flex justify-between w-72 text-lunapurple pr-1'>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'>

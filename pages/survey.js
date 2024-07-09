@@ -15,40 +15,40 @@ import {basicDateFormat} from "@/utils/utils"
 const surveyQuestions = [
     // Group 1
     [
-        {maintext: "ich mochte die inhalte.", subtitle: "", id: 0},
-        {maintext: "mir ist es wichtig über die inhalte viel zu wissen.", subtitle: "", id: 1},
+        {maintext: "ich mochte die Inhalte.", subtitle: "", id: 0},
+        {maintext: "mir ist es wichtig über die Inhalte viel zu wissen.", subtitle: "", id: 1},
         {
-            maintext: "diese inhalte werden für meinen späteren beruf nützlich sein.",
+            maintext: "diese Inhalte werden für meinen späteren Beruf nützlich sein.",
             subtitle: "",
             id: 2
         },
         {
             maintext:
-                "um diese inhalte zu verstehen, wird viel zeit für andere dinge verloren gehen.",
+                "um diese Inhalte zu verstehen, wird viel zeit für andere Dinge verloren gehen.",
             subtitle: "",
             id: 3
         },
-        {maintext: "die beschäftigung mit diesen inhalten erschöpft mich.", subtitle: "", id: 4},
+        {maintext: "die Beschäftigung mit diesen Inhalten erschöpft mich.", subtitle: "", id: 4},
         {
-            maintext: "im moment denke ich darüber nach, das studium abzubrechen.",
+            maintext: "im Moment denke ich darüber nach, das Studium abzubrechen.",
             subtitle: "",
             id: 5
         },
-        {maintext: "im moment habe ich angst, das studium nicht zu schaffen.", subtitle: "", id: 6},
-        {maintext: "ich verstehe die derzeitigen inhalte der vorlesung.", subtitle: "", id: 7},
+        {maintext: "im Moment habe ich Angst, das Studium nicht zu schaffen.", subtitle: "", id: 6},
+        {maintext: "ich verstehe die derzeitigen Inhalte der Vorlesung.", subtitle: "", id: 7},
         {
-            maintext: "die aufgaben des derzeitigen übungsblattes kann ich bearbeiten.",
+            maintext: "die Aufgaben des derzeitigen Übungsblattes kann ich bearbeiten.",
             subtitle: "",
             id: 8
         },
         {
-            maintext: "im moment fühle ich mich im studium gestresst.",
+            maintext: "im Moment fühle ich mich im Studium gestresst.",
             subtitle: "",
             id: 9
         },
         {
             maintext:
-                "im moment bin ich mit den an mich gestellten anforderungen des studiums überfordert.",
+                "im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert.",
             subtitle: "",
             id: 10
         }
@@ -65,45 +65,45 @@ const surveyQuestions = [
     // Group 3
     [
         {
-            maintext: "so schätze ich im moment mein wissen und können im studium ein.",
-            subtitle: "DOES THIS NEED ITS OWN SCALE TITLES?",
+            maintext: "so schätze ich im Moment mein Wissen und Können im Studium ein.",
+            subtitle: "",
             id: 18,
             scale: 4
         },
         {
             maintext:
-                "so schätze ich im moment mein wissen und können im vergleich zu meinen kommiliton*innen ein.",
+                "so schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein.",
             subtitle: "",
             id: 11
         }
     ],
     // Group 4
     [
-        {maintext: "ich habe viel in lerngruppen gearbeitet.", subtitle: "", id: 19},
+        {maintext: "ich habe viel in Lerngruppen gearbeitet.", subtitle: "", id: 19},
         {
-            maintext: "die meisten meiner abgegebenen lösungen verstehe ich komplett.",
+            maintext: "die meisten meiner abgegebenen Lösungen verstehe ich komplett.",
             subtitle: "",
             id: 20
         },
         {
-            maintext: "ich habe bei schwierigen übungsaufgaben schnell aufgegeben.",
+            maintext: "ich habe bei schwierigen Übungsaufgaben schnell aufgegeben.",
             subtitle: "",
             id: 21
         },
         {
             maintext:
-                "ich habe viel zeit mit der vor- und nachbereitung der vorlesungen verbracht.",
+                "ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht.",
             subtitle: "",
             id: 22
         },
         {
             maintext:
-                "wie lange haben sie sich außerhalb der veranstaltungen mit den vorlesungsthemen beschäftigt.",
+                "ich habe mich viel außerhalb der Veranstaltungen mit den Vorlesungsthemen beschäftigt.",
             subtitle: "",
             id: 23
         },
-        {maintext: "wie oft waren sie in der vorlesung anwesend?", subtitle: "", id: 24},
-        {maintext: "waren sie in einer übungsgruppe?", subtitle: "", id: 25}
+        {maintext: "wie oft waren sie in der Vorlesung anwesend?", subtitle: "", id: 24},
+        {maintext: "waren sie in einer Übungsgruppe?", subtitle: "", id: 25}
     ]
 ]
 

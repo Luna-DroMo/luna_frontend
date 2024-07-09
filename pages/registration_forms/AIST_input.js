@@ -16,52 +16,52 @@ import {useEffect} from "react"
 import {url} from "@/utils/data"
 
 const questions = [
-    {id: 1, question: "mit maschinen oder technischen geräten zu arbeiten.", subtitle: ""},
-    {id: 2, question: "in einem versuchslabor experimente durchzuführen.", subtitle: ""},
+    {id: 1, question: "mit Maschinen oder technischen Geräten zu arbeiten.", subtitle: ""},
+    {id: 2, question: "in einem Versuchslabor Experimente durchzuführen.", subtitle: ""},
     {
         id: 3,
-        question: "etwas nach künstlerischen gesichtspunkten zu gestalten.",
+        question: "etwas nach künstlerischen Gesichtspunkten zu gestalten.",
         subtitle: ""
     },
-    {id: 4, question: "andere personen zu betreuen oder zu pflegen.", subtitle: ""},
-    {id: 5, question: "eine diskussion zu leiten.", subtitle: ""},
-    {id: 6, question: "eine buchhaltung zu führen.", subtitle: ""},
-    {id: 7, question: "in einen computer teile einzubauen.", subtitle: ""},
-    {id: 8, question: "wissenschaftliche artikel zu lesen.", subtitle: ""},
+    {id: 4, question: "andere Personen zu betreuen oder zu pflegen.", subtitle: ""},
+    {id: 5, question: "eine Diskussion zu leiten.", subtitle: ""},
+    {id: 6, question: "eine Buchhaltung zu führen.", subtitle: ""},
+    {id: 7, question: "in einen Computer Teile einzubauen.", subtitle: ""},
+    {id: 8, question: "wissenschaftliche Artikel zu lesen.", subtitle: ""},
     {
         id: 9,
-        question: "dinge zu tun, bei denen es auf kreativität und phantasie ankommt.",
+        question: "Dinge zu tun, bei denen es auf Kreativität und Phantasie ankommt.",
         subtitle: ""
     },
-    {id: 10, question: "sich die probleme anderer menschen anzuhören.", subtitle: ""},
-    {id: 11, question: "für eine sache in der öffentlichkeit aufzutreten.", subtitle: ""},
-    {id: 12, question: "geschäftsbriefe zu schreiben.", subtitle: ""},
-    {id: 13, question: "konstruktionspläne zu zeichnen.", subtitle: ""},
-    {id: 14, question: "sich mit unerforschten dingen zu beschäftigen.", subtitle: ""},
-    {id: 15, question: "dinge schön zu gestalten (formen, verzieren, schmücken).", subtitle: ""},
-    {id: 16, question: "sich für die anliegen anderer einzusetzen.", subtitle: ""},
+    {id: 10, question: "sich die Probleme anderer Menschen anzuhören.", subtitle: ""},
+    {id: 11, question: "für eine Sache in der Öffentlichkeit aufzutreten.", subtitle: ""},
+    {id: 12, question: "Geschäftsbriefe zu schreiben.", subtitle: ""},
+    {id: 13, question: "Konstruktionspläne zu zeichnen.", subtitle: ""},
+    {id: 14, question: "sich mit unerforschten Dingen zu beschäftigen.", subtitle: ""},
+    {id: 15, question: "Dinge schön zu gestalten (Formen, Verzieren, Schmücken).", subtitle: ""},
+    {id: 16, question: "sich für die Anliegen Anderer einzusetzen.", subtitle: ""},
     {
         id: 17,
-        question: "andere von etwas zu überzeugen oder zu etwas zu veranlassen.",
+        question: "Andere von Etwas zu überzeugen oder zu Etwas zu veranlassen.",
         subtitle: ""
     },
-    {id: 18, question: "angebote einzuholen und zu vergleichen.", subtitle: ""},
-    {id: 19, question: "elektrische geräte oder anlagen zu bauen.", subtitle: ""},
+    {id: 18, question: "Angebote einzuholen und zu vergleichen.", subtitle: ""},
+    {id: 19, question: "elektrische Geräte oder Anlagen zu bauen.", subtitle: ""},
     {
         id: 20,
-        question: "chemische, physikalische oder biologische versuche durchzuführen.",
+        question: "chemische, physikalische oder biologische Versuche durchzuführen.",
         subtitle: ""
     },
-    {id: 21, question: "bilder zu malen, zu zeichnen.", subtitle: ""},
-    {id: 22, question: "hilfsbedürftige kinder oder erwachsene zu betreuen.", subtitle: ""},
-    {id: 23, question: "mit anderen menschen zu verhandeln.", subtitle: ""},
-    {id: 24, question: "über etwas aufzeichnungen oder listen zu führen.", subtitle: ""},
-    {id: 25, question: "etwas nach einem plan oder einer skizze anzufertigen.", subtitle: ""},
-    {id: 26, question: "die ursache eines problems zu erforschen.", subtitle: ""},
-    {id: 27, question: "etwas mit sprachlichen mitteln künstlerisch zu gestalten.", subtitle: ""},
-    {id: 28, question: "sich in die situation anderer menschen hineinzudenken.", subtitle: ""},
-    {id: 29, question: "das amt des sprechers in einer gruppe zu übernehmen.", subtitle: ""},
-    {id: 30, question: "eine abrechnung zu kontrollieren.", subtitle: ""}
+    {id: 21, question: "Bilder zu malen, zu zeichnen.", subtitle: ""},
+    {id: 22, question: "hilfsbedürftige Kinder oder Erwachsene zu betreuen.", subtitle: ""},
+    {id: 23, question: "mit anderen Menschen zu verhandeln.", subtitle: ""},
+    {id: 24, question: "über Etwas Aufzeichnungen oder Listen zu führen.", subtitle: ""},
+    {id: 25, question: "Etwas nach einem Plan oder einer Skizze anzufertigen.", subtitle: ""},
+    {id: 26, question: "die Ursache eines Problems zu erforschen.", subtitle: ""},
+    {id: 27, question: "Etwas mit sprachlichen Mitteln künstlerisch zu gestalten.", subtitle: ""},
+    {id: 28, question: "sich in die Situation anderer Menschen hineinzudenken.", subtitle: ""},
+    {id: 29, question: "das Amt des Sprechers in einer Gruppe zu übernehmen.", subtitle: ""},
+    {id: 30, question: "eine Abrechnung zu kontrollieren.", subtitle: ""}
 ]
 
 const breadcrump = [
