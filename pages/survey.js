@@ -1,110 +1,109 @@
 import Image from "next/image"
 import RootLayout from "@/components/RootLayout.js"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { Button, FormButton } from "@/components/Buttons"
-import { SurveyQuestion } from "@/components/FormElements"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons"
+import {Button, FormButton} from "@/components/Buttons"
+import {SurveyQuestion} from "@/components/FormElements"
 import React from "react"
-import { useRouter } from "next/router"
-import { useState, useEffect, useRef } from "react"
-import { url } from "@/utils/data"
-import { useAuth } from "@/components/AuthProvider"
+import {useRouter} from "next/router"
+import {useState, useEffect, useRef} from "react"
+import {url} from "@/utils/data"
+import {useAuth} from "@/components/AuthProvider"
 import axios from "axios"
-import { basicDateFormat } from "@/utils/utils"
-
+import {basicDateFormat} from "@/utils/utils"
 
 const surveyQuestions = [
     // Group 1
     [
-        { maintext: "Ich mochte die Inhalte", subtitle: "", id: 0 },
-        { maintext: "Mir ist es wichtig über die Inhalte viel zu wissen", subtitle: "", id: 1 },
+        {maintext: "ich mochte die inhalte.", subtitle: "", id: 0},
+        {maintext: "mir ist es wichtig über die inhalte viel zu wissen.", subtitle: "", id: 1},
         {
-            maintext: "Diese Inhalte werden für meinen späteren Beruf nützlich sein",
+            maintext: "diese inhalte werden für meinen späteren beruf nützlich sein.",
             subtitle: "",
             id: 2
         },
         {
             maintext:
-                "Um diese Inhalte zu verstehen, wird viel Zeit für andere Dinge verloren gehen",
+                "um diese inhalte zu verstehen, wird viel zeit für andere dinge verloren gehen.",
             subtitle: "",
             id: 3
         },
-        { maintext: "Die Beschäftigung mit diesen Inhalten erschöpft mich", subtitle: "", id: 4 },
+        {maintext: "die beschäftigung mit diesen inhalten erschöpft mich.", subtitle: "", id: 4},
         {
-            maintext: "Im Moment denke ich darüber nach, das Studium abzubrechen.",
+            maintext: "im moment denke ich darüber nach, das studium abzubrechen.",
             subtitle: "",
             id: 5
         },
-        { maintext: "Im Moment habe ich Angst, das Studium nicht zu schaffen.", subtitle: "", id: 6 },
-        { maintext: "Ich verstehe die derzeitigen Inhalte der Vorlesung.", subtitle: "", id: 7 },
+        {maintext: "im moment habe ich angst, das studium nicht zu schaffen.", subtitle: "", id: 6},
+        {maintext: "ich verstehe die derzeitigen inhalte der vorlesung.", subtitle: "", id: 7},
         {
-            maintext: "Die Aufgaben des derzeitigen Übungsblattes kann ich bearbeiten.",
+            maintext: "die aufgaben des derzeitigen übungsblattes kann ich bearbeiten.",
             subtitle: "",
             id: 8
         },
         {
-            maintext: "Im Moment fühle ich mich im Studium gestresst.",
+            maintext: "im moment fühle ich mich im studium gestresst.",
             subtitle: "",
             id: 9
         },
         {
             maintext:
-                "Im Moment bin ich mit den an mich gestellten Anforderungen des Studiums überfordert.",
+                "im moment bin ich mit den an mich gestellten anforderungen des studiums überfordert.",
             subtitle: "",
             id: 10
         }
     ],
     // Group 2
     [
-        { maintext: "... Aufmerksam", subtitle: "", id: 12, scale: 4 },
-        { maintext: "... Aktiv", subtitle: "", id: 13, scale: 4 },
-        { maintext: "... Angeregt", subtitle: "", id: 14, scale: 4 },
-        { maintext: "... Nervös", subtitle: "", id: 15, scale: 4 },
-        { maintext: "... Ängstlich", subtitle: "", id: 16, scale: 4 },
-        { maintext: "... Bekümmert", subtitle: "", id: 17, scale: 4 }
+        {maintext: "... aufmerksam.", subtitle: "", id: 12, scale: 4},
+        {maintext: "... aktiv.", subtitle: "", id: 13, scale: 4},
+        {maintext: "... angeregt.", subtitle: "", id: 14, scale: 4},
+        {maintext: "... nervös.", subtitle: "", id: 15, scale: 4},
+        {maintext: "... ängstlich.", subtitle: "", id: 16, scale: 4},
+        {maintext: "... bekümmert.", subtitle: "", id: 17, scale: 4}
     ],
     // Group 3
     [
         {
-            maintext: "So schätze ich im Moment mein Wissen und Können im Studium ein",
+            maintext: "so schätze ich im moment mein wissen und können im studium ein.",
             subtitle: "DOES THIS NEED ITS OWN SCALE TITLES?",
             id: 18,
             scale: 4
         },
         {
             maintext:
-                "So schätze ich im Moment mein Wissen und Können im Vergleich zu meinen Kommiliton*innen ein.",
+                "so schätze ich im moment mein wissen und können im vergleich zu meinen kommiliton*innen ein.",
             subtitle: "",
             id: 11
         }
     ],
     // Group 4
     [
-        { maintext: "Ich habe viel in Lerngruppen gearbeitet.", subtitle: "", id: 19 },
+        {maintext: "ich habe viel in lerngruppen gearbeitet.", subtitle: "", id: 19},
         {
-            maintext: "Die meisten meiner abgegebenen Lösungen verstehe ich komplett.",
+            maintext: "die meisten meiner abgegebenen lösungen verstehe ich komplett.",
             subtitle: "",
             id: 20
         },
         {
-            maintext: "Ich habe bei schwierigen Übungsaufgaben schnell aufgegeben.",
+            maintext: "ich habe bei schwierigen übungsaufgaben schnell aufgegeben.",
             subtitle: "",
             id: 21
         },
         {
             maintext:
-                "Ich habe viel Zeit mit der Vor- und Nachbereitung der Vorlesungen verbracht.",
+                "ich habe viel zeit mit der vor- und nachbereitung der vorlesungen verbracht.",
             subtitle: "",
             id: 22
         },
         {
             maintext:
-                "Wie lange haben Sie sich außerhalb der Veranstaltungen mit den Vorlesungsthemen beschäftigt",
+                "wie lange haben sie sich außerhalb der veranstaltungen mit den vorlesungsthemen beschäftigt.",
             subtitle: "",
             id: 23
         },
-        { maintext: "Wie oft waren Sie in der Vorlesung anwesend?", subtitle: "", id: 24 },
-        { maintext: "Waren Sie in einer Übungsgruppe?", subtitle: "", id: 25 }
+        {maintext: "wie oft waren sie in der vorlesung anwesend?", subtitle: "", id: 24},
+        {maintext: "waren sie in einer übungsgruppe?", subtitle: "", id: 25}
     ]
 ]
 
@@ -114,7 +113,7 @@ const survey = {
 }
 
 export default function Main() {
-    const { user } = useAuth()
+    const {user} = useAuth()
     const router = useRouter()
 
     const [selectedOptions, setSelectedOptions] = useState({})
@@ -144,10 +143,10 @@ export default function Main() {
 
     useEffect(() => {
         const indicesToCheck = [
-            surveyQuestions[0].map(question => question.id),
-            surveyQuestions[1].map(question => question.id),
-            surveyQuestions[2].map(question => question.id),
-            surveyQuestions[3].map(question => question.id)
+            surveyQuestions[0].map((question) => question.id),
+            surveyQuestions[1].map((question) => question.id),
+            surveyQuestions[2].map((question) => question.id),
+            surveyQuestions[3].map((question) => question.id)
         ]
 
         const updatedBlockFilled = indicesToCheck.map((block) =>
@@ -186,10 +185,10 @@ export default function Main() {
 
             if (existingResponseIndex > -1) {
                 return prev.map((response, index) =>
-                    index === existingResponseIndex ? { ...response, value: value } : response
+                    index === existingResponseIndex ? {...response, value: value} : response
                 )
             } else {
-                return [...prev, { id: questionIndex, value: value }]
+                return [...prev, {id: questionIndex, value: value}]
             }
         })
         console.log("updating")
@@ -227,18 +226,17 @@ export default function Main() {
     }
 
     const toggleValueAtIndex = (index) => {
-        setIsExpanded(prevState => {
+        setIsExpanded((prevState) => {
             // Create a copy of the previous state
-            const newState = [...prevState];
+            const newState = [...prevState]
 
             // Update the specific index with its inverse value
-            newState[index] = !newState[index];
+            newState[index] = !newState[index]
 
             // Return the updated state
-            return newState;
-        });
-    };
-
+            return newState
+        })
+    }
 
     if (isLoading) {
         return <RootLayout show_billboard={true} />
@@ -274,8 +272,9 @@ export default function Main() {
                 </div>
                 <form onSubmit={handleFormSubmission}>
                     <div
-                        className={`bg-white overflow-hidden transition ease-in-out delay-250 rounded-lg px-2 pt-3 pb-7 mb-12 mt-8  border-2 ${!isExpanded[0] ? "h-16" : ""
-                            } ${blockFilled[0] ? "border-lunagreen" : "border-transparent"}`}
+                        className={`bg-white overflow-hidden transition ease-in-out delay-250 rounded-lg px-2 pt-3 pb-7 mb-12 mt-8  border-2 ${
+                            !isExpanded[0] ? "h-16" : ""
+                        } ${blockFilled[0] ? "border-lunagreen" : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Die Vorlesung</h3>
@@ -285,7 +284,9 @@ export default function Main() {
                             >
                                 <FontAwesomeIcon
                                     icon={faChevronRight}
-                                    className={`flex group-hover:text-lunapurple  ${isExpanded[0] ? 'fa-rotate-270' : 'fa-rotate-90'}  inline-block w-2 mx-1.5`}
+                                    className={`flex group-hover:text-lunapurple  ${
+                                        isExpanded[0] ? "fa-rotate-270" : "fa-rotate-90"
+                                    }  inline-block w-2 mx-1.5`}
                                 />
                             </p>
                         </div>
@@ -317,8 +318,9 @@ export default function Main() {
                         ))}
                     </div>
                     <div
-                        className={`bg-white overflow-hidden rounded-lg px-2 pt-3 pb-7 mb-12 border-2 ${!isExpanded[1] ? "h-16" : ""
-                            } ${blockFilled[1] ? "border-lunagreen " : "border-transparent"}`}
+                        className={`bg-white overflow-hidden rounded-lg px-2 pt-3 pb-7 mb-12 border-2 ${
+                            !isExpanded[1] ? "h-16" : ""
+                        } ${blockFilled[1] ? "border-lunagreen " : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Ich fühle mich...</h3>
@@ -328,7 +330,9 @@ export default function Main() {
                             >
                                 <FontAwesomeIcon
                                     icon={faChevronRight}
-                                    className={`flex group-hover:text-lunapurple  ${isExpanded[1] ? 'fa-rotate-270' : 'fa-rotate-90'}  inline-block w-2 mx-1.5`}
+                                    className={`flex group-hover:text-lunapurple  ${
+                                        isExpanded[1] ? "fa-rotate-270" : "fa-rotate-90"
+                                    }  inline-block w-2 mx-1.5`}
                                 />
                             </p>
                         </div>
@@ -361,8 +365,9 @@ export default function Main() {
                         ))}
                     </div>
                     <div
-                        className={`bg-white rounded-lg overflow-hidden transition-all ease-in-out delay-150 px-2 pt-3 pb-7 mb-12 border-2 ${!isExpanded[2] ? "h-16" : ""
-                            } ${blockFilled[2] ? "border-lunagreen" : "border-transparent"}`}
+                        className={`bg-white rounded-lg overflow-hidden transition-all ease-in-out delay-150 px-2 pt-3 pb-7 mb-12 border-2 ${
+                            !isExpanded[2] ? "h-16" : ""
+                        } ${blockFilled[2] ? "border-lunagreen" : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Wie ich meine Fähigkeit(en) einschätze</h3>
@@ -370,10 +375,11 @@ export default function Main() {
                                 className={`text-text-grey ${blockFilled[2] ? "block" : "hidden"}`}
                                 onClick={(e) => toggleValueAtIndex(2)}
                             >
-
                                 <FontAwesomeIcon
                                     icon={faChevronRight}
-                                    className={`flex group-hover:text-lunapurple  ${isExpanded[2] ? 'fa-rotate-270' : 'fa-rotate-90'}  inline-block w-2 mx-1.5`}
+                                    className={`flex group-hover:text-lunapurple  ${
+                                        isExpanded[2] ? "fa-rotate-270" : "fa-rotate-90"
+                                    }  inline-block w-2 mx-1.5`}
                                 />
                             </p>
                         </div>
@@ -404,8 +410,9 @@ export default function Main() {
                         ))}
                     </div>
                     <div
-                        className={`bg-white overflow-hidden rounded-lg px-2 pt-3 pb-7 mb-12  border-2 ${!isExpanded[3] ? "h-16" : ""
-                            } ${blockFilled[3] ? "border-lunagreen" : "border-transparent"}`}
+                        className={`bg-white overflow-hidden rounded-lg px-2 pt-3 pb-7 mb-12  border-2 ${
+                            !isExpanded[3] ? "h-16" : ""
+                        } ${blockFilled[3] ? "border-lunagreen" : "border-transparent"}`}
                     >
                         <div className='flex my-2 px-4 items-center place-content-between pr-10'>
                             <h3>Außerhalb des Klassenzimmers</h3>
@@ -415,7 +422,9 @@ export default function Main() {
                             >
                                 <FontAwesomeIcon
                                     icon={faChevronRight}
-                                    className={`flex group-hover:text-lunapurple  ${isExpanded[3] ? 'fa-rotate-270' : 'fa-rotate-90'}  inline-block w-2 mx-1.5`}
+                                    className={`flex group-hover:text-lunapurple  ${
+                                        isExpanded[3] ? "fa-rotate-270" : "fa-rotate-90"
+                                    }  inline-block w-2 mx-1.5`}
                                 />
                             </p>
                         </div>

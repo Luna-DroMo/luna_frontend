@@ -19,11 +19,16 @@ const questions = [
     {id: "Se2", question: "Ich bin gut in meinem Fachgebiet.", subtitle: ""},
     {id: "Iv2", question: "Ich beschäftige mich gerne mit meinem Fachgebiet.", subtitle: ""},
     {id: "Iv4", question: "Ich finde mein Fachgebiet spannend.", subtitle: ""},
-    {id: "Uv3", question: "Mit meinen Fach-Kenntnissen kann ich andere beeindrucken.", subtitle: ""},
+    {
+        id: "Uv3",
+        question: "Mit meinen Fach-Kenntnissen kann ich andere beeindrucken.",
+        subtitle: ""
+    },
     {id: "Av4", question: "Gute Leistungen in meinem/Studium sind mir wichtig.", subtitle: ""},
     {
         id: "Uv1",
-        question: "Für meine berufliche Zukunft wird es sich auszahlen, gut in meinem Fachgebiet zu sein.",
+        question:
+            "Für meine berufliche Zukunft wird es sich auszahlen, gut in meinem Fachgebiet zu sein.",
         subtitle: ""
     },
     {
@@ -72,7 +77,8 @@ const questions = [
     {id: "Se3", question: "Mein Fachgebiet fällt mir leicht.", subtitle: ""},
     {
         id: "Uv4",
-        question: "Wenn ich in meinem Fachgebiet viel weiß, komme ich damit bei meinen Kommilitonen gut an.",
+        question:
+            "Wenn ich in meinem Fachgebiet viel weiß, komme ich damit bei meinen Kommilitonen gut an.",
         subtitle: ""
     },
     {id: "Se4", question: "Mein Fachgebiet liegt mir nicht besonders.", subtitle: ""},
@@ -173,12 +179,18 @@ export default function motivation_input({model}) {
                 <main className='flex-row justify-between px-10 pt-10'>
                     <form onSubmit={handleFormSubmission}>
                         <h1 className='tracking-wider text-xl mb-5'>{"Motivation"}</h1>
-                        <p className='mb-10 text-lightgrey'>Der Motivationsfragebogen zielt darauf ab, die unterschiedlichen Motivationsmuster und -stärken von Personen systematisch zu erfassen. Der Fragebogen untersucht die Unterschiede in den Faktoren, die „Verhalten am Arbeitsplatz aktivieren, lenken und aufrechterhalten“. Der Motivationsfragebogen besteht aus 18 Skalen, die in fünf separate Faktoren unterteilt sind: Selbstkonzept, Erreichungswert, Kosten, intrinsische Motivation und extrinsische Motivation.</p>
+                        <p className='mb-10 text-lightgrey'>
+                            Der Motivationsfragebogen zielt darauf ab, die unterschiedlichen
+                            Motivationsmuster und -stärken von Personen systematisch zu erfassen.
+                            Der Fragebogen untersucht die Unterschiede in Faktoren, die „Verhalten
+                            am Arbeitsplatz aktivieren, lenken und aufrechterhalten“. Der
+                            Motivationsfragebogen besteht aus 18 Skalen, die in fünf separate
+                            Faktoren unterteilt sind: Selbstkonzept, Erreichungswert, Kosten,
+                            intrinsische Motivation und extrinsische Motivation.
+                        </p>
                         <div className='flex items-center w-full my-2'>
                             <div className='flex-grow'>
-                                <p className='text-lunapurple'>
-                                    Im Allgemeinen fühle Ich Mich:
-                                </p>
+                                <p className='text-lunapurple'>Im Allgemeinen fühle icch mich:</p>
                             </div>
                             <div className='flex justify-between w-72 text-lunapurple pr-1'>
                                 <p className='flex-1 grid py-1 justify-items-center rounded'>
@@ -195,18 +207,22 @@ export default function motivation_input({model}) {
                         {questions.map((question, index) => {
                             return (
                                 <>
-                                <InputRow
-                                    key={question.id}
-                                    type='likert'
-                                    item={question}
-                                    maintext={question.question}
-                                    options={[0,1,2,3,5]}
-                                    subtitle={null}
-                                    onChange={(e) =>
-                                        handleResponseChange(question.id, e.target.value)
-                                    }
-                                />
-                                <div className={`block ${(index + 1) % 5 === 0 ? 'pb-5' : 'pb-0'}`} />
+                                    <InputRow
+                                        key={question.id}
+                                        type='likert'
+                                        item={question}
+                                        maintext={question.question}
+                                        options={[0, 1, 2, 3, 5]}
+                                        subtitle={null}
+                                        onChange={(e) =>
+                                            handleResponseChange(question.id, e.target.value)
+                                        }
+                                    />
+                                    <div
+                                        className={`block ${
+                                            (index + 1) % 5 === 0 ? "pb-5" : "pb-0"
+                                        }`}
+                                    />
                                 </>
                             )
                         })}
@@ -225,7 +241,7 @@ export default function motivation_input({model}) {
                                 onClick={(e) => router.push("../cockpit")}
                                 type='reset'
                             />
-                            <FormButton text='Weiter' highlighted='true'/>
+                            <FormButton text='Weiter' highlighted='true' />
                         </div>
                     </form>
                 </main>

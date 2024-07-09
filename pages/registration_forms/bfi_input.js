@@ -116,7 +116,7 @@ export default function Main({model}) {
 
         let forms1 = [
             {name: "Motivation", status: 2, item: 2},
-            {name: "Positive - Negative", status: 2, item: 3},
+            {name: "PANAS", status: 2, item: 3},
             {name: "Persönlichkeitsskala", status: 1, item: 4}
         ]
 

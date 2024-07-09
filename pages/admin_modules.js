@@ -13,7 +13,7 @@ import axios from "axios"
 import {useRouter} from "next/router"
 import {useAuth} from "@/components/AuthProvider"
 import {url} from "@/utils/data"
-import { getNextWeekdayDate, basicDateFormat } from "@/utils/utils"
+import {getNextWeekdayDate, basicDateFormat} from "@/utils/utils"
 
 export default function Main() {
     const [userId, setUserId] = useState(null)
@@ -22,7 +22,6 @@ export default function Main() {
     const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [isLoading, setIsLoading] = useState(true)
     const [isExpanded, setIsExpanded] = useState(Array(4).fill(false))
-
 
     useEffect(() => {
         const makeAPICalls = async (e) => {
@@ -40,7 +39,6 @@ export default function Main() {
         }
 
         makeAPICalls()
-        
     }, [])
 
     const updateLoadingState = (index, newValue) => {
@@ -50,8 +48,6 @@ export default function Main() {
             return newState // Return the new array
         })
     }
-
-
 
     const toggleValueAtIndex = (index) => {
         setIsExpanded((prevState) => {
@@ -66,13 +62,13 @@ export default function Main() {
         })
     }
 
-    if (user.user_type !== 2){
+    if (user.user_type !== 2) {
         router.push("./cockpit")
     }
 
     console.log(modules)
 
-    if (isLoading){
+    if (isLoading) {
         return <RootLayout />
     }
     console.log(modules)
@@ -80,9 +76,7 @@ export default function Main() {
         <RootLayout>
             <main className='flex-row justify-between px-10 pt-10'>
                 <h3>Module Verwalten</h3>
-                <p className='text-lightgrey'>
-                   
-                </p>
+                <p className='text-lightgrey'></p>
 
                 <h5 className='text-md mt-8'>Deine Module</h5>
 
@@ -106,7 +100,6 @@ export default function Main() {
                                 <th>Fakultät</th>
                                 <th>Semester</th>
                                 <th>Status</th>
-                                
                             </tr>
                         </thead>
                         <tbody className='rounded-b-lg'>
@@ -130,7 +123,6 @@ export default function Main() {
                         </tbody>
                     </table>
                 </div>
-
             </main>
         </RootLayout>
     )
@@ -150,14 +142,13 @@ function TableRow({
     startDate,
     endDate
 }) {
-
     const [module, setModule] = useState()
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const makeAPICalls = async (e) => {
             //e.preventDefault()
-            
+
             try {
                 const response = await axios.get(`${url}/api/module/${id}`)
                 //const userInfo = await axios.get(`${url}/api/${user.id}/info`)
@@ -170,32 +161,27 @@ function TableRow({
         }
 
         makeAPICalls()
-        
     }, [])
 
     console.log(module)
     const handleModuleDeletion = async () => {
-        
         try {
             const response = await axios.post(`${url}/api/${user.id}/module/${id}/delete`)
-            window.location.reload();
+            window.location.reload()
         } catch (e) {
             console.log("Error", e)
         }
-        
     }
-    let next_sy = null;
+    let next_sy = null
 
-    if (isLoading){
-        return (<></>)
+    if (isLoading) {
+        return <></>
     }
 
-    if (module){
-        
-        next_sy = getNextWeekdayDate(module.survey_days,module.end_date)
-        
+    if (module) {
+        next_sy = getNextWeekdayDate(module.survey_days, module.end_date)
     }
-    
+
     return (
         <>
             <tr
@@ -232,26 +218,33 @@ function TableRow({
                             <p>Start: {module.start_date}</p>
                             <p>Ende: {module.end_date}</p>
                         </div>
-                        <div className="mt-2 flex">
-                            <p className="mr-5">Anzahl Studierende: </p><p>{module.count_students}</p>
+                        <div className='mt-2 flex'>
+                            <p className='mr-5'>Anzahl Studierende: </p>
+                            <p>{module.count_students}</p>
                         </div>
-                        <div className="mt-2 flex">
-                            <p className="mr-5">Module Passwort:</p><p>{module.password}</p>
+                        <div className='mt-2 flex'>
+                            <p className='mr-5'>Module Passwort:</p>
+                            <p>{module.password}</p>
                         </div>
-                        <div className="mt-2 flex">
-                            <p className="mr-5">Nächste Befragung am:</p><p> {basicDateFormat(next_sy)}</p>
+                        <div className='mt-2 flex'>
+                            <p className='mr-5'>Nächste Befragung am:</p>
+                            <p> {basicDateFormat(next_sy)}</p>
                         </div>
-                        
+
                         <p className='mt-4'>Modul Löschen</p>
                         <div>
                             <button
                                 onClick={() => handleModuleDeletion()}
                                 className='text-base text-lightgrey hover:text-lunared underline cursor-pointer'
                             >
-                                {`Ich möchte ${name} `}<span className="underline">endgültig</span> löschen
+                                {`Ich möchte ${name} `}
+                                <span className='underline'>endgültig</span> löschen
                             </button>
                         </div>
-                        <p className='mt-4'>Diese seite wird noch ausgebaut. Künftig werden sich alle Verwaltungseigenschaften hier befinden</p>
+                        <p className='mt-4'>
+                            Diese Seite wird noch ausgebaut. Künftig werden sich alle
+                            Verwaltungseigenschaften hier befinden
+                        </p>
                     </td>
                 </tr>
             ) : null}

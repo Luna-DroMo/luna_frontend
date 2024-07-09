@@ -1,83 +1,76 @@
 // components/LineChart.js
 
-import { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
-import Utils from 'chart.js'
-import { Add, Subtract } from '@/utils/utils';
-import annotationPlugin from 'chartjs-plugin-annotation';
+import {useEffect, useRef} from "react"
+import Chart from "chart.js/auto"
+import Utils from "chart.js"
+import {Add, Subtract} from "@/utils/utils"
+import annotationPlugin from "chartjs-plugin-annotation"
 
-Chart.register(annotationPlugin);
+Chart.register(annotationPlugin)
 
+export function ModuleDropoutRiskPlot({title, line, deviation, students_at_risk = []}) {
+    const chartContainer = useRef(null)
 
-export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk = [] }) {
-    const chartContainer = useRef(null);
-    
     //line.unshift(0)
     //deviation.unshift(0)
-    
-    const label = [''];
-    
+
+    const label = [""]
+
     for (let i = 1; i <= line.length + 3; i++) {
-        label.push(`Befragung ${i}`);
+        label.push(`Befragung ${i}`)
     }
-    
+
     console.log(line)
     let data = {
         labels: label,
         datasets: [
             {
-                label: 'Mean',
+                label: "Mean",
                 data: [0].concat(line),
                 borderColor: "#5210DC",
-                backgroundColor: '#5210DC',
+                backgroundColor: "#5210DC",
                 fill: false
             },
             {
-                label: 'Lower 75th Percentile',
+                label: "Lower 75th Percentile",
                 data: [0].concat(Subtract(line, deviation)),
                 borderColor: "#969696",
                 borderWidth: 1,
-                backgroundColor: '#c9c9c9',
-                pointRadius: 0,
+                backgroundColor: "#c9c9c9",
+                pointRadius: 0
             },
             {
-                label: 'Upper 75th Percentile',
+                label: "Upper 75th Percentile",
                 data: [0].concat(Add(line, deviation)),
                 borderColor: "#969696",
                 borderWidth: 1,
-                backgroundColor: '#c9c9c9',
+                backgroundColor: "#c9c9c9",
                 fill: false,
                 pointRadius: 0,
-                fill: '-1',
-            },
-
-
-        ]
-    };
-
-    students_at_risk.map((student, key = key) => (
-        data.datasets.unshift(
-            {
-                label: "Stundent: " + student.id,
-                data: student.data,
-                borderColor: "#DC107E",
-                borderWidth: 1,
-                pointRadius: 0,
-                backgroundColor: '#DC107E',
-                fill: false,
-
+                fill: "-1"
             }
-        )
-    ))
+        ]
+    }
 
+    students_at_risk.map((student, key = key) =>
+        data.datasets.unshift({
+            label: "Stundent: " + student.id,
+            data: student.data,
+            borderColor: "#DC107E",
+            borderWidth: 1,
+            pointRadius: 0,
+            backgroundColor: "#DC107E",
+            fill: false
+        })
+    )
 
     const config = {
-        type: 'line',
+        type: "line",
         data: data,
         options: {
             elements: {
                 line: {
-                    tension: 0.4,
+                    tension: 0.4
                 }
             },
             scales: {
@@ -85,28 +78,26 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                     stacked: false,
                     title: {
                         text: "Abbruchgefahr (Z-Score)",
-                        display: true,
+                        display: true
                     },
                     ticks: {
-                        display: true,
+                        display: true
                     },
                     grid: {
                         display: false
                     },
                     suggestedMax: 5,
-                    min: -5,
+                    min: -5
                 },
-                x: {
-
-                }
+                x: {}
             },
             smooth: true,
             plugins: {
                 filler: {
                     propagate: false
                 },
-                'samples-filler-analyser': {
-                    target: 'chart-analyser'
+                "samples-filler-analyser": {
+                    target: "chart-analyser"
                 },
                 legend: {
                     display: false
@@ -116,150 +107,133 @@ export function ModuleDropoutRiskPlot({ title, line, deviation, students_at_risk
                     text: title,
                     color: "black",
                     font: {
-                        family: 'Inria Sans'
+                        family: "Inria Sans"
                     }
                 },
                 annotation: {
                     annotations: {
                         dangerLine: {
-                            type: 'line',
+                            type: "line",
                             label: {
                                 display: true,
-                                content: 'Danger Zone',
+                                content: "Danger Zone",
                                 //position: 'start',
                                 backgroundColor: "#FFFFFF",
-                                color: '#DC107E',
-                                borderColor: '#DC107E',
+                                color: "#DC107E",
+                                borderColor: "#DC107E",
                                 borderWidth: 1,
                                 font: {
-                                    size: 8,
+                                    size: 8
                                 }
                             },
                             yMin: 3,
                             yMax: 3,
-                            borderColor: '#DC107E',
+                            borderColor: "#DC107E",
                             borderWidth: 2,
-                            borderDash: [8],
+                            borderDash: [8]
                         },
                         globalAverage: {
-                            type: 'line',
+                            type: "line",
                             label: {
                                 display: true,
-                                content: 'Globaler Durchschnitt',
+                                content: "Globaler Durchschnitt",
                                 //position: 'start',
                                 backgroundColor: "#FFFFFF",
-                                color: '#949494',
-                                borderColor: '#949494',
+                                color: "#949494",
+                                borderColor: "#949494",
                                 borderWidth: 1,
                                 font: {
-                                    size: 8,
+                                    size: 8
                                 }
                             },
                             yMin: 0,
                             yMax: 0,
-                            borderColor: '#D9D9D9',
+                            borderColor: "#D9D9D9",
                             borderWidth: 2,
-                            borderDash: [8],
-                        },
-
-                    },
-                    
-                },
+                            borderDash: [8]
+                        }
+                    }
+                }
             },
             interaction: {
-                intersect: false,
+                intersect: false
             },
 
-
-
-            maintainAspectRatio: false,
-        },
-    };
+            maintainAspectRatio: false
+        }
+    }
 
     useEffect(() => {
         if (chartContainer && chartContainer.current) {
-
-            const ctx = chartContainer.current.getContext('2d');
-            const chart = new Chart(ctx, config);
+            const ctx = chartContainer.current.getContext("2d")
+            const chart = new Chart(ctx, config)
 
             return () => {
-                chart.destroy();
-            };
+                chart.destroy()
+            }
         }
-    }, [chartContainer, data]);
+    }, [chartContainer, data])
 
-    return (
+    return <canvas ref={chartContainer} />
+}
 
-        <canvas ref={chartContainer} />
-
-    )
-};
-
-
-
-export function LineChartWithDeviation({ title, line, deviation, extra_lines = [] }) {
-    const chartContainer = useRef(null);
-    const label = [];
+export function LineChartWithDeviation({title, line, deviation, extra_lines = []}) {
+    const chartContainer = useRef(null)
+    const label = []
     for (let i = 1; i <= line.length; i++) {
-        label.push(`T${i}`);
+        label.push(`T${i}`)
     }
-    
+
     let data = {
         labels: label,
         datasets: [
             {
-                label: 'Mean',
+                label: "Mean",
                 data: line,
                 borderColor: "#6E6B74",
-                backgroundColor: '#6E6B74',
+                backgroundColor: "#6E6B74",
                 fill: false,
-                pointRadius: 0,
+                pointRadius: 0
             },
             {
-                label: 'Lower 75th Percentile',
+                label: "Lower 75th Percentile",
                 data: Subtract(line, deviation),
                 borderColor: "#969696",
                 borderWidth: 1,
-                backgroundColor: '#c9c9c9',
-                pointRadius: 0,
+                backgroundColor: "#c9c9c9",
+                pointRadius: 0
             },
             {
-                label: 'Upper 75th Percentile',
+                label: "Upper 75th Percentile",
                 data: Add(line, deviation),
                 borderColor: "#969696",
                 borderWidth: 1,
-                backgroundColor: '#c9c9c9',
+                backgroundColor: "#c9c9c9",
                 fill: false,
                 pointRadius: 0,
-                fill: '-1',
-            },
-
-
-        ]
-    };
-
-    extra_lines.map((line, key = key) => (
-        data.datasets.unshift(
-            {
-                label: "Stundent: " + line.id,
-                data: line.data,
-                borderColor: "#5210DC",
-                borderWidth: 2,
-                backgroundColor: '#5210DC',
-                fill: false,
-
+                fill: "-1"
             }
-        )
-    ))
+        ]
+    }
 
+    extra_lines.map((line, key = key) =>
+        data.datasets.unshift({
+            label: "Stundent: " + line.id,
+            data: line.data,
+            borderColor: "#5210DC",
+            borderWidth: 2,
+            backgroundColor: "#5210DC",
+            fill: false
+        })
+    )
 
     const config = {
-        type: 'line',
+        type: "line",
         data: data,
         options: {
             elements: {
                 line: {
-                    tension: 0.4,
+                    tension: 0.4
                 }
             },
             scales: {
@@ -267,28 +241,26 @@ export function LineChartWithDeviation({ title, line, deviation, extra_lines = [
                     stacked: false,
                     title: {
                         text: "Übungsnoten",
-                        display: true,
+                        display: true
                     },
                     ticks: {
-                        display: false,
+                        display: false
                     },
                     grid: {
                         display: false
                     },
                     suggestedMax: 10,
-                    min: -10,
+                    min: -10
                 },
-                x: {
-
-                }
+                x: {}
             },
             smooth: true,
             plugins: {
                 filler: {
                     propagate: false
                 },
-                'samples-filler-analyser': {
-                    target: 'chart-analyser'
+                "samples-filler-analyser": {
+                    target: "chart-analyser"
                 },
                 legend: {
                     display: false
@@ -298,162 +270,138 @@ export function LineChartWithDeviation({ title, line, deviation, extra_lines = [
                     text: title,
                     color: "black",
                     font: {
-                        family: 'Inria Sans'
+                        family: "Inria Sans"
                     }
                 },
                 annotation: {
-                    annotations: {
-
-
-                    }
-                },
+                    annotations: {}
+                }
             },
             interaction: {
-                intersect: false,
+                intersect: false
             },
 
-
-
-            maintainAspectRatio: false,
-        },
-    };
+            maintainAspectRatio: false
+        }
+    }
 
     useEffect(() => {
         if (chartContainer && chartContainer.current) {
-
-            const ctx = chartContainer.current.getContext('2d');
-            const chart = new Chart(ctx, config);
+            const ctx = chartContainer.current.getContext("2d")
+            const chart = new Chart(ctx, config)
 
             return () => {
-                chart.destroy();
-            };
-        }
-    }, [chartContainer, data]);
-
-    return (
-
-        <canvas ref={chartContainer} />
-
-    )
-};
-
-
-export function PieChart({data}) {
-
-    const chartContainer = useRef(null);
-
-    const DATA_COUNT = 5;
-    const my_rate = 0.33;
-    const class_rate = 0.54;
-
-    
-
-    const config = {
-        type: 'doughnut',
-        data: data,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-                display: false,
-                position: top,
-                labels: {
-                    color: 'rgb(255, 99, 132)'
-                }
-            },
-            title: {
-              display: true,
-              text: 'Abgabequote'
+                chart.destroy()
             }
-          },
-          animation: {
-            duration: 0
-        },
-        },
-      };
-
-
-
-      useEffect(() => {
-        if (chartContainer && chartContainer.current) {
-
-            const ctx = chartContainer.current.getContext('2d');
-            const chart = new Chart(ctx, config);
-
-            return () => {
-                chart.destroy();
-            };
         }
-    }, [chartContainer, data]);
+    }, [chartContainer, data])
 
-    return (
-
-        <canvas ref={chartContainer} />
-
-    )
+    return <canvas ref={chartContainer} />
 }
 
+export function PieChart({data}) {
+    const chartContainer = useRef(null)
+
+    const DATA_COUNT = 5
+    const my_rate = 0.33
+    const class_rate = 0.54
+
+    const config = {
+        type: "doughnut",
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: top,
+                    labels: {
+                        color: "rgb(255, 99, 132)"
+                    }
+                },
+                title: {
+                    display: true,
+                    text: "Abgabequote"
+                }
+            },
+            animation: {
+                duration: 0
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (chartContainer && chartContainer.current) {
+            const ctx = chartContainer.current.getContext("2d")
+            const chart = new Chart(ctx, config)
+
+            return () => {
+                chart.destroy()
+            }
+        }
+    }, [chartContainer, data])
+
+    return <canvas ref={chartContainer} />
+}
 
 export function Student_Feature_Chart({title, lines, labels}) {
-    const chartContainer = useRef(null);
-    const label = [];
+    const chartContainer = useRef(null)
+    const label = []
     const T = lines[1].length // Num time points
     const K = lines.length // Num lines
-    
-    const COLORS = ["#976EEC","#5210DC","#2F0D77"]
 
-    label.push('')
+    const COLORS = ["#976EEC", "#5210DC", "#2F0D77"]
+
+    label.push("")
     for (let t = 1; t <= T + 3; t++) {
-        label.push(`Umfrage ${t}`);
+        label.push(`Umfrage ${t}`)
     }
     let data = {
         labels: label,
-        datasets: [
+        datasets: []
+    }
 
-        ]
-    };
-
-    for (let i = 0; i < K; i++){
+    for (let i = 0; i < K; i++) {
         data.datasets.push({
             label: labels[i],
             data: [0].concat(lines[i]),
             borderColor: COLORS[i],
             backgroundColor: COLORS[i],
-            borderWidth: 4,
+            borderWidth: 4
         })
     }
 
     const config = {
-        type: 'line',
+        type: "line",
         data: data,
         options: {
             elements: {
                 line: {
-                    tension: 0.4,
+                    tension: 0.4
                 },
                 point: {
-                    radius:2,
+                    radius: 2
                 }
             },
             scales: {
                 y: {
                     stacked: false,
                     title: {
-                        text: "Bewertung",
-                        display: true,
+                        text: "Rating",
+                        display: true
                     },
                     ticks: {
-                        display: true,
+                        display: true
                     },
                     grid: {
                         display: false
                     },
                     suggestedMax: 3,
-                    min: -3,
+                    min: -3
                 },
                 x: {
-                    beginAtZero: false,
+                    beginAtZero: false
                 }
             },
             smooth: true,
@@ -467,39 +415,33 @@ export function Student_Feature_Chart({title, lines, labels}) {
                 },
                 title: {
                     display: true,
-                    text: title,
+                    text: title
                 },
                 annotation: {
-                    annotations: {
-                    }
-                },
+                    annotations: {}
+                }
             },
             interaction: {
-                intersect: false,
+                intersect: false
             },
             animation: {
                 duration: 0
             },
             responsive: true,
-            maintainAspectRatio: false,
-        },
-    };
+            maintainAspectRatio: false
+        }
+    }
 
     useEffect(() => {
         if (chartContainer && chartContainer.current) {
-
-            const ctx = chartContainer.current.getContext('2d');
-            const chart = new Chart(ctx, config);
+            const ctx = chartContainer.current.getContext("2d")
+            const chart = new Chart(ctx, config)
 
             return () => {
-                chart.destroy();
-            };
+                chart.destroy()
+            }
         }
-    }, [chartContainer, data]);
+    }, [chartContainer, data])
 
-    return (
-
-        <canvas ref={chartContainer} />
-
-    )
-};
+    return <canvas ref={chartContainer} />
+}

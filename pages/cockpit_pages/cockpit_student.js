@@ -1,22 +1,22 @@
 import Image from "next/image"
-import { StudentModuleTable } from "@/components/Table.js"
+import {StudentModuleTable} from "@/components/Table.js"
 import AlertSection from "@/components/Alerts.js"
 import RootLayout from "@/components/RootLayout.js"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
-import { useAuth } from "../../components/AuthProvider.js"
-import { useRouter } from "next/router"
-import { SignupReminderBanner } from "@/components/Banners.js"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons"
+import {useState} from "react"
+import {useAuth} from "../../components/AuthProvider.js"
+import {useRouter} from "next/router"
+import {SignupReminderBanner} from "@/components/Banners.js"
 import axios from "axios"
-import { useEffect } from "react"
+import {useEffect} from "react"
 import Link from "next/link.js"
-import { url } from "@/utils/data.js"
-import { Button, SmallButton } from "@/components/Buttons.js"
+import {url} from "@/utils/data.js"
+import {Button, SmallButton} from "@/components/Buttons.js"
 
 export default function Cockpit_student() {
     const router = useRouter()
-    const { user, isAuthenticated, saveUser, clearUser } = useAuth()
+    const {user, isAuthenticated, saveUser, clearUser} = useAuth()
     const [modules, setModules] = useState([])
     const [backgroundStatus, setBackgroundStatus] = useState()
     const [isLoading, setIsLoading] = useState(true)
@@ -26,49 +26,43 @@ export default function Cockpit_student() {
     useEffect(() => {
         const makeAPICalls = async () => {
             try {
-                const response = await axios.get(`${url}/api/student/${user.id}/modules`);
-                const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`);
-                const userInfo = await axios.get(`${url}/api/${user.id}/info`);
-    
-                setModules(response.data);
-                setBackgroundStatus(backgroundStatusResponse.data);
-                setUserInfo(userInfo.data);
-                setIsLoading(false);
-    
-                const requiredForms = ['AIST', 'Motivation', 'Panas'];
-                const completedForms = backgroundStatusResponse.data.completed_forms || []; // Ensure completed_forms is an array
-                const hasAllRequiredForms = requiredForms.every(form => completedForms.includes(form));
-    
-                setSetupComplete(hasAllRequiredForms);
-                
-            } catch (error) {
-                console.log("Error during API calls:", error);
-            }
-        };
-    
-        makeAPICalls();
-    }, []);
-    
+                const response = await axios.get(`${url}/api/student/${user.id}/modules`)
+                const backgroundStatusResponse = await axios.get(`${url}/api/${user.id}/background`)
+                const userInfo = await axios.get(`${url}/api/${user.id}/info`)
 
+                setModules(response.data)
+                setBackgroundStatus(backgroundStatusResponse.data)
+                setUserInfo(userInfo.data)
+                setIsLoading(false)
+
+                const requiredForms = ["AIST", "Motivation", "PANAS"]
+                const completedForms = backgroundStatusResponse.data.completed_forms || [] // Ensure completed_forms is an array
+                const hasAllRequiredForms = requiredForms.every((form) =>
+                    completedForms.includes(form)
+                )
+
+                setSetupComplete(hasAllRequiredForms)
+            } catch (error) {
+                console.log("Error during API calls:", error)
+            }
+        }
+
+        makeAPICalls()
+    }, [])
 
     const filterByEndDate = (array) => {
-        const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
-    
-        return array.filter(obj => {
-            const endDate = new Date(obj['end_date']).toISOString().split('T')[0]; // Convert end_date to 'YYYY-MM-DD' format
-            return endDate >= today;
-        });
-    };
+        const today = new Date().toISOString().split("T")[0] // Get today's date in 'YYYY-MM-DD' format
 
-   
-   let activeModules = filterByEndDate(modules)
+        return array.filter((obj) => {
+            const endDate = new Date(obj["end_date"]).toISOString().split("T")[0] // Convert end_date to 'YYYY-MM-DD' format
+            return endDate >= today
+        })
+    }
 
-    
+    let activeModules = filterByEndDate(modules)
 
-    
+    //
 
-   //
-    
     // Ensure data is called first
     if (isLoading) {
         return <RootLayout show_billboard={true} />
@@ -86,7 +80,8 @@ export default function Cockpit_student() {
                         className='ml-2 w-10 mr-4 rounded-full bg-[#cccccc] border-2 border-lunapurple'
                     />
                     <h1 className='tracking-wider text-xl'>
-                        Hey {userInfo.nickname.length > 0 ? userInfo.nickname : userInfo.first_name}, willkommen bei Luna!
+                        Hey {userInfo.nickname.length > 0 ? userInfo.nickname : userInfo.first_name}
+                        , willkommen bei Luna!
                     </h1>
                 </div>
 
@@ -115,15 +110,14 @@ export default function Cockpit_student() {
 
                     <div
                         className='flex-1 relative items-center rounded-xl p-2 pl-6 bg-lunapurple bg-cover bg-center'
-                        style={{ backgroundImage: "url('highlightbg.png')" }}
-
+                        style={{backgroundImage: "url('highlightbg.png')"}}
                     >
                         <div className='flex items-center justify-center h-full'>
                             <div className='tracking-wider metric-text z-10 text-white text-center'>
-                                <p className="text-base">Hast du schon unsere Analysen gesehen?</p>
+                                <p className='text-base'>Hast du schon unsere Analysen gesehen?</p>
                                 <Link href={`./analysis`}>
                                     <button className='border border-lunagreen bg-lunagreen rounded-lg w-44 h-6 px-4 text-white text-base leading-4 hover:border-lunagreen hover:bg-lunagreen hover:text-lunapurple '>
-                                    Entdecken
+                                        Entdecken
                                     </button>
                                 </Link>
                             </div>
@@ -142,7 +136,7 @@ export default function Cockpit_student() {
                 </div>
 
                 <Link
-                    href={{ pathname: "module_search", query: { id: user.id } }}
+                    href={{pathname: "module_search", query: {id: user.id}}}
                     className='cursor-pointer flex border border-lightpurple rounded-full my-5 s-50 py-3 pl-5 hover:border-lunapurple z-1'
                 >
                     <div className='inline-block w-3 h-3 relative items-center z-10 my-1'>
