@@ -11,7 +11,7 @@ export function ClassLogo({text, color='lunapurple'}){
     const firstLetters = words.map(word => word.charAt(0).toUpperCase());
     
     return (
-        <div className={`my-1 bg-green w-${width} h-${height} flex items-center justify-center rounded-full bg-${color} text-white`}>
+        <div className={`my-1 bg-green w-${width} h-${height} flex items-center w-8 h-8 opacity-80 justify-center rounded-full bg-${color} text-white`}>
             <p className="align-middle">{firstLetters.join('')}</p>
             
         </div>

@@ -147,12 +147,12 @@ export default function Analysis_Student() {
                         </div>*/}
 
                 <div id='dropoutChartContainer' className='mt-8'>
-                    <h1 className='font-bold'>Befragungen</h1>
+                    <h1 className='font-bold'>Umfragen</h1>
                     <p className='text-text-grey'>
                         Hier sind einige Ergebnisse aus deinen Umfragen. Wir nutzen psychometrische
                         Modelle, um bestimmte, sonst nicht messbare Eigenschaften zu erfassen. Dein
                         Dozent wird diese Eigenschaften auf Klassenebene sehen (deine Ergebnisse
-                        bleiben anonym). Also je mehr Umfragen du einreichst, desto mehr Feedback
+                        bleiben anonym). Also je mehr Antworten du einreichst, desto mehr Feedback
                         bekommt dein Dozent!
                     </p>
                     <div className='flex flex-row justify-between mt-4 h-96'>
