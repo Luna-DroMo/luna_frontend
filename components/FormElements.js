@@ -81,6 +81,7 @@ export function FormInput({item, placeholder, readOnly, type, scale = 5, name, v
                             value={key}
                             onChange={onChange}
                             required='True'
+                            oninvalid="this.setCustomValidity('Bitte diese Feld ausfüllen')"
                         />
                     </div>
                 ))}
