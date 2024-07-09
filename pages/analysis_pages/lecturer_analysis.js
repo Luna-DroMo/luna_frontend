@@ -157,7 +157,7 @@ export default function Analysis_Lecturer() {
                     <h1>Durchschnittsrisiko das Modul abzubrechen</h1>
                     <p>
                         Die <span className='text-lunapurple'>blaue</span> Linie stellt das
-                        durchschnittliche Risiko deiner Studenten dar, das Modul abzubrechen. In{" "}
+                        durchschnittliche Risiko deiner Studierende dar, das Modul abzubrechen. In{" "}
                         <span className='text-lunared'>rot</span> werden Studierende angezeigt,
                         die ein erhöhtes Risiko zeigen.
                     </p>

@@ -54,7 +54,7 @@ function LoginForm({isLoading, setIsLoading}) {
                     className='flex-auto text-black text-base bg-lunapurple px-12 py-2 rounded-lg text-white hover:bg-lunagreen'
                 >
                     { !isLoading ? 
-                     "Anmelden"  : "Take off!"} 
+                     "Anmelden"  : "Anmelden"} 
                 </button>
             </div>
             <div className='mt-4'>
