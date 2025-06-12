@@ -1,30 +1,77 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Requirements
 
-While uploading this, I saw it also uploaded the nextjs library? Maybe you will still need to install next js, maybe not. Maybe you'll need to install npm too... or maybe not? idk.
+- **Node.js** ≥ 18 (tested with 20.x).  
+  You can install via [nodejs.org](https://nodejs.org/) or a version manager like `nvm` / `asdf`.
+- **npm** (comes with Node) – or `yarn` / `pnpm` if you prefer.
 
-If anyone tries this, please update this readme for me :)
+## Local Development
 
-## Running the Server
+1. **Clone & install dependencies**
+   ```bash
+   git clone <repo-url>
+   cd luna_frontend
+   npm ci   # or: npm install
+   ```
+2. **Create an environment file** (skip if you do not need runtime variables)
+   ```bash
+   # .env.local – ignored by git
+   NEXT_PUBLIC_API_URL=http://127.0.0.1:8000  # your backend base URL
+   ```
+   • The `NEXT_PUBLIC_` prefix is mandatory for variables that the browser must see.  
+   • Anything after an un-quoted `#` is treated as a comment.
+3. **Start the dev server**
+   ```bash
+   npm run dev
+   ```
+   Open <http://localhost:3000> to view the app; it reloads on file save.
 
-First, run the development server:
+### Production-like local run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npm run build     # compile for production
+npm run start     # start Next.js in production mode
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running with Docker
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The repository now contains a `Dockerfile` that builds a production-ready image using multi-stage builds.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### 1. Build the image
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+# The -t flag tags the image so it's easier to reference later.
+# Feel free to change "luna-frontend" to whatever name you like.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+docker build -t luna-frontend .
+```
 
+### 2. Run the container
+
+```bash
+# Map container port 3000 -> host port 3000 so you can access the app in your browser.
+
+docker run --rm -p 3000:3000 luna-frontend
+```
+
+Now visit **http://localhost:3000** in your browser.
+
+### Customising
+
+- Want a different Node.js version? Change the `FROM node:20-alpine` lines.
+- Need environment variables (e.g. API URLs)? There are two options:
+
+1. **Bake them into the image** – include a `.env` file before you `docker build` (the Dockerfile copies it). You'll need to rebuild any time a value changes.
+2. **Inject them at runtime** – pass `-e` flags or `--env-file` when you run the container, so you can reuse the same image across environments.
+
+Runtime example:
+
+```bash
+docker run \
+  -e NEXT_PUBLIC_API_URL=https://api.example.com \
+  -e JWT_SECRET=super-secret \
+  -p 3000:3000 luna-frontend
+```
+
+For local development you can still use `npm run dev` outside Docker – the container is geared toward production.
