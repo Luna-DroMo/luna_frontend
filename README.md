@@ -17,7 +17,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 2. **Create an environment file** (skip if you do not need runtime variables)
    ```bash
    # .env.local – ignored by git
-   NEXT_PUBLIC_API_URL=http://127.0.0.1:8000  # your backend base URL
+   NEXT_PUBLIC_API_URL=http://localhost:80  # your backend base URL
    ```
    • The `NEXT_PUBLIC_` prefix is mandatory for variables that the browser must see.  
    • Anything after an un-quoted `#` is treated as a comment.
@@ -36,9 +36,27 @@ npm run start     # start Next.js in production mode
 
 ## Running with Docker
 
-The repository now contains a `Dockerfile` that builds a production-ready image using multi-stage builds.
+The repository contains two Dockerfiles for different use cases:
 
-### 1. Build the image
+### Dockerfile vs dev.Dockerfile
+
+**`Dockerfile` (Production)**
+
+- **Multi-stage build** for optimized production images
+- **Smaller final image** - only includes built assets and runtime dependencies
+- **Better security** - runs with minimal attack surface
+- **Build process**: dependencies → build → production runtime
+- **Use for**: production deployments, CI/CD pipelines
+
+**`dev.Dockerfile` (Development)**
+
+- **Single-stage build** for faster iteration
+- **Includes all source code** and development dependencies
+- **Hot reloading** with `npm run dev`
+- **Larger image size** but faster rebuild times
+- **Use for**: local development, debugging
+
+### 1. Production Build (Dockerfile)
 
 ```bash
 # The -t flag tags the image so it's easier to reference later.
@@ -47,12 +65,27 @@ The repository now contains a `Dockerfile` that builds a production-ready image 
 docker build -t luna-frontend .
 ```
 
-### 2. Run the container
+### 2. Development Build (dev.Dockerfile)
+
+```bash
+# Build development image for faster iteration
+docker build -f dev.Dockerfile -t luna-dev .
+```
+
+### 3. Run the container
+
+**Production:**
 
 ```bash
 # Map container port 3000 -> host port 3000 so you can access the app in your browser.
-
 docker run --rm -p 3000:3000 luna-frontend
+```
+
+**Development:**
+
+```bash
+# Development with hot reloading
+docker run --rm -p 3000:3000 -v $(pwd):/app luna-dev
 ```
 
 Now visit **http://localhost:3000** in your browser.
